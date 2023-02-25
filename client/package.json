@@ -9,9 +9,11 @@
     "@material-ui/lab": "^4.0.0-alpha.13",
     "@material-ui/styles": "^4.0.0",
     "@material/ripple": "^4.0.0",
+    "autoprefixer": "^9.8.8",
     "install": "^0.12.2",
     "mathjs": "^5.10.3",
     "node-fetch": "^2.6.1",
+    "postcss": "^8.4.21",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -19,7 +21,7 @@
     "react-hot-loader": "^4.12.19",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "^3.4.0",
+    "react-scripts": "^5.0.1",
     "react-with-firebase-auth": "^1.0.3",
     "recompose": "^0.30.0",
     "typeface-roboto": "^0.0.54",
@@ -45,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.7"
   }
 }
