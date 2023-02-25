@@ -44,7 +44,7 @@ const theme = createTheme({
     },
     h3: {
       fontSize: "18px",
-      fontWeight: "400",
+      fontWeight: "500",
       paddingTop: "10px",
     },
     label: {
@@ -99,6 +99,25 @@ const styles = {
     color: "white",
     borderRadius: "5px",
     cursor: "pointer",
+  },
+  input: {
+    width: "20rem",
+    height: "30px",
+    borderRadius: "5px",
+    border: "solid 1px grey",
+    padding: "3px 10px",
+  },
+  label: {
+    margin: "0px 0 5px 0",
+    fontSize: "14px",
+    display: "block",
+    fontWeight: "500",
+  },
+  mainContainer: {
+    padding: "2rem",
+  },
+  inputSection: {
+    marginBottom: "15px",
   },
 };
 
@@ -171,98 +190,99 @@ const Settings = (props) => {
   }, []);
 
   return (
-    <div>
-      <MainGridContainer
-        container
-        spacing={0}
+    <div style={styles.mainContainer}>
+      <h2 style={theme.typography.h2}>Settings</h2>
+      <h3 style={theme.typography.h3}>Personal Information</h3>
+      <div style={styles.inputSection}>
+        <label style={styles.label}>Name</label>
+        <input
+          id="name"
+          label="Name"
+          style={styles.input}
+          type="email"
+          value={newName}
+          onChange={(e) => setNewName(e.target.value)}
+        />
+        <br />
+        <a style={theme.typography.a} onClick={() => saveName()}>
+          Save name
+        </a>
+      </div>
+
+      <div style={styles.inputSection}>
+        <label style={styles.label}>Email</label>
+        <input
+          id="email"
+          label="Email"
+          style={styles.input}
+          type="email"
+          value={email}
+          disabled
+        />
+        <br />
+        <label style={theme.typography.label}>You cannot edit your email</label>
+      </div>
+
+      <div
         style={{
-          minHeight: "100vh",
-          background: "#f0f1f5",
-          display: "inline-block",
+          display: "inline-flex",
+          flexDirection: "horizontal",
         }}
       >
-        <ThemeProvider theme={theme}>
-          <h2 style={theme.typography.h2}>Settings</h2>
-          <h3 style={theme.typography.h3}>Personal Information</h3>
-
-          <TextField
-            id="name"
-            label="Name"
-            style={{ width: "20rem" }}
-            type="email"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-          />
-          <br />
-          <a style={theme.typography.a} onClick={() => saveName()}>
-            Save name
-          </a>
-          <br />
-          <br />
-
-          <TextField
-            id="email"
-            label="Email"
-            style={{ width: "20rem" }}
-            type="email"
-            value={email}
-            disabled
-          />
-          <br />
-          <label style={theme.typography.label}>
-            You cannot edit your email
-          </label>
-          <br />
-          <br />
-
-          <TextField
+        <span style={{ marginRight: "20px" }}>
+          <label style={styles.label}>Password</label>
+          <input
             id="password"
             label="Password"
-            style={{ width: "20rem" }}
+            style={styles.input}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <TextField
+        </span>
+        <span>
+          <label style={styles.label}>Retype Password</label>
+          <input
             id="newPassword"
             label="Retype Password"
-            style={{ width: "20rem" }}
+            style={styles.input}
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
-          <br />
-          <label style={theme.typography.label}>
-            Retype your new password to change it.
-          </label>
-          <br />
-          <a style={theme.typography.a} onClick={() => savePassword()}>
-            Save password
-          </a>
-          <br />
-          <br />
+        </span>
+      </div>
+      <div>
+        <label style={theme.typography.label}>
+          Retype your new password to change it.
+        </label>
+        <br />
+        <a style={theme.typography.a} onClick={() => savePassword()}>
+          Save password
+        </a>
+      </div>
 
-          <h3 style={theme.typography.h3}>Delete Account</h3>
-          <p style={theme.typography.p}>
-            Deleting you account cannot be undone. To delete your account, type
-            in your email.
-          </p>
-          <TextField
-            id="delete"
-            label="Email"
-            style={{ width: "20rem" }}
-            type="text"
-            value={deleteAccount}
-            onChange={(e) => setDeleteAccount(e.target.value)}
-            placeholder={email}
-          />
-          <br />
-          <br />
-          <button style={styles.button} onClick={() => processDeleteAccount()}>
-            Delete
-          </button>
-        </ThemeProvider>
-      </MainGridContainer>
+      <h3 style={theme.typography.h3}>Delete Account</h3>
+      <p style={{ marginBottom: "15px", fontSize: "14px" }}>
+        Deleting you account cannot be undone. To delete your account, type in
+        your email.
+      </p>
+      <label style={styles.label}>Email</label>
+      <input
+        id="delete"
+        label="Email"
+        style={styles.input}
+        type="text"
+        value={deleteAccount}
+        onChange={(e) => setDeleteAccount(e.target.value)}
+        placeholder={email}
+      />
+      <br />
+      <br />
+      <button style={styles.button} onClick={() => processDeleteAccount()}>
+        Delete
+      </button>
+
       {displayModal && (
         <div
           id="modal"
