@@ -3,6 +3,7 @@ export const SIGN_UP = "/signup";
 export const SIGN_IN = "/signin";
 export const HOME = "/home";
 export const LOGIN = "/login";
+export const SETTINGS = "/settings";
 export const MYGROUPS = "/mygroups";
 export const SIGNUP = "/signup";
 export const ACCOUNT = "/account";
