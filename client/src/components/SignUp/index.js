@@ -71,6 +71,22 @@ const SignUp = ({ setAuth }) => {
               onChange={(e) => onChange(e)}
             />
           </div>
+          <div class="w-full px-3 mt-5">
+            <label
+              class="block uppercase tracking-wide text-xs font-bold mb-2"
+              for="grid-password"
+            >
+              Verify Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              class="appearance-none block w-full  text-gray-700  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              value={password}
+              onChange={(e) => onChange(e)}
+            />
+          </div>
         </div>
         <div class="flex items-center justify-center">
           <button class="bg-blue-1000 hover:bg-gray-700 text-white font-bold py-2 px-4 w-full  rounded">

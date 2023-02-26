@@ -10,7 +10,7 @@ export default function Header() {
               class="hover:no-underline font-bold text-2xl lg:text-4xl flex flex-row items-center"
               href="/"
             >
-              <img src="./WaterlooLogo.png" className="w-16 mr-4" />
+              <img src="./logo.png" className="w-20 mr-4" />
               <p className="text-5xl text-blue-1000"> WarriorsTogether </p>
             </a>
           </div>
