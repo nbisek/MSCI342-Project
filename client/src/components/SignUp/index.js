@@ -16,7 +16,7 @@ const SignUp = ({ setAuth }) => {
   return (
     <>
       <form class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl">
-        <p className="text-center text-2xl font-bold mb-12">
+        <p className="text-center text-3xl font-bold mb-8">
           {" "}
           Ready to Collab?
         </p>
