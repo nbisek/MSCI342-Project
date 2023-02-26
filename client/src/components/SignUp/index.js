@@ -18,7 +18,7 @@ const SignUp = ({ setAuth }) => {
       <form class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl">
         <p className="text-center text-2xl font-bold mb-12">
           {" "}
-          read to collab? idk
+          Ready to Collab?
         </p>
         <div class="flex flex-wrap -mx-3 mb-4">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">

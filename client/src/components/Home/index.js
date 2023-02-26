@@ -9,10 +9,10 @@ function Home() {
       <div className=" m-20 flex flex-col justify-around md:flex-row items-center">
         <div className="w-1/2">
           {" "}
-          <img src="collab.png" className="" />
+          <img src="collaboration.png" className="" />
           <p className="text-4xl font-dancing-script text-blue-1000 font-bold text-center">
             {" "}
-            connect with other waterloo students!
+            Connect with other waterloo students!
           </p>
         </div>
         <div className="flex flex-col items-center justify-center ml-4">
