@@ -1,21 +1,36 @@
-import { React, useState, useContext } from "react";
+import { React, useState } from "react";
 
 const SignUp = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
+    verifyPassword: "",
     name: "",
   });
 
-  const { email, password, name } = inputs;
+  const [incorrectName, setIncorrectName] = useState(false)
+  const [incorrectPassword, setIncorrectPassword] = useState(false)
+  const [incorrectEmail, setIncorrectEmail] = useState(false)
+
+  const { email, password, verifyPassword, name } = inputs;
+
+  const verifyInfo = () => {
+    setIncorrectName(inputs.name == "")
+    setIncorrectEmail(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email)))
+    setIncorrectPassword(inputs.password == "" || inputs.password != inputs.verifyPassword)
+  }
 
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const onSubmit = (e) => {
+    verifyInfo()
+  }
+
   return (
     <>
-      <form class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl">
+      <div class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl">
         <p className="text-center text-3xl font-bold mb-8">
           {" "}
           Ready to Collab?
@@ -26,13 +41,14 @@ const SignUp = ({ setAuth }) => {
               class="block uppercase tracking-wide  text-xs font-bold mb-2"
               for="grid-first-name"
             >
-              First Name
+              Name
             </label>
             <input
               type="text"
               name="name"
               placeholder="name"
-              class="appearance-none block w-full  text-gray-700  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              class={incorrectName ? "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white border-red-500" 
+                                    : "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
               value={name}
               onChange={(e) => onChange(e)}
             />
@@ -48,7 +64,8 @@ const SignUp = ({ setAuth }) => {
               type="email"
               name="email"
               placeholder="email"
-              class="appearance-none block w-full  text-gray-700  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              class={incorrectEmail ? "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white border-red-500" 
+                                   : "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
               value={email}
               onChange={(e) => onChange(e)}
             />
@@ -66,7 +83,8 @@ const SignUp = ({ setAuth }) => {
               type="password"
               name="password"
               placeholder="password"
-              class="appearance-none block w-full  text-gray-700  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              class={incorrectPassword ? "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white border-red-500" 
+                                   : "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
               value={password}
               onChange={(e) => onChange(e)}
             />
@@ -80,20 +98,21 @@ const SignUp = ({ setAuth }) => {
             </label>
             <input
               type="password"
-              name="password"
+              name="verifyPassword"
               placeholder="password"
-              class="appearance-none block w-full  text-gray-700  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              value={password}
+              class={incorrectPassword ? "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white border-red-500" 
+                                   : "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
+              value={verifyPassword}
               onChange={(e) => onChange(e)}
             />
           </div>
         </div>
         <div class="flex items-center justify-center">
-          <button class="bg-blue-1000 hover:bg-gray-700 text-white font-bold py-2 px-4 w-full  rounded">
+          <button class="bg-blue-1000 hover:bg-gray-700 text-white font-bold py-2 px-4 w-full rounded" onClick={onSubmit}>
             Sign Up
           </button>
         </div>
-      </form>
+      </div>
     </>
   );
 };
