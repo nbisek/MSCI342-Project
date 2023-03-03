@@ -1,4 +1,4 @@
-# Msci342-Lab-2
+# Msci342-Project
 ## Description
 
 WarriorsTogether is a web app focused on promoting positive social interaction at the University of Waterloo. The app allows students to join groups based on their interests, attend events organized by these groups, and create their own posts to start conversations and discussions. The app aims to bring the university community closer together and provide a platform for students to connect with each other outside of the classroom.
