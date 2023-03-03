@@ -6,6 +6,7 @@ import { FormControl, TextField, Button } from "@material-ui/core";
 import { ThemeProvider, styled } from "@material-ui/core/styles";
 import { useState } from "react";
 import history from "../Navigation/history";
+import axios from "axios";
 
 const theme = createTheme({
   palette: {
@@ -69,13 +70,22 @@ const SignUp = () => {
 
     //Check if the passwords match up
     if (password === retypePassword) {
-      setUsername("");
-      setPassword("");
-      setName("");
-      setRetypePassword("");
-      setError(false);
+      axios.post("api/signup", {
+        username,
+        password, // she might get mad that this bish is plain text
+        name
+      }).then(resp => {
+        console.log(resp)
+        
+        // setUsername("");
+        // setPassword("");
+        // setName("");
+        // setRetypePassword("");
+        // setError(false);
 
-      history.push("/mygroups");
+        // history.push("/mygroups");
+        
+      })
     } else {
       setError(true);
     }
@@ -84,6 +94,11 @@ const SignUp = () => {
   const createAccount = () => {
     history.push("/login");
   };
+
+  const onSubmit = () => {
+    console.log("Hello world")
+  }
+
 
   return (
     <div>
@@ -143,7 +158,7 @@ const SignUp = () => {
                   <p>The passwords do not match up, try re-entering them</p>
                 )}
 
-                <Button variant="contained" color="primary" type="submit">
+                <Button variant="contained" color="primary" type="submit" >
                   Sign Up
                 </Button>
               </form>

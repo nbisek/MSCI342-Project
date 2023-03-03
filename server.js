@@ -36,6 +36,42 @@ app.post('/api/loadUserSettings', (req, res) => {
 	connection.end();
 });
 
+app.get("/api/test", (req, res) => {
+	res.send("Hello world this API works!")
+});
+
+app.post("/api/signup", (req, res) => {
+	const {name, username, password} = req.body;
+
+	if (!name || !username || !password) {
+		res.send("ERROR")
+	} else {
+		// TODO: Hash password
+		let sql = `INSERT INTO msci342_users VALUES ('${name}', '${username}', '${password}')`;
+		let connection = mysql.createConnection(config);
+
+		connection.query(sql, (error, results, fields) => {
+			if (error) {
+				return console.error(error.message);
+			}
+
+			let string = JSON.stringify(results);
+			//let obj = JSON.parse(string);
+			res.send({ express: string });
+		});
+		connection.end();
+	}
+});
+
+app.post("api/login", (req, res) => {
+	// get data
+	data = req.body;
+
+	// compare with db to see if it matches
+
+
+	// return success/failure
+})
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`)); //for the dev version
