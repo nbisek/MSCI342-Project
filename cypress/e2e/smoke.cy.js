@@ -22,8 +22,8 @@ describe("Smoke Test", () => {
   });
   it("should log in successfully", () => {
     cy.visit("/login");
-    cy.get("#email").type("nbisek@uwaterloo.ca");
-    cy.get("#password").type("olgarocks");
+    cy.get("#email").type("yaathavi@gmail.com");
+    cy.get("#password").type("yaathavirocks");
     cy.get("#submit-button").click();
     cy.url().should("include", "/mygroups");
   });

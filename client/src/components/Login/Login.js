@@ -71,6 +71,7 @@ const Login = () => {
             </label>
             <input
               type="email"
+              id="email"
               name="email"
               placeholder="email"
               class={
@@ -87,12 +88,12 @@ const Login = () => {
               class="block uppercase tracking-wide text-xs font-bold mb-2"
               for="grid-password"
             >
-
               Password
             </label>
             <input
               type="password"
               name="password"
+              id="password"
               placeholder="password"
               class={
                 incorrectPassword
@@ -107,6 +108,7 @@ const Login = () => {
           <button
             class="bg-blue-1000 hover:bg-gray-700 text-white font-bold py-2 px-4 w-full rounded border"
             onClick={onSubmit}
+            id="submit-button"
           >
             Log In
           </button>
