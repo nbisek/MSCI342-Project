@@ -113,7 +113,7 @@ const Login = () => {
             >
               <form>
                 <TextField
-                  id="actor-name"
+                  id="email"
                   label="Email"
                   style={{ width: "20rem", padding: "0", margin: "auto" }}
                   value={username}
@@ -122,7 +122,7 @@ const Login = () => {
                   type="email"
                 />
                 <TextField
-                  id="actor-name"
+                  id="password"
                   label="Password"
                   style={{ width: "20rem", padding: "0", margin: "0 1rem 0 0" }}
                   value={password}
@@ -131,7 +131,12 @@ const Login = () => {
                   type="password"
                 />
 
-                <Button variant="contained" color="primary" type="submit">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  id="submit-button"
+                >
                   Login
                 </Button>
               </form>
