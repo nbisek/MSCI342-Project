@@ -11,12 +11,12 @@ describe("Smoke Test", () => {
     cy.visit("/mygroups");
     cy.contains("My Groups");
   });
-  it("should sign in successfully", () => {
-    cy.visit("/signup");
+  it("should sign up successfully", () => {
+    cy.visit("/");
     cy.get("#email").type("nbisek@uwaterloo.ca");
     cy.get("#name").type("nadia");
     cy.get("#password").type("password");
-    cy.get("#retypePassword").type("password");
+    cy.get("#verifyPassword").type("password");
     cy.get("#signup-button").click();
   });
   it("should log in successfully", () => {
