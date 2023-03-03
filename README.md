@@ -14,7 +14,6 @@ To run the app,
 
 On your browser, go to http://localhost:3000/
 
-
 ## Description
 
 WarriorsTogether is a web app focused on promoting positive social interaction at the University of Waterloo. The app allows students to join groups based on their interests, attend events organized by these groups, and create their own posts to start conversations and discussions. The app aims to bring the university community closer together and provide a platform for students to connect with each other outside of the classroom.
@@ -38,6 +37,8 @@ WarriorsTogether is a web app focused on promoting positive social interaction a
 **Settings page:** users can view and edit their app settings, including notifications and email preferences. 
 
 **Account deletion:** users can delete their account and all associated data from the app.
+
+(Disclaimer: All of us did the Jest unit tests on Yaathavi's laptop)
 
 ## Available Scripts
 
