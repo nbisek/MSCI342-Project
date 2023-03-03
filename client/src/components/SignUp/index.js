@@ -30,6 +30,8 @@ const SignUp = ({ setAuth }) => {
       inputs.password == "" ||
       inputs.password != inputs.verifyPassword
     );
+
+
   };
 
   const onChange = (e) => {
@@ -65,8 +67,9 @@ const SignUp = ({ setAuth }) => {
       <div class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl">
         <p className="text-center text-3xl font-bold mb-8">
           {" "}
-          Ready to Collab? hey
+          Ready to Collab? 
         </p>
+
         <div class="flex flex-wrap -mx-3 mb-4">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
