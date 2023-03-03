@@ -44,7 +44,7 @@ app.post("/api/signup", (req, res) => {
 	const {name, username, password} = req.body;
 
 	if (!name || !username || !password) {
-		res.send("ERROR")
+		res.status(400).send("Username or password or name missing")
 	} else {
 		// TODO: Hash password
 		let sql = `INSERT INTO msci342_users VALUES ('${name}', '${username}', '${password}')`;
@@ -52,13 +52,11 @@ app.post("/api/signup", (req, res) => {
 
 		connection.query(sql, (error, results, fields) => {
 			if (error) {
+				res.status(500).send("Something went wrong")
 				return console.error(error.message);
+			} else {
+				res.send("success")
 			}
-
-			let string = JSON.stringify(results);
-			//let obj = JSON.parse(string);
-			console.log(results)
-			res.send({ express: string });
 		});
 		connection.end();
 	}
@@ -68,7 +66,7 @@ app.post("/api/login", (req, res) => {
 	const {username, password} = req.body;
 
 	if (!username || !password) {
-		res.send("ERROR")
+		res.status(400).send("Username or password missing")
 	} else {
 		let sql = `SELECT * FROM msci342_users WHERE username='${username}'`;
 		let connection = mysql.createConnection(config);

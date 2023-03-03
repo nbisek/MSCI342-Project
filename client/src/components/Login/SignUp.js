@@ -74,18 +74,19 @@ const SignUp = () => {
         username,
         password, // TODO: this probably shouldn't be plain text
         name
-      }).then(resp => {
-        console.log(resp)
-        
-        // setUsername("");
-        // setPassword("");
-        // setName("");
-        // setRetypePassword("");
-        // setError(false);
-
-        // history.push("/mygroups");
-        
+      }).then((resp) => {
+        setUsername("");
+        setPassword("");
+        setName("");
+        setRetypePassword("");
+        setError(false);
+        alert(resp.data)
+        history.push("/mygroups");
+      }).catch((err) => {
+        console.log(err)
+        alert(err.response.data);
       })
+    
     } else {
       setError(true);
     }
