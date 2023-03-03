@@ -8,9 +8,9 @@
 
 To run the app,
 4. `cd ..`
-5. `npm start`
-6. `cd client`
-7. `npm start`
+6. `npm start`
+7. `cd client`
+8. `npm start`
 
 On your browser, go to http://localhost:3000/
 
