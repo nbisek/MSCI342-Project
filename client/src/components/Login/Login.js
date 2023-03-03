@@ -56,7 +56,6 @@ const Login = () => {
         });
     }
   };
-
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
       <Header2 />
@@ -88,6 +87,7 @@ const Login = () => {
               class="block uppercase tracking-wide text-xs font-bold mb-2"
               for="grid-password"
             >
+
               Password
             </label>
             <input

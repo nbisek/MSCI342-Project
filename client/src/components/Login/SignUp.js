@@ -160,7 +160,12 @@ const SignUp = () => {
                   <p>The passwords do not match up, try re-entering them</p>
                 )}
 
-                <Button variant="contained" color="primary" type="submit">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  id="signup-button"
+                >
                   Sign Up
                 </Button>
               </form>
