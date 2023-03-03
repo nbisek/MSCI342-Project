@@ -72,7 +72,7 @@ const SignUp = () => {
     if (password === retypePassword) {
       axios.post("api/signup", {
         username,
-        password, // she might get mad that this bish is plain text
+        password, // TODO: this probably shouldn't be plain text
         name
       }).then(resp => {
         console.log(resp)
