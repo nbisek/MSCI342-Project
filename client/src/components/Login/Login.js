@@ -6,148 +6,90 @@ import { FormControl, TextField, Button } from "@material-ui/core";
 import { ThemeProvider, styled } from "@material-ui/core/styles";
 import { useState } from "react";
 import history from "../Navigation/history";
-
-const theme = createTheme({
-  palette: {
-    type: "light",
-    background: {
-      default: "#ffffff",
-    },
-    primary: {
-      main: "#DEDEDE",
-      black: "#000000",
-    },
-    secondary: {
-      main: "#68709c",
-    },
-  },
-  typography: {
-    h1: {
-      fontSize: "35px",
-      margin: "auto",
-      textAlign: "center",
-      fontWeight: "600",
-      paddingTop: "200px",
-    },
-    h6: {
-      fontSize: "16px",
-      margin: "auto",
-      textAlign: "center",
-      fontWeight: "400",
-      paddingTop: "10px",
-    },
-  },
-});
-
-const MainGridContainer = styled(Grid)(({ theme }) => ({
-  padding: "1rem",
-  background: theme.palette.background.default,
-  height: "100vh",
-}));
-
-const CssTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: theme.palette.primary.black,
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: theme.palette.primary.black,
-      borderRadius: "100px",
-      borderWidth: "2px",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: theme.palette.primary.black,
-    },
-  },
-});
-
-const inputStyle = {
-  border: "solid 2px black",
-  borderRadius: "30px",
-  boxShadow: "none",
-  height: "35px",
-  fontSize: "18px",
-  padding: "5px 15px",
-  focus: "none",
-  margin: "auto",
-};
+import Header from "../Header/header";
+import Header2 from "../Header/header2";
 
 const Login = () => {
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    console.log(username, password);
+  const [incorrectPassword, setIncorrectPassword] = useState(false);
+  const [incorrectEmail, setIncorrectEmail] = useState(false);
 
-    //do the login stuff
+  const { email, password } = inputs;
 
-    setUsername("");
-    setPassword("");
-
-    //if the account exists
-    history.push("/mygroups");
+  const verifyInfo = () => {
+    setIncorrectEmail(
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email)
+    );
+    setIncorrectPassword(inputs.password == "");
   };
 
-  const createAccount = () => {
-    history.push("/signup");
+  const onChange = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = (e) => {
+    verifyInfo();
   };
 
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <MainGridContainer
-          container
-          spacing={0}
-          justifyContent="flex-start"
-          alignItems="flex-start"
-        >
-          <Grid item xs={12} m={2}>
-            <h1 style={theme.typography.h1}>WarriorsTogether</h1>
-            <h6 style={theme.typography.h6}>Bringing students together</h6>
-
-            <FormControl
-              className="review-form"
-              autoComplete="off"
-              onSubmit={handleFormSubmit}
+    <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
+      <Header2 />
+      <div className="flex flex-col items-center justify-center ml-4">
+        <div class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl">
+          <p className="text-center text-2xl font-bold mb-12"> Welcome Back </p>
+          <div class="flex flex-wrap -mx-3 mb-4">
+            <label
+              class="block uppercase tracking-wide  text-xs font-bold mb-2"
+              for="grid-last-name"
             >
-              <form>
-                <TextField
-                  id="actor-name"
-                  label="Email"
-                  style={{ width: "20rem", padding: "0", margin: "auto" }}
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                  type="email"
-                />
-                <TextField
-                  id="actor-name"
-                  label="Password"
-                  style={{ width: "20rem", padding: "0", margin: "0 1rem 0 0" }}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  type="password"
-                />
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="email"
+              class={
+                incorrectEmail
+                  ? "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white border-red-500"
+                  : "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              }
+              value={email}
+              onChange={(e) => onChange(e)}
+            />
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-4">
+            <label
+              class="block uppercase tracking-wide text-xs font-bold mb-2"
+              for="grid-password"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              class={
+                incorrectPassword
+                  ? "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white border-red-500"
+                  : "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              }
+              value={password}
+              onChange={(e) => onChange(e)}
+            />
+          </div>
 
-                <Button variant="contained" color="primary" type="submit">
-                  Login
-                </Button>
-              </form>
-            </FormControl>
-            <h6>
-              Dont have an account?{" "}
-              <span
-                style={{ textDecoration: "underline" }}
-                onClick={() => createAccount()}
-              >
-                Sign up.
-              </span>
-            </h6>
-          </Grid>
-        </MainGridContainer>
-      </ThemeProvider>
+          <button
+            class="bg-blue-1000 hover:bg-gray-700 text-white font-bold py-2 px-4 w-full rounded border"
+            onClick={onSubmit}
+          >
+            Log In
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

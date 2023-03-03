@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Header() {
+export default function Header2() {
   return (
     <div>
       <nav class="w-full z-30 top-0 text-blue-1000 py-1 lg:py-6">
@@ -19,9 +19,9 @@ export default function Header() {
             id="nav-content"
           >
             <button class="mr-3">
-              <a class="inline-block py-2 px-4" href={"/login"}>
+              <a class="inline-block py-2 px-4" href={"/"}>
                 <p className="text-lg text-blue-1000 border border-solid border-blue-1000 rounded-md px-4 py-2 font-bold">
-                  Log In
+                  Sign Up
                 </p>
               </a>
             </button>
