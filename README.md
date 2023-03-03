@@ -9,7 +9,7 @@ WarriorsTogether is a web app focused on promoting positive social interaction a
 
 **My Account page:** users can view and edit their account information, including their name, email, and password.
 
-**Groups page:** users can search for groups based on interests and join the groups they are interested in.
+**Find Groups page:** users can search for groups based on interests and join the groups they are interested in.
 
 **My Groups page:** users can view all the groups they are part of and access each group's page for more details.
 
