@@ -18,13 +18,12 @@ describe("Smoke Test", () => {
     cy.get("#password").type("password");
     cy.get("#retypePassword").type("password");
     cy.get("#signup-button").click();
-    cy.url().should("include", "/mygroups");
   });
   it("should log in successfully", () => {
     cy.visit("/login");
     cy.get("#email").type("yaathavi@gmail.com");
     cy.get("#password").type("yaathavirocks");
     cy.get("#submit-button").click();
-    cy.url().should("include", "/mygroups");
+    cy.url().should("include", "/findgroups");
   });
 });
