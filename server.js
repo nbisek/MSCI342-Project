@@ -36,6 +36,58 @@ app.post('/api/loadUserSettings', (req, res) => {
 	connection.end();
 });
 
+app.get("/api/test", (req, res) => {
+	res.send("Hello world this API works!")
+});
+
+app.post("/api/signup", (req, res) => {
+	const {name, username, password} = req.body;
+
+	if (!name || !username || !password) {
+		res.status(400).send("Username or password or name missing")
+	} else {
+		// TODO: Hash password
+		let sql = `INSERT INTO msci342_users VALUES ('${name}', '${username}', '${password}')`;
+		let connection = mysql.createConnection(config);
+
+		connection.query(sql, (error, results, fields) => {
+			if (error) {
+				res.status(500).send("Something went wrong")
+				return console.error(error.message);
+			} else {
+				res.send("success")
+			}
+		});
+		connection.end();
+	}
+});
+
+app.post("/api/login", (req, res) => {
+	const {username, password} = req.body;
+
+	if (!username || !password) {
+		res.status(400).send("Username or password missing")
+	} else {
+		let sql = `SELECT * FROM msci342_users WHERE username='${username}'`;
+		let connection = mysql.createConnection(config);
+
+		connection.query(sql, (error, results, fields) => {
+			if (error) {
+				res.status(500).send("Something went wrong")
+				return console.error(error.message);
+			} else {
+				const data = JSON.parse(JSON.stringify(results))[0];
+				console.log(data)
+				if (data.password != password) {
+					res.status(400).send("Incorrect password")
+				} else {
+					res.send("success")
+				}
+			}
+		});
+		connection.end();
+	}
+})
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`)); //for the dev version

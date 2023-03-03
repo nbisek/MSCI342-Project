@@ -6,6 +6,7 @@ import history from "./history";
 import SignUp from "../Login/SignUp";
 import MyGroups from "../MyGroups/MyGroups";
 import Settings from "../Settings/Settings";
+import FindGroups from "../FindGroups";
 
 export default function PrivateRoute(
   {
@@ -21,6 +22,7 @@ export default function PrivateRoute(
         <Route path="/signup" exact component={SignUp} />
         <Route path="/mygroups" exact component={MyGroups} />
         <Route path="/settings" exact component={Settings} />
+        <Route path="/findgroups" component={FindGroups} />
       </Switch>
     </Router>
   );
