@@ -1,4 +1,6 @@
 import { React, useState } from "react";
+import history from "../Navigation/history";
+import axios from "axios";
 
 const SignUp = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
@@ -22,6 +24,14 @@ const SignUp = ({ setAuth }) => {
     setIncorrectPassword(
       inputs.password == "" || inputs.password != inputs.verifyPassword
     );
+    return (
+      inputs.name == "" ||
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email) ||
+      inputs.password == "" ||
+      inputs.password != inputs.verifyPassword
+    );
+
+
   };
 
   const onChange = (e) => {
@@ -29,13 +39,37 @@ const SignUp = ({ setAuth }) => {
   };
 
   const onSubmit = (e) => {
-    verifyInfo();
+    e.preventDefault();
+    const invalid = verifyInfo();
+
+    if (!invalid) {
+      const { email, password, name } = inputs;
+      console.log(email, password, name);
+      axios
+        .post("api/signup", {
+          username: email,
+          password, // TODO: this probably shouldn't be plain text
+          name,
+        })
+        .then((resp) => {
+          alert(resp.data);
+          history.push("/findgroups");
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err.response.data);
+        });
+    }
   };
 
   return (
     <>
       <div class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl">
-        <p className="text-center text-3xl font-bold mb-8"> Ready to Collab?</p>
+        <p className="text-center text-3xl font-bold mb-8">
+          {" "}
+          Ready to Collab? 
+        </p>
+
         <div class="flex flex-wrap -mx-3 mb-4">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label

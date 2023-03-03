@@ -6,8 +6,8 @@ import { FormControl, TextField, Button } from "@material-ui/core";
 import { ThemeProvider, styled } from "@material-ui/core/styles";
 import { useState } from "react";
 import history from "../Navigation/history";
-import Header from "../Header/header";
 import Header2 from "../Header/header2";
+import axios from "axios";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -25,6 +25,10 @@ const Login = () => {
       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email)
     );
     setIncorrectPassword(inputs.password == "");
+    return (
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email) ||
+      inputs.password == ""
+    );
   };
 
   const onChange = (e) => {
@@ -32,7 +36,25 @@ const Login = () => {
   };
 
   const onSubmit = (e) => {
-    verifyInfo();
+    const invalid = verifyInfo();
+
+    const { email, password } = inputs;
+    if (!invalid) {
+      axios
+        .post("/api/login", {
+          username: email,
+          password,
+        })
+        .then((resp) => {
+          console.log(resp);
+          alert(resp.data);
+          history.push("/findgroups");
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err.response.data);
+        });
+    }
   };
 
   return (
