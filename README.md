@@ -1,6 +1,6 @@
 # Msci342-Project
 
-##Installation Requirements
+## Installation Instructions
 
 1. `npm install` in the root directory
 2. `cd client`
