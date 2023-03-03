@@ -57,20 +57,38 @@ app.post("/api/signup", (req, res) => {
 
 			let string = JSON.stringify(results);
 			//let obj = JSON.parse(string);
+			console.log(results)
 			res.send({ express: string });
 		});
 		connection.end();
 	}
 });
 
-app.post("api/login", (req, res) => {
-	// get data
-	data = req.body;
+app.post("/api/login", (req, res) => {
+	const {username, password} = req.body;
 
-	// compare with db to see if it matches
+	if (!username || !password) {
+		res.send("ERROR")
+	} else {
+		let sql = `SELECT * FROM msci342_users WHERE username='${username}'`;
+		let connection = mysql.createConnection(config);
 
-
-	// return success/failure
+		connection.query(sql, (error, results, fields) => {
+			if (error) {
+				res.status(500).send("Something went wrong")
+				return console.error(error.message);
+			} else {
+				const data = JSON.parse(JSON.stringify(results))[0];
+				console.log(data)
+				if (data.password != password) {
+					res.status(400).send("Incorrect password")
+				} else {
+					res.send("success")
+				}
+			}
+		});
+		connection.end();
+	}
 })
 
 
