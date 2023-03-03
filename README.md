@@ -6,13 +6,21 @@ WarriorsTogether is a web app focused on promoting positive social interaction a
 ## Feautures
 
 **Login screen:** users can sign up with an email, username, and password to create an account and log in to the app.
+
 **My Account page:** users can view and edit their account information, including their name, email, and password.
+
 **Groups page:** users can search for groups based on interests and join the groups they are interested in.
+
 **My Groups page:** users can view all the groups they are part of and access each group's page for more details.
+
 **Group page:** each group has its own page where users can create posts, and view events and questions/comments related to the group.
+
 **Post creation:** users can create posts within a group and comment on other users' posts.
+
 **Event creation:** users can create events within a group, RSVP to attend events, and view who else is attending.
+
 **Settings page:** users can view and edit their app settings, including notifications and email preferences.
+
 **Account deletion:** users can delete their account and all associated data from the app.
 
 ## Available Scripts
