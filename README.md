@@ -1,9 +1,24 @@
 # Msci342-Project
+
+##Installation Requirements
+
+1. `npm install` in the root directory
+2. `cd client`
+3. `npm install`
+
+To run the app,
+4. `cd ..`
+5. `npm start`
+6. `cd client`
+7. `npm start`
+
+On your browser, go to http://localhost:3000/
+
 ## Description
 
 WarriorsTogether is a web app focused on promoting positive social interaction at the University of Waterloo. The app allows students to join groups based on their interests, attend events organized by these groups, and create their own posts to start conversations and discussions. The app aims to bring the university community closer together and provide a platform for students to connect with each other outside of the classroom.
 
-## Feautures
+## Features
 
 **Login screen:** users can sign up with an email, username, and password to create an account and log in to the app.
 
