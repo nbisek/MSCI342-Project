@@ -70,23 +70,25 @@ const SignUp = () => {
 
     //Check if the passwords match up
     if (password === retypePassword) {
-      axios.post("api/signup", {
-        username,
-        password, // TODO: this probably shouldn't be plain text
-        name
-      }).then((resp) => {
-        setUsername("");
-        setPassword("");
-        setName("");
-        setRetypePassword("");
-        setError(false);
-        alert(resp.data)
-        history.push("/mygroups");
-      }).catch((err) => {
-        console.log(err)
-        alert(err.response.data);
-      })
-    
+      axios
+        .post("api/signup", {
+          username,
+          password, // TODO: this probably shouldn't be plain text
+          name,
+        })
+        .then((resp) => {
+          setUsername("");
+          setPassword("");
+          setName("");
+          setRetypePassword("");
+          setError(false);
+          alert(resp.data);
+          history.push("/mygroups");
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err.response.data);
+        });
     } else {
       setError(true);
     }
@@ -97,9 +99,8 @@ const SignUp = () => {
   };
 
   const onSubmit = () => {
-    console.log("Hello world")
-  }
-
+    console.log("Hello world");
+  };
 
   return (
     <div>
@@ -159,7 +160,7 @@ const SignUp = () => {
                   <p>The passwords do not match up, try re-entering them</p>
                 )}
 
-                <Button variant="contained" color="primary" type="submit" >
+                <Button variant="contained" color="primary" type="submit">
                   Sign Up
                 </Button>
               </form>

@@ -6,7 +6,7 @@ import { FormControl, TextField, Button } from "@material-ui/core";
 import { ThemeProvider, styled } from "@material-ui/core/styles";
 import { useState } from "react";
 import history from "../Navigation/history";
-import axios from "axios"
+import axios from "axios";
 
 const theme = createTheme({
   palette: {
@@ -82,17 +82,20 @@ const Login = () => {
     console.log(username, password);
 
     //do the login stuff
-    axios.post("/api/login", {
-      username,
-      password
-    }).then((resp) => {
-      console.log(resp)
-      alert(resp.data)
-      history.push("/mygroups");
-    }).catch((err) => {
-      console.log(err)
-      alert(err.response.data);
-    });
+    axios
+      .post("/api/login", {
+        username,
+        password,
+      })
+      .then((resp) => {
+        console.log(resp);
+        alert(resp.data);
+        history.push("/mygroups");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.response.data);
+      });
   };
 
   const createAccount = () => {
