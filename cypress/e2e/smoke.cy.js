@@ -11,20 +11,19 @@ describe("Smoke Test", () => {
     cy.visit("/mygroups");
     cy.contains("My Groups");
   });
-  it("should sign in successfully", () => {
-    cy.visit("/signup");
+  it("should sign up successfully", () => {
+    cy.visit("/");
     cy.get("#email").type("nbisek@uwaterloo.ca");
     cy.get("#name").type("nadia");
     cy.get("#password").type("password");
-    cy.get("#retypePassword").type("password");
+    cy.get("#verifyPassword").type("password");
     cy.get("#signup-button").click();
-    cy.url().should("include", "/mygroups");
   });
   it("should log in successfully", () => {
     cy.visit("/login");
-    cy.get("#email").type("nbisek@uwaterloo.ca");
-    cy.get("#password").type("olgarocks");
+    cy.get("#email").type("yaathavi@gmail.com");
+    cy.get("#password").type("yaathavirocks");
     cy.get("#submit-button").click();
-    cy.url().should("include", "/mygroups");
+    cy.url().should("include", "/findgroups");
   });
 });

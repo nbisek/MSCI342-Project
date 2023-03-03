@@ -30,8 +30,6 @@ const SignUp = ({ setAuth }) => {
       inputs.password == "" ||
       inputs.password != inputs.verifyPassword
     );
-
-
   };
 
   const onChange = (e) => {
@@ -65,10 +63,7 @@ const SignUp = ({ setAuth }) => {
   return (
     <>
       <div class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl">
-        <p className="text-center text-3xl font-bold mb-8">
-          {" "}
-          Ready to Collab? 
-        </p>
+        <p className="text-center text-3xl font-bold mb-8"> Ready to Collab?</p>
 
         <div class="flex flex-wrap -mx-3 mb-4">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -82,6 +77,7 @@ const SignUp = ({ setAuth }) => {
               type="text"
               name="name"
               placeholder="name"
+              id="name"
               class={
                 incorrectName
                   ? "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white border-red-500"
@@ -101,6 +97,7 @@ const SignUp = ({ setAuth }) => {
             <input
               type="email"
               name="email"
+              id="email"
               placeholder="email"
               class={
                 incorrectEmail
@@ -123,6 +120,7 @@ const SignUp = ({ setAuth }) => {
             <input
               type="password"
               name="password"
+              id="password"
               placeholder="password"
               class={
                 incorrectPassword
@@ -143,6 +141,7 @@ const SignUp = ({ setAuth }) => {
             <input
               type="password"
               name="verifyPassword"
+              id="verifyPassword"
               placeholder="password"
               class={
                 incorrectPassword
@@ -157,6 +156,7 @@ const SignUp = ({ setAuth }) => {
         <div class="flex items-center justify-center">
           <button
             class="bg-blue-1000 hover:bg-gray-700 text-white font-bold py-2 px-4 w-full rounded border"
+            id="signup-button"
             onClick={onSubmit}
           >
             Sign Up
