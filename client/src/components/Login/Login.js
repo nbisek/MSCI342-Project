@@ -6,72 +6,8 @@ import { FormControl, TextField, Button } from "@material-ui/core";
 import { ThemeProvider, styled } from "@material-ui/core/styles";
 import { useState } from "react";
 import history from "../Navigation/history";
+import Header2 from "../Header/header2";
 import axios from "axios";
-
-const theme = createTheme({
-  palette: {
-    type: "light",
-    background: {
-      default: "#ffffff",
-    },
-    primary: {
-      main: "#DEDEDE",
-      black: "#000000",
-    },
-    secondary: {
-      main: "#68709c",
-    },
-  },
-  typography: {
-    h1: {
-      fontSize: "35px",
-      margin: "auto",
-      textAlign: "center",
-      fontWeight: "600",
-      paddingTop: "200px",
-    },
-    h6: {
-      fontSize: "16px",
-      margin: "auto",
-      textAlign: "center",
-      fontWeight: "400",
-      paddingTop: "10px",
-    },
-  },
-});
-
-const MainGridContainer = styled(Grid)(({ theme }) => ({
-  padding: "1rem",
-  background: theme.palette.background.default,
-  height: "100vh",
-}));
-
-const CssTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: theme.palette.primary.black,
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: theme.palette.primary.black,
-      borderRadius: "100px",
-      borderWidth: "2px",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: theme.palette.primary.black,
-    },
-  },
-});
-
-const inputStyle = {
-  border: "solid 2px black",
-  borderRadius: "30px",
-  boxShadow: "none",
-  height: "35px",
-  fontSize: "18px",
-  padding: "5px 15px",
-  focus: "none",
-  margin: "auto",
-};
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -82,26 +18,43 @@ const Login = () => {
   const [incorrectPassword, setIncorrectPassword] = useState(false);
   const [incorrectEmail, setIncorrectEmail] = useState(false);
 
-    //do the login stuff
-    axios
-      .post("/api/login", {
-        username,
-        password,
-      })
-      .then((resp) => {
-        console.log(resp);
-        alert(resp.data);
-        history.push("/mygroups");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err.response.data);
-      });
+  const { email, password } = inputs;
 
+  const verifyInfo = () => {
+    setIncorrectEmail(
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email)
+    );
+    setIncorrectPassword(inputs.password == "");
+    return (
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email) ||
+      inputs.password == ""
+    );
+  };
+
+  const onChange = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
   const onSubmit = (e) => {
-    verifyInfo();
+    const invalid = verifyInfo();
+
+    const { email, password } = inputs;
+    if (!invalid) {
+      axios
+        .post("/api/login", {
+          username: email,
+          password,
+        })
+        .then((resp) => {
+          console.log(resp);
+          alert(resp.data);
+          history.push("/findgroups");
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err.response.data);
+        });
+    }
   };
 
   return (
