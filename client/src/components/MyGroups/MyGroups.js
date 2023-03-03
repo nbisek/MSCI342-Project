@@ -11,108 +11,75 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import GroupDisplay from "./GroupDisplay";
 
-const theme = createTheme({
-  palette: {
-    type: "light",
-    background: {
-      default: "#ffffff",
-    },
-    primary: {
-      main: "#DEDEDE",
-      black: "#000000",
-    },
-    secondary: {
-      main: "#68709c",
-    },
-  },
-  typography: {
-    h1: {
-      fontSize: "35px",
-      margin: "auto",
-      textAlign: "center",
-      fontWeight: "600",
-      paddingTop: "200px",
-    },
-    h2: {
-      fontSize: "25px",
-      fontWeight: "400",
-    },
-    h6: {
-      fontSize: "16px",
-      margin: "auto",
-      textAlign: "center",
-      fontWeight: "400",
-      paddingTop: "10px",
-    },
-  },
-});
+import Header4 from "../Header/header4";
+import GroupCard from "../FindGroups/GroupCard";
 
-const MainGridContainer = styled(Grid)(({ theme }) => ({
-  padding: "1rem",
-  background: theme.palette.background.default,
-  height: "100vh",
-}));
-
-const clubs = [
-  {
-    title: "Loded Diper",
-    description: "A cool band for even cooler guyz",
-    type: "music",
-    members: "4",
-  },
-  {
-    title: "Cheese Club",
-    description: "We like cheese, so we meet and eat it weekly.",
-    type: "food",
-    members: "25",
-  },
-];
-
-//When the page loads for the first time
-// useEffect(() => {}, []);
 
 const MyGroups = () => {
-  const [sortBy, setSortBy] = React.useState("");
 
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <MainGridContainer
-          container
-          spacing={0}
-          justifyContent="flex-start"
-          alignItems="flex-start"
-        >
-          <Grid item xs={12} m={2}>
-            <h2 style={theme.typography.h2}>My Groups</h2>
-            <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={sortBy}
-              label="Select"
-              onChange={(e) => setSortBy(e.target.value)}
-              style={{ width: "100px" }}
-            >
-              <MenuItem value={10}>Group 1</MenuItem>
-              <MenuItem value={20}>Group 2</MenuItem>
-              <MenuItem value={30}>Group 3</MenuItem>
-            </Select>
-            {clubs.map((club) => {
-              return (
-                <GroupDisplay
-                  title={club.title}
-                  description={club.description}
-                  type={club.type}
-                  members={club.members}
-                />
-              );
-            })}
-          </Grid>
-        </MainGridContainer>
-      </ThemeProvider>
+    <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
+      <Header4 />
+      <div className="mr-20 ml-20 flex flex-col">
+        <h1 className="text-4xl font-semibold">My Groups</h1>
+        <div className="flex flex-row">
+          <div class="m-5 inline-block relative w-64">
+            <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              <option selected disabled>
+                Filter by Interests
+              </option>
+              <option>Option 1</option>
+              <option>Option 2</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg
+                class="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </div>
+          </div>
+          <div class="mt-5 inline-block relative w-64 mx-5">
+            <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              <option selected disabled>
+                Sort By
+              </option>
+              <option>Option 1</option>
+              <option>Option 2</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg
+                class="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-wrap mt-5 justify-center">
+          <div className="flex flex-col w-1/4 bg-gray-300 mx-4 my-4 p-5">
+            <h2 className="text-xl">Loded Diper</h2>
+            <p className="mt-1">12 members | sports, social</p>
+            <p className="mt-4"> A cool band for even cooler guyz</p>
+          </div>
+          <div className="flex flex-col w-1/4 bg-gray-300 mx-4 my-4 p-5">
+            <h2 className="text-xl">Group Name</h2>
+            <p className="mt-1">12 members | sports, social</p>
+            <p className="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+          <div className="flex flex-col w-1/4 bg-gray-300 mx-4 my-4 p-5">
+            <h2 className="text-xl">Group Name</h2>
+            <p className="mt-1">12 members | sports, social</p>
+            <p className="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default MyGroups;
