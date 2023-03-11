@@ -9,6 +9,8 @@
 To run the app,
 4. `cd ..`
 6. `npm start`
+
+open another terminal and:
 7. `cd client`
 8. `npm start`
 
