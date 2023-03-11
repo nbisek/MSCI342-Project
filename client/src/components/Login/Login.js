@@ -8,6 +8,7 @@ import { useState } from "react";
 import history from "../Navigation/history";
 import Header2 from "../Header/header2";
 import axios from "axios";
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -40,20 +41,12 @@ const Login = () => {
 
     const { email, password } = inputs;
     if (!invalid) {
-      axios
-        .post("/api/login", {
-          username: email,
-          password,
+      const authentication = getAuth();
+      signInWithEmailAndPassword(authentication, email, password)
+        .then((response) => {
+          sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+          history.push('/findgroups')
         })
-        .then((resp) => {
-          console.log(resp);
-          alert(resp.data);
-          history.push("/findgroups");
-        })
-        .catch((err) => {
-          console.log(err);
-          alert(err.response.data);
-        });
     }
   };
   return (

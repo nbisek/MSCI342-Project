@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import history from "../Navigation/history";
 import axios from "axios";
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 const SignUp = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
@@ -42,21 +43,12 @@ const SignUp = ({ setAuth }) => {
 
     if (!invalid) {
       const { email, password, name } = inputs;
-      console.log(email, password, name);
-      axios
-        .post("api/signup", {
-          username: email,
-          password, // TODO: this probably shouldn't be plain text
-          name,
+      const authentication = getAuth();
+      createUserWithEmailAndPassword(authentication, email, password)
+        .then((response) => {
+          sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+          history.push('/findgroups')
         })
-        .then((resp) => {
-          alert(resp.data);
-          history.push("/findgroups");
-        })
-        .catch((err) => {
-          console.log(err);
-          alert(err.response.data);
-        });
     }
   };
 

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { app } from '../../config/firebase-config';
 
 import Home from "../Home";
 import Login from "../Login/Login";

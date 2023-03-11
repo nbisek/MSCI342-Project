@@ -1,8 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Header3 from "../Header/header3";
 import GroupCard from "./GroupCard";
+import history from "../Navigation/history";
 
 function FindGroups() {
+  useEffect(() => {
+    let authToken = sessionStorage.getItem('Auth Token')
+
+    if (!authToken) {
+        history.push('/login')
+    }
+  }, [])
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
       <Header3 />
