@@ -1,21 +1,17 @@
-import React from "react";
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { FormControl, TextField, Button } from "@material-ui/core";
-import { ThemeProvider, styled } from "@material-ui/core/styles";
-import { useState } from "react";
+import React, { useEffect } from "react";
 import history from "../Navigation/history";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
-import GroupDisplay from "./GroupDisplay";
 
 import Header4 from "../Header/header4";
 import GroupCard from "../FindGroups/GroupCard";
 
-
 const MyGroups = () => {
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+
+    if (!authToken) {
+      history.push("/login");
+    }
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
@@ -69,17 +65,27 @@ const MyGroups = () => {
           <div className="flex flex-col w-1/4 bg-gray-300 mx-4 my-4 p-5">
             <h2 className="text-xl">Group Name</h2>
             <p className="mt-1">12 members | sports, social</p>
-            <p className="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p className="mt-4">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
           </div>
           <div className="flex flex-col w-1/4 bg-gray-300 mx-4 my-4 p-5">
             <h2 className="text-xl">Group Name</h2>
             <p className="mt-1">12 members | sports, social</p>
-            <p className="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p className="mt-4">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default MyGroups;
