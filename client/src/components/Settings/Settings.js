@@ -13,12 +13,13 @@ import Card from "@material-ui/core/Card";
 import { useEffect } from "react";
 import Modal from "@material-ui/core/Modal";
 import Box from "@material-ui/core/Box";
+import HeaderDefault from "../Header/HeaderDefault";
 
 const theme = createTheme({
   palette: {
     type: "light",
     background: {
-      default: "#ffffff",
+      default: "#fbf9f1",
     },
     primary: {
       main: "#DEDEDE",
@@ -100,6 +101,15 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
   },
+  signOut: {
+    width: "100px",
+    height: "30px",
+    border: "none",
+    backgroundColor: "#5e5e5e",
+    color: "white",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
   input: {
     width: "20rem",
     height: "30px",
@@ -113,16 +123,13 @@ const styles = {
     display: "block",
     fontWeight: "500",
   },
-  mainContainer: {
-    padding: "2rem",
-  },
+  mainContainer: {},
   inputSection: {
-    marginBottom: "15px",
+    // marginBottom: "15px",
   },
 };
 
 const MainGridContainer = styled(Grid)(({ theme }) => ({
-  padding: "2rem",
   background: theme.palette.background.default,
   height: "100vh",
 }));
@@ -189,110 +196,147 @@ const Settings = (props) => {
     setNewName(name);
   }, []);
 
+  const signOut = (e) => {
+    sessionStorage.clear();
+    history.push("/");
+  };
+  //#fbf9f1
   return (
-    <div style={styles.mainContainer}>
-      <h2 style={theme.typography.h2}>Settings</h2>
-      <h3 style={theme.typography.h3}>Personal Information</h3>
-      <div style={styles.inputSection}>
-        <label style={styles.label}>Name</label>
-        <input
-          id="name"
-          label="Name"
-          style={styles.input}
-          type="email"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-        />
-        <br />
-        <a style={theme.typography.a} onClick={() => saveName()}>
-          Save name
-        </a>
-      </div>
+    <div
+      className="flex flex-col min-h-screen overflow-hidden"
+      style={{ background: "#fbfbfa" }}
+    >
+      <HeaderDefault thisPage="settings" />
+      <div className="mr-20 ml-20 flex flex-col">
+        <h1 className="text-4xl font-semibold">Settings</h1>
+        <h2 className="text-xl font-semibold mt-6">Personal Information</h2>
+        <div style={styles.inputSection}>
+          <label className="text-sm block mt-4 mb-1">Name</label>
+          <input
+            id="name"
+            label="Name"
+            style={styles.input}
+            type="email"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+          />
+          <br />
+          <a style={theme.typography.a} onClick={() => saveName()}>
+            Save name
+          </a>
+        </div>
 
-      <div style={styles.inputSection}>
-        <label style={styles.label}>Email</label>
+        <div style={styles.inputSection}>
+          <label className="text-sm block mt-4 mb-1">Email</label>
+          <input
+            id="email"
+            label="Email"
+            style={styles.input}
+            type="email"
+            value={email}
+            disabled
+          />
+          <br />
+          <label style={theme.typography.label}>
+            You cannot edit your email
+          </label>
+        </div>
+
+        <div
+          style={{
+            display: "inline-flex",
+            flexDirection: "horizontal",
+          }}
+        >
+          <span style={{ marginRight: "20px" }}>
+            <label className="text-sm block mt-4 mb-1">Password</label>
+            <input
+              id="password"
+              label="Password"
+              style={styles.input}
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </span>
+          <span>
+            <label className="text-sm block mt-4 mb-1">Retype Password</label>
+            <input
+              id="newPassword"
+              label="Retype Password"
+              style={styles.input}
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+          </span>
+        </div>
+        <div>
+          <label style={theme.typography.label}>
+            Retype your new password to change it.
+          </label>
+          <br />
+          <a style={theme.typography.a} onClick={() => savePassword()}>
+            Save password
+          </a>
+        </div>
+        <div>
+          <h2 className="text-xl font-semibold mt-6">Sign Out</h2>
+          <p className="mt-4">
+            By clicking the button below, you will be signed out of your
+            account.
+          </p>
+          <button
+            style={styles.signOut}
+            onClick={() => signOut()}
+            className="mt-4 block"
+          >
+            Sign Out
+          </button>
+        </div>
+
+        <h2 className="text-xl font-semibold mt-6">Delete Account</h2>
+        <p className="mt-4">
+          Deleting you account cannot be undone. To delete your account, type in
+          your email.
+        </p>
+        <label className="text-sm block mt-4 mb-1">Email</label>
         <input
-          id="email"
+          id="delete"
           label="Email"
           style={styles.input}
-          type="email"
-          value={email}
-          disabled
+          type="text"
+          value={deleteAccount}
+          onChange={(e) => setDeleteAccount(e.target.value)}
+          placeholder={email}
         />
         <br />
-        <label style={theme.typography.label}>You cannot edit your email</label>
-      </div>
-
-      <div
-        style={{
-          display: "inline-flex",
-          flexDirection: "horizontal",
-        }}
-      >
-        <span style={{ marginRight: "20px" }}>
-          <label style={styles.label}>Password</label>
-          <input
-            id="password"
-            label="Password"
-            style={styles.input}
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </span>
-        <span>
-          <label style={styles.label}>Retype Password</label>
-          <input
-            id="newPassword"
-            label="Retype Password"
-            style={styles.input}
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-        </span>
-      </div>
-      <div>
-        <label style={theme.typography.label}>
-          Retype your new password to change it.
-        </label>
         <br />
-        <a style={theme.typography.a} onClick={() => savePassword()}>
-          Save password
-        </a>
-      </div>
-
-      <h3 style={theme.typography.h3}>Delete Account</h3>
-      <p style={{ marginBottom: "15px", fontSize: "14px" }}>
-        Deleting you account cannot be undone. To delete your account, type in
-        your email.
-      </p>
-      <label style={styles.label}>Email</label>
-      <input
-        id="delete"
-        label="Email"
-        style={styles.input}
-        type="text"
-        value={deleteAccount}
-        onChange={(e) => setDeleteAccount(e.target.value)}
-        placeholder={email}
-      />
-      <br />
-      <br />
-      <button style={styles.button} onClick={() => processDeleteAccount()}>
-        Delete
-      </button>
-
-      {displayModal && (
-        <div
-          id="modal"
-          style={styles.modal}
-          onClick={() => setDisplayModal(false)}
+        <button
+          style={styles.button}
+          onClick={() => processDeleteAccount()}
+          className="mt-4"
         >
-          <h2>{modalTitle}</h2>
-          <p>{modalBody}</p>
-        </div>
-      )}
+          Delete
+        </button>
+
+        {displayModal && (
+          <div
+            id="modal"
+            style={styles.modal}
+            onClick={() => setDisplayModal(false)}
+          >
+            <h2>{modalTitle}</h2>
+            <p>{modalBody}</p>
+          </div>
+        )}
+      </div>
+      <div className="mt-8 mb-8 ml-20 text-left">
+        <p className="text-xs">
+          made with <span className="text-sm">♡</span> in Waterloo
+        </p>
+        <p className="text-xs">© 2023 WarriorsTogether</p>
+      </div>
     </div>
   );
 };
