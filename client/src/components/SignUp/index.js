@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import history from "../Navigation/history";
 import axios from "axios";
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
@@ -23,13 +23,16 @@ const SignUp = ({ setAuth }) => {
       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email)
     );
     setIncorrectPassword(
-      inputs.password == "" || inputs.password != inputs.verifyPassword
+      inputs.password == "" ||
+        inputs.password != inputs.verifyPassword ||
+        inputs.password.length < 6
     );
     return (
       inputs.name == "" ||
       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email) ||
       inputs.password == "" ||
-      inputs.password != inputs.verifyPassword
+      inputs.password != inputs.verifyPassword ||
+      inputs.password.length < 6
     );
   };
 
@@ -44,11 +47,23 @@ const SignUp = ({ setAuth }) => {
     if (!invalid) {
       const { email, password, name } = inputs;
       const authentication = getAuth();
-      createUserWithEmailAndPassword(authentication, email, password)
-        .then((response) => {
-          sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
-          history.push('/findgroups')
-        })
+      axios
+        .post("/api/signup", { email: email, username: name })
+        .then((res) => {
+          if (res.data == "success") {
+            createUserWithEmailAndPassword(
+              authentication,
+              email,
+              password
+            ).then((response) => {
+              sessionStorage.setItem(
+                "Auth Token",
+                response._tokenResponse.refreshToken
+              );
+              history.push("/findgroups");
+            });
+          }
+        });
     }
   };
 
