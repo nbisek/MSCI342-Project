@@ -21,7 +21,7 @@ export default function HeaderDefault(props) {
               </p>
             </span>
           </span>
-          <span className="mr-20">
+          <span className="mr-20 text-center my-auto">
             {props.thisPage === "mygroups" ? (
               <p class="inline-block py-2 px-4 underline decoration-2">
                 <p className="text-lg font-semibold">My Groups</p>

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import history from "../Navigation/history";
 
 import Header4 from "../Header/header4";
-import GroupCard from "../FindGroups/GroupCard";
+import GroupCard from "../FindGroups/FindGroupCard";
 import HeaderDefault from "../Header/HeaderDefault";
 import MyGroupsCard from "./MyGroupCard";
 
@@ -16,10 +16,7 @@ const MyGroups = () => {
   }, []);
 
   return (
-    <div
-      className="flex flex-col min-h-screen overflow-hidden pb-10"
-      style={{ background: "#fbfbfa" }}
-    >
+    <div className="flex flex-col min-h-screen overflow-hidden pb-10">
       <HeaderDefault thisPage="mygroups" />
       <div className="mr-20 ml-20 flex flex-col">
         <h1 className="text-4xl font-semibold">My Groups</h1>
