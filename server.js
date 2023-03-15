@@ -66,7 +66,7 @@ app.post("/api/signup", (req, res) => {
     res.status(400).send("Username or password or name missing");
   } else {
     // TODO: Hash password
-    let sql = `INSERT INTO msci342_users (email, username) VALUES ('${username}', '${email}')`;
+    let sql = `INSERT INTO msci342_users (email, username) VALUES ('${email}','${username}')`;
     let connection = mysql.createConnection(config);
 
     connection.query(sql, (error, results, fields) => {
