@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import history from "../Navigation/history";
 
-export default function Header3() {
+export default function HeaderDefault(props) {
   const onClick = (e) => {
     sessionStorage.clear();
     history.push("/");
@@ -11,7 +11,48 @@ export default function Header3() {
   return (
     <div>
       <nav class="w-full z-30 top-0 text-blue-1000 py-1 lg:py-6">
-        <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-2 lg:py-6">
+        <div class="w-full flex flex-wrap justify-between">
+          <span>
+            <span class="hover:no-underline font-bold text-2xl lg:text-4xl flex flex-row items-center">
+              <img src="./logo.png" className="w-20 ml-20 mr-5" />
+              <p className="text-4xl text-blue-1000 font-bold">
+                {" "}
+                WarriorsTogether{" "}
+              </p>
+            </span>
+          </span>
+          <span className="mr-20 text-center my-auto">
+            {props.thisPage === "mygroups" ? (
+              <p class="inline-block py-2 px-4 underline decoration-2">
+                <p className="text-lg font-semibold">My Groups</p>
+              </p>
+            ) : (
+              <a class="inline-block py-2 px-4" href={"/mygroups"}>
+                <p className="text-lg font-semibold">My Groups</p>
+              </a>
+            )}
+            {props.thisPage === "findgroups" ? (
+              <p class="inline-block py-2 px-4 underline decoration-2">
+                <p className="text-lg font-semibold">Find Groups</p>
+              </p>
+            ) : (
+              <a class="inline-block py-2 px-4" href={"/findgroups"}>
+                <p className="text-lg font-semibold">Find Groups</p>
+              </a>
+            )}
+            {props.thisPage === "settings" ? (
+              <p class="inline-block py-2 px-4 underline decoration-2">
+                <p className="text-lg font-semibold">Settings</p>
+              </p>
+            ) : (
+              <a class="inline-block py-2 px-4" href={"/settings"}>
+                <p className="text-lg font-semibold">Settings</p>
+              </a>
+            )}
+          </span>
+        </div>
+
+        {/* <div class="w-full container mx-auto flex flex-wrap items-start justify-between mt-0 px-2 py-2 lg:py-6">
           <div class="pl-4 flex items-center">
             <a
               class="hover:no-underline font-bold text-2xl lg:text-4xl flex flex-row items-center"
@@ -50,7 +91,7 @@ export default function Header3() {
               </a>
             </button>
           </div>
-        </div>
+        </div> */}
       </nav>
     </div>
   );
