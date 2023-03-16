@@ -12,7 +12,11 @@ export default function GroupPost(props) {
   };
 
   const d = dayjs(props.creationDate).format("MMMM D, YYYY");
-  console.log(d);
+  const [likedPost, setLikedPost] = React.useState(false);
+
+  const handleLike = () => {
+    setLikedPost(!likedPost);
+  };
 
   return (
     <div style={style} className="mr-5 mb-5 p-5">
@@ -23,6 +27,23 @@ export default function GroupPost(props) {
         <span className="font-semibold text-base">{d}</span>
       </p>
       <p className="mt-5">{props.description}</p>
+      <div className="mt-5">
+        {!likedPost ? (
+          <img
+            src="./heart-empty(1).svg"
+            alt="like buton"
+            onClick={() => handleLike()}
+            className="cursor-pointer"
+          />
+        ) : (
+          <img
+            src="./heart-full.svg"
+            alt="like buton"
+            onClick={() => handleLike()}
+            className="cursor-pointer"
+          />
+        )}
+      </div>
     </div>
   );
 }
