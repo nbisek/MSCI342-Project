@@ -7,12 +7,12 @@ import history from "../Navigation/history";
 function FindGroups() {
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
-
     if (!authToken) {
       history.push("/login");
     }
   }, []);
-
+  const username = sessionStorage.getItem("username");
+  console.log(username);
   return (
     <div
       className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200 mb-10"

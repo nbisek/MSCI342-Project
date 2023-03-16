@@ -1,25 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import history from "../Navigation/history";
 
 import Header4 from "../Header/header4";
 import GroupCard from "../FindGroups/GroupCard";
 import { useState } from "react";
 
-const CreateGroup = () => {
-  //   useEffect(() => {
-  //     let authToken = sessionStorage.getItem("Auth Token");
+import axios from "axios";
 
-  //     if (!authToken) {
-  //       history.push("/login");
-  //     }
-  //   }, []);
+const CreateGroup = () => {
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+    if (!authToken) {
+      history.push("/login");
+    }
+  }, []);
+
+  const username = sessionStorage.getItem("username");
 
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("EngSoc");
 
   const onClick = (e) => {
-    console.log(groupName, description, category);
+    e.preventDefault();
+    axios
+      .post("/api/createGroup", {
+        group_name: groupName,
+        categories: category,
+        creator_user: username,
+        description: description,
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   return (
