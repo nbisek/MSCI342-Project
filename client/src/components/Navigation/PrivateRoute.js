@@ -8,6 +8,7 @@ import MyGroups from "../MyGroups/MyGroups";
 import Settings from "../Settings/Settings";
 import FindGroups from "../FindGroups";
 import CreateGroup from "../CreateGroup/CreateGroup";
+import Group from "../Group/Group";
 
 export default function PrivateRoute(
   {
@@ -22,6 +23,7 @@ export default function PrivateRoute(
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={SignUp} />
         <Route path="/mygroups" exact component={MyGroups} />
+        <Route path="/group" exact component={Group} />
         <Route path="/settings" exact component={Settings} />
         <Route path="/findgroups" component={FindGroups} />
         <Route path="/creategroup" component={CreateGroup} />

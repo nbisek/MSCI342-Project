@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import history from "../Navigation/history";
+import axios from "axios";
 
 import Header4 from "../Header/header4";
 import GroupCard from "../FindGroups/FindGroupCard";
@@ -7,16 +8,28 @@ import HeaderDefault from "../Header/HeaderDefault";
 import MyGroupsCard from "./MyGroupCard";
 
 const MyGroups = () => {
+  const [groups, setGroups] = React.useState([]);
+
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
 
     if (!authToken) {
       history.push("/login");
     }
+
+    axios.get("/api/getMyGroups").then((res) => {
+      console.log(res.data.data);
+      const data = JSON.parse(res.data.data);
+      console.log(data);
+      setGroups(data);
+    });
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden pb-10">
+    <div
+      className="flex flex-col min-h-screen overflow-hidden pb-10"
+      style={{ background: "#fbfbfa" }}
+    >
       <HeaderDefault thisPage="mygroups" />
       <div className="mr-20 ml-20 flex flex-col">
         <h1 className="text-4xl font-semibold">My Groups</h1>
@@ -59,36 +72,17 @@ const MyGroups = () => {
           </div>
         </div>
         <div className="flex flex-wrap mt-5 justify-start">
-          <MyGroupsCard
-            title="Nadia Test"
-            members="2"
-            categories="social"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eu scelerisque mi. In bibendum magna eu urna tincidunt cursus. Maecenas orci libero, porta eget odio ut, mattis bibendum nisl. Sed dapibus metus eget magna elementum, in euismod mauris lobortis. Nam augue erat, mollis sed molestie sed, vehicula nec arcu."
-          ></MyGroupsCard>
-          <MyGroupsCard
-            title="Nadia Test"
-            members="2"
-            categories="social"
-            description="Nadia testing this"
-          ></MyGroupsCard>
-          <MyGroupsCard
-            title="Nadia Test"
-            members="2"
-            categories="social"
-            description="Nadia testing this"
-          ></MyGroupsCard>
-          <MyGroupsCard
-            title="Nadia Test"
-            members="2"
-            categories="social"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eu scelerisque mi. In bibendum magna eu urna tincidunt cursus. Maecenas orci libero, porta eget odio ut, mattis bibendum nisl. Sed dapibus metus eget magna elementum, in euismod mauris lobortis. Nam augue erat, mollis sed molestie sed, vehicula nec arcu."
-          ></MyGroupsCard>
-          <MyGroupsCard
-            title="Nadia Test"
-            members="2"
-            categories="social"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eu scelerisque mi. In bibendum magna eu urna tincidunt cursus. Maecenas orci libero, porta eget odio ut, mattis bibendum nisl. Sed dapibus metus eget magna elementum, in euismod mauris lobortis. Nam augue erat, mollis sed molestie sed, vehicula nec arcu."
-          ></MyGroupsCard>
+          {groups.map((group) => {
+            return (
+              <MyGroupsCard
+                title={group.group_name}
+                members={group.members}
+                categories={group.categories}
+                description={group.description}
+                groupID={group.groupID}
+              ></MyGroupsCard>
+            );
+          })}
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import history from "../Navigation/history";
 
 import Header4 from "../Header/header4";
-import GroupCard from "../FindGroups/GroupCard";
+import FindGroupCard from "../FindGroups/FindGroupCard";
 import { useState } from "react";
 
 import axios from "axios";

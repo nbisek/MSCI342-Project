@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 import Header3 from "../Header/header3";
 import HeaderDefault from "../Header/HeaderDefault";
 import FindGroupCard from "./FindGroupCard";
@@ -10,7 +11,16 @@ function FindGroups() {
     if (!authToken) {
       history.push("/login");
     }
+
+    //Getting the groups from the database
+    axios.get("/api/getGroups").then((res) => {
+      console.log(res.data.data);
+      const data = JSON.parse(res.data.data);
+      setGroups(data);
+    });
   }, []);
+
+  const [groups, setGroups] = React.useState([]);
   const username = sessionStorage.getItem("username");
   console.log(username);
   return (
@@ -60,7 +70,7 @@ function FindGroups() {
           </div>
         </div>
         <div className="flex flex-wrap mt-5 justify-start">
-          <FindGroupCard
+          {/* <FindGroupCard
             title="Baking Club"
             members="17"
             categories="food, social"
@@ -83,7 +93,17 @@ function FindGroups() {
             members="17"
             categories="food, social"
             description="People coming together to bake all sorts of things. No experience is needed and we will supply all baking supplies. Come bake with us :)"
-          />
+          /> */}
+          {groups.map((group, index) => {
+            return (
+              <FindGroupCard
+                title={group.group_name}
+                description={group.description}
+                categories={group.categories}
+                groupID={group.groupID}
+              ></FindGroupCard>
+            );
+          })}
         </div>
       </div>
     </div>

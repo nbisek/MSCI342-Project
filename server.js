@@ -104,6 +104,22 @@ app.post("/api/signup", (req, res) => {
     connection.end();
   }
 });
+app.post("/api/getGroupPosts", (req, res) => {
+  const { groupID } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT * FROM posts WHERE groupID = ${groupID} ORDER BY postID DESC`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    let string = JSON.stringify(results);
+    res.send({ data: string });
+  });
+  connection.end();
+});
 
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
@@ -130,6 +146,60 @@ app.post("/api/login", (req, res) => {
     });
     connection.end();
   }
+});
+
+app.get("/api/getGroups", (req, res) => {
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT * FROM msci342_groups`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    let string = JSON.stringify(results);
+    //let obj = JSON.parse(string);
+    res.send({ data: string });
+  });
+  connection.end();
+});
+
+app.get("/api/getGroupInfo", (req, res) => {
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT * FROM msci342_groups`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    let string = JSON.stringify(results);
+    //let obj = JSON.parse(string);
+    res.send({ data: string });
+  });
+  connection.end();
+});
+
+app.get("/api/getMyGroups", (req, res) => {
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT msci342_groups.groupID, group_name, description, categories, members
+  FROM users_in_group, msci342_groups
+  WHERE msci342_groups.groupID = users_in_group.groupID
+  AND users_in_group.username = "lola"`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    let string = JSON.stringify(results);
+    //let obj = JSON.parse(string);
+    res.send({ data: string });
+  });
+  connection.end();
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`)); //for the dev version
