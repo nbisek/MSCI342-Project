@@ -108,5 +108,56 @@ app.post("/api/login", (req, res) => {
   }
 });
 
+app.get("/api/getGroups", (req, res) => {
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT * FROM msci342_groups`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    let string = JSON.stringify(results);
+    //let obj = JSON.parse(string);
+    res.send({ data: string });
+  });
+  connection.end();
+});
+
+app.get("/api/getGroupInfo", (req, res) => {
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT * FROM msci342_groups`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    let string = JSON.stringify(results);
+    //let obj = JSON.parse(string);
+    res.send({ data: string });
+  });
+  connection.end();
+});
+
+app.get("/api/getMyGroups", (req, res) => {
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT * FROM msci342_groups WHERE`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    let string = JSON.stringify(results);
+    //let obj = JSON.parse(string);
+    res.send({ data: string });
+  });
+  connection.end();
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`)); //for the dev version
 //app.listen(port, '129.97.25.211'); //for the deployed version, specify the IP address of the server

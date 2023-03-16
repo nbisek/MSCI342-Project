@@ -1,9 +1,10 @@
 import React from "react";
 
 export default function MyGroupsCard(props) {
+  const groupID = props.groupID;
   const openGroupPage = () => {
     //do something
-    console.log("open group page");
+    console.log("open group page", groupID);
   };
   return (
     <div
