@@ -1,10 +1,23 @@
 import React from "react";
+import { useEffect } from "react";
+import history from "../Navigation/history";
+
+export let groupID = -1;
+export let groupContent = {};
 
 export default function MyGroupsCard(props) {
-  const groupID = props.groupID;
   const openGroupPage = () => {
     //do something
     console.log("open group page", groupID);
+    groupID = props.groupID;
+    groupContent = {
+      title: props.title,
+      members: props.members,
+      categories: props.categories,
+      description: props.description,
+      groupID: props.groupID,
+    };
+    history.push("/group");
   };
   return (
     <div

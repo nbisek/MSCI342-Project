@@ -15,7 +15,7 @@ function FindGroupCard(props) {
       description: props.description,
       categories: props.categories,
     };
-    history.push("/group");
+    // history.push("/group");
   };
 
   return (
