@@ -14,11 +14,16 @@ export default function HeaderDefault(props) {
         <div class="w-full flex flex-wrap justify-between">
           <span>
             <span class="hover:no-underline font-bold text-2xl lg:text-4xl flex flex-row items-center">
-              <img src="./logo.png" className="w-20 ml-20 mr-5" />
-              <p className="text-4xl text-blue-1000 font-bold">
-                {" "}
-                WarriorsTogether{" "}
-              </p>
+              <a
+                class="hover:no-underline font-bold text-2xl lg:text-4xl flex flex-row items-center"
+                href="/"
+              >
+                <img src="./logo.png" className="w-20 ml-20 mr-5" />
+                <p className="text-4xl text-blue-1000 font-bold">
+                  {" "}
+                  WarriorsTogether{" "}
+                </p>
+              </a>
             </span>
           </span>
           <span className="mr-20 text-center my-auto">
