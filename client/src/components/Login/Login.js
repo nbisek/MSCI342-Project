@@ -1,14 +1,8 @@
-import React from "react";
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { FormControl, TextField, Button } from "@material-ui/core";
-import { ThemeProvider, styled } from "@material-ui/core/styles";
-import { useState } from "react";
+import { React, useState, useContext } from "react";
 import history from "../Navigation/history";
 import Header2 from "../Header/header2";
 import axios from "axios";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -42,13 +36,24 @@ const Login = () => {
     const { email, password } = inputs;
     if (!invalid) {
       const authentication = getAuth();
-      signInWithEmailAndPassword(authentication, email, password)
-        .then((response) => {
-          sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
-          history.push('/findgroups')
-        })
+      signInWithEmailAndPassword(authentication, email, password).then(
+        (response) => {
+          sessionStorage.setItem(
+            "Auth Token",
+            response._tokenResponse.refreshToken
+          );
+          axios
+            .get("/api/getUsername", { params: { email: email } })
+            .then((res) => {
+              // setUsername(res.data);
+              sessionStorage.setItem("username", res.data);
+              history.push("/findgroups");
+            });
+        }
+      );
     }
   };
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
       <Header2 />

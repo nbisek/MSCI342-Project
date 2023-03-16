@@ -13,25 +13,49 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
-app.post("/api/createGroup", (req, res) => {
-  let connection = mysql.createConnection(config);
-  let userID = req.body.userID;
+app.get("/api/getUsername", (req, res) => {
+  const email = req.query.email;
 
-  let sql = `SELECT * FROM user WHERE userID = ?`;
-  console.log(sql);
-  let data = [userID];
-  console.log(data);
+  if (!email) {
+    res.status(400).send("email missing");
+  } else {
+    // TODO: Hash password
+    let sql = `SELECT username FROM msci342_users WHERE email='${email}'`;
+    let connection = mysql.createConnection(config);
 
-  connection.query(sql, data, (error, results, fields) => {
-    if (error) {
-      return console.error(error.message);
-    }
+    connection.query(sql, (error, results, fields) => {
+      if (error) {
+        res.status(500).send("Something went wrong");
+        return console.error(error.message);
+      } else {
+        res.send(results[0].username);
+      }
+    });
 
-    let string = JSON.stringify(results);
-    //let obj = JSON.parse(string);
-    res.send({ express: string });
-  });
-  connection.end();
+    connection.end();
+  }
+});
+
+app.post("/api/creategroup", (req, res) => {
+  const { creator_user, group_name, description, categories } = req.body;
+
+  if (!creator_user || !group_name || !description || !categories) {
+    res.status(400).send("something missing");
+  } else {
+    // TODO: Hash password
+    let sql = `INSERT INTO msci342_groups (group_name, description, categories, creator_user, members) VALUES ("${group_name}","${description}", "${categories}", "${creator_user}", 1)`;
+    let connection = mysql.createConnection(config);
+
+    connection.query(sql, (error, results, fields) => {
+      if (error) {
+        res.status(500).send("Something went wrong");
+        return console.error(error.message);
+      } else {
+        res.send("success");
+      }
+    });
+    connection.end();
+  }
 });
 
 app.post("/api/loadUserSettings", (req, res) => {
