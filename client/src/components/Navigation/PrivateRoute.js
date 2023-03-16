@@ -8,6 +8,12 @@ import MyGroups from "../MyGroups/MyGroups";
 import Settings from "../Settings/Settings";
 import FindGroups from "../FindGroups";
 import CreateGroup from "../CreateGroup/CreateGroup";
+import { createContext, useContext, useState } from "react";
+
+export const UsernameContext = createContext({
+  username: "",
+  setUsername: () => {},
+});
 
 export default function PrivateRoute(
   {
@@ -15,17 +21,22 @@ export default function PrivateRoute(
     //...rest
   }
 ) {
+  const [username, setUsername] = useState("");
+  const value = { username, setUsername };
+
   return (
-    <Router history={history}>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/signup" exact component={SignUp} />
-        <Route path="/mygroups" exact component={MyGroups} />
-        <Route path="/settings" exact component={Settings} />
-        <Route path="/findgroups" component={FindGroups} />
-        <Route path="/creategroup" component={CreateGroup} />
-      </Switch>
-    </Router>
+    <UsernameContext.Provider value={value}>
+      <Router history={history}>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={SignUp} />
+          <Route path="/mygroups" exact component={MyGroups} />
+          <Route path="/settings" exact component={Settings} />
+          <Route path="/findgroups" component={FindGroups} />
+          <Route path="/creategroup" component={CreateGroup} />
+        </Switch>
+      </Router>
+    </UsernameContext.Provider>
   );
 }
