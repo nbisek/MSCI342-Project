@@ -3,10 +3,8 @@ import history from "../Navigation/history";
 import Header2 from "../Header/header2";
 import axios from "axios";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { UsernameContext } from "../Navigation/PrivateRoute";
 
 const Login = () => {
-  const { username, setUsername } = useContext(UsernameContext);
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -47,7 +45,8 @@ const Login = () => {
           axios
             .get("/api/getUsername", { params: { email: email } })
             .then((res) => {
-              setUsername(res.data);
+              // setUsername(res.data);
+              sessionStorage.setItem("username", res.data);
               history.push("/findgroups");
             });
         }

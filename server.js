@@ -43,7 +43,7 @@ app.post("/api/creategroup", (req, res) => {
     res.status(400).send("something missing");
   } else {
     // TODO: Hash password
-    let sql = `INSERT INTO msci342_groups (group_name, description, categories, creator_user) VALUES ('${group_name}','${description}', '${categories}', '${creator_user}')`;
+    let sql = `INSERT INTO msci342_groups (group_name, description, categories, creator_user, members) VALUES ("${group_name}","${description}", "${categories}", "${creator_user}", 1)`;
     let connection = mysql.createConnection(config);
 
     connection.query(sql, (error, results, fields) => {

@@ -2,11 +2,8 @@ import { React, useState, useContext } from "react";
 import history from "../Navigation/history";
 import axios from "axios";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { UsernameContext } from "../Navigation/PrivateRoute";
 
 const SignUp = ({ setAuth }) => {
-  const { username, setUsername } = useContext(UsernameContext);
-
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -63,7 +60,8 @@ const SignUp = ({ setAuth }) => {
                 "Auth Token",
                 response._tokenResponse.refreshToken
               );
-              setUsername(name);
+              // setUsername(name);
+              sessionStorage.setItem("username", name);
               history.push("/findgroups");
             });
           }

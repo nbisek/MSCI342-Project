@@ -4,18 +4,18 @@ import history from "../Navigation/history";
 import Header4 from "../Header/header4";
 import GroupCard from "../FindGroups/GroupCard";
 import { useState } from "react";
-import { UsernameContext } from "../Navigation/PrivateRoute";
+
 import axios from "axios";
 
 const CreateGroup = () => {
-  const { username, setUsername } = useContext(UsernameContext);
-
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
     if (!authToken) {
       history.push("/login");
     }
   }, []);
+
+  const username = sessionStorage.getItem("username");
 
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
@@ -27,7 +27,7 @@ const CreateGroup = () => {
       .post("/api/createGroup", {
         group_name: groupName,
         categories: category,
-        creator_user: "lola",
+        creator_user: username,
         description: description,
       })
       .then((res) => {
