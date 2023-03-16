@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Header3 from "../Header/header3";
-import GroupCard from "./GroupCard";
+import HeaderDefault from "../Header/HeaderDefault";
+import FindGroupCard from "./FindGroupCard";
 import history from "../Navigation/history";
 
 function FindGroups() {
@@ -12,14 +13,16 @@ function FindGroups() {
   }, []);
   const username = sessionStorage.getItem("username");
   console.log(username);
-
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
-      <Header3 />
+    <div
+      className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200 mb-10"
+      style={{ background: "#fbfbfa" }}
+    >
+      <HeaderDefault thisPage="findgroups" />
       <div className="mr-20 ml-20 flex flex-col">
         <h1 className="text-4xl font-semibold">Find Groups</h1>
         <div className="flex flex-row">
-          <div class="m-5 inline-block relative w-64">
+          <div class="m-5 mx-0 inline-block relative w-64">
             <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               <option selected disabled>
                 Filter by Interests
@@ -56,13 +59,31 @@ function FindGroups() {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap mt-5 justify-center">
-          <GroupCard />
-          <GroupCard />
-          <GroupCard />
-          <GroupCard />
-          <GroupCard />
-          <GroupCard />
+        <div className="flex flex-wrap mt-5 justify-start">
+          <FindGroupCard
+            title="Baking Club"
+            members="17"
+            categories="food, social"
+            description="People coming together to bake all sorts of things. No experience is needed and we will supply all baking supplies. Come bake with us :)"
+          />
+          <FindGroupCard
+            title="Baking Club"
+            members="17"
+            categories="food, social"
+            description="People coming together to bake all sorts of things. No experience is needed and we will supply all baking supplies. Come bake with us :)"
+          />
+          <FindGroupCard
+            title="Baking Club"
+            members="17"
+            categories="food, social"
+            description="People coming together to bake all sorts of things. No experience is needed and we will supply all baking supplies. Come bake with us :)"
+          />
+          <FindGroupCard
+            title="Baking Club"
+            members="17"
+            categories="food, social"
+            description="People coming together to bake all sorts of things. No experience is needed and we will supply all baking supplies. Come bake with us :)"
+          />
         </div>
       </div>
     </div>
