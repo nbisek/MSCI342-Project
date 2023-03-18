@@ -181,6 +181,51 @@ app.post("/api/checkIfLiked", (req, res) => {
   });
   connection.end();
 });
+app.post("/api/checkIfAuthor", (req, res) => {
+  const { postID, username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT COUNT(1) FROM posts WHERE postID = ${postID} AND username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send(results);
+  });
+  connection.end();
+});
+app.post("/api/deletePost", (req, res) => {
+  const { postID, username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE from posts WHERE postID = ${postID} AND username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+app.post("/api/deleteAllPostLikes", (req, res) => {
+  const { postID } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE from msci342_likes WHERE postID = ${postID};`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
 
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
