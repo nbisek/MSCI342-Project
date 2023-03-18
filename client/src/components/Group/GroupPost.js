@@ -1,5 +1,7 @@
 import React from "react";
 import dayjs from "dayjs";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function GroupPost(props) {
   const style = {
@@ -13,9 +15,41 @@ export default function GroupPost(props) {
 
   const d = dayjs(props.creationDate).format("MMMM D, YYYY");
   const [likedPost, setLikedPost] = React.useState(false);
+  const [numLikes, setNumLikes] = React.useState(0);
+
+  useEffect(() => {
+    //Call api to get the number of likes on this post
+    axios.post("/api/getPostLikes", { postID: props.postID }).then((res) => {
+      console.log("likes:", res.data);
+      setNumLikes(res.data.length);
+    });
+
+    //Call api to check if the user liked the post or not
+    axios
+      .post("/api/checkIfLiked", { postID: props.postID, username: "lola" })
+      .then((res) => {
+        console.log("if liked:", res.data[0]["COUNT(1)"]);
+        const ifLiked = res.data[0]["COUNT(1)"];
+        if (ifLiked) {
+          setLikedPost(true);
+        }
+      });
+  }, []);
 
   const handleLike = () => {
     setLikedPost(!likedPost);
+
+    //unliking a post
+    if (likedPost) {
+      setNumLikes(numLikes - 1);
+      //Call api to delete the like from the database
+      axios.post("/api/deleteLike", { postID: props.postID, username: "lola" });
+    } else {
+      //liking a post
+      setNumLikes(numLikes + 1);
+      //Call api to add a like to the database
+      axios.post("/api/addLike", { postID: props.postID, username: "lola" });
+    }
   };
 
   return (
@@ -33,16 +67,17 @@ export default function GroupPost(props) {
             src="./heart-empty(1).svg"
             alt="like buton"
             onClick={() => handleLike()}
-            className="cursor-pointer"
+            className="cursor-pointer inline"
           />
         ) : (
           <img
             src="./heart-full.svg"
             alt="like buton"
             onClick={() => handleLike()}
-            className="cursor-pointer"
+            className="cursor-pointer inline"
           />
         )}
+        <span className="ml-1 pt-1 align-middle ">{numLikes}</span>
       </div>
     </div>
   );
