@@ -5,6 +5,7 @@ import { groupID, groupContent } from "../MyGroups/MyGroupCard";
 import { useEffect } from "react";
 import history from "../Navigation/history";
 import GroupPost from "./GroupPost";
+import GroupEvent from "./GroupEvent";
 
 export default function Group(props) {
   useEffect(() => {
@@ -19,18 +20,26 @@ export default function Group(props) {
     }
 
     //Get all of the posts using the groupContent.groupID
-    getPosts();
+    // getPosts();
+    getEvents();
   }, []);
 
   const [group, setGroup] = React.useState({});
   const [posts, setPosts] = React.useState([]);
+  const [events, setEvents] = React.useState([]);
 
-  const getPosts = () => {
-    axios.post("/api/getGroupPosts", { groupID: groupID }).then((res) => {
-      console.log(res.data.data);
-      const data = JSON.parse(res.data.data);
-      console.log(data);
-      setPosts(data);
+  // const getPosts = () => {
+  //   axios.post("/api/getGroupPosts", { groupID: groupID }).then((res) => {
+  //     console.log(res.data.data);
+  //     const data = JSON.parse(res.data.data);
+  //     console.log(data);
+  //     setPosts(data);
+  //   });
+  // };
+
+  const getEvents = () => {
+    axios.post("/api/getGroupEvents", { groupID: groupID }).then((res) => {
+      setEvents(res.data);
     });
   };
 
@@ -58,6 +67,19 @@ export default function Group(props) {
                 description={post.description}
                 creationDate={post.creation_date}
               ></GroupPost>
+            );
+          })}
+          {events.map((event) => {
+            return (
+              <GroupEvent
+                title={event.title}
+                username={event.username}
+                eventID={event.eventID}
+                description={event.description}
+                creationDate={event.creation_date}
+                location={event.location}
+                eventDate={event.event_date}
+              ></GroupEvent>
             );
           })}
         </div>

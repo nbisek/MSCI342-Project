@@ -151,6 +151,39 @@ app.post("/api/addLike", (req, res) => {
   });
   connection.end();
 });
+
+app.post("/api/addRsvp", (req, res) => {
+  const { eventID, username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `INSERT INTO rsvp (eventID, username) VALUES (${eventID}, "${username}");`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+
+app.post("/api/deleteRsvp", (req, res) => {
+  const { eventID, username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE from rsvp WHERE eventID = ${eventID} AND username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+
 app.post("/api/deleteLike", (req, res) => {
   const { postID, username } = req.body;
   let connection = mysql.createConnection(config);
@@ -181,6 +214,55 @@ app.post("/api/checkIfLiked", (req, res) => {
   });
   connection.end();
 });
+
+app.post("/api/checkIfHost", (req, res) => {
+  const { eventID, username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT COUNT(1) FROM events WHERE eventID = ${eventID} AND username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send(results);
+  });
+  connection.end();
+});
+
+app.post("/api/getAttending", (req, res) => {
+  const { eventID } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT * FROM rsvp WHERE eventID = ${eventID};`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send(results);
+  });
+  connection.end();
+});
+
+app.post("/api/checkIfHostAttending", (req, res) => {
+  const { eventID, username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT COUNT(1) FROM rsvp WHERE eventID = ${eventID} AND username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send(results);
+  });
+  connection.end();
+});
+
 app.post("/api/checkIfAuthor", (req, res) => {
   const { postID, username } = req.body;
   let connection = mysql.createConnection(config);
@@ -196,6 +278,23 @@ app.post("/api/checkIfAuthor", (req, res) => {
   });
   connection.end();
 });
+
+app.post("/api/getGroupEvents", (req, res) => {
+  const { groupID } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT * FROM events WHERE groupID = ${groupID} ORDER BY event_date;`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send(results);
+  });
+  connection.end();
+});
+
 app.post("/api/deletePost", (req, res) => {
   const { postID, username } = req.body;
   let connection = mysql.createConnection(config);
@@ -211,6 +310,39 @@ app.post("/api/deletePost", (req, res) => {
   });
   connection.end();
 });
+
+app.post("/api/deleteEvent", (req, res) => {
+  const { eventID, username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE from events WHERE eventID = ${eventID} AND username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+
+app.post("/api/deleteAllRsvp", (req, res) => {
+  const { eventID } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE from rsvp WHERE eventID = ${eventID};`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+
 app.post("/api/deleteAllPostLikes", (req, res) => {
   const { postID } = req.body;
   let connection = mysql.createConnection(config);
