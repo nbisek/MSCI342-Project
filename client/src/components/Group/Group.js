@@ -19,16 +19,20 @@ export default function Group(props) {
     }
 
     //Get all of the posts using the groupContent.groupID
+    getPosts();
+  }, []);
+
+  const [group, setGroup] = React.useState({});
+  const [posts, setPosts] = React.useState([]);
+
+  const getPosts = () => {
     axios.post("/api/getGroupPosts", { groupID: groupID }).then((res) => {
       console.log(res.data.data);
       const data = JSON.parse(res.data.data);
       console.log(data);
       setPosts(data);
     });
-  }, []);
-
-  const [group, setGroup] = React.useState({});
-  const [posts, setPosts] = React.useState([]);
+  };
 
   return (
     <div
