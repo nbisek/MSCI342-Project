@@ -120,6 +120,38 @@ app.post("/api/getGroupPosts", (req, res) => {
   });
   connection.end();
 });
+
+app.post("/api/joinGroup", (req, res) => {
+  const { groupID, username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `INSERT INTO users_in_group (username, groupID) VALUES ("${username}", ${groupID});`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+app.post("/api/leaveGroup", (req, res) => {
+  const { groupID, username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE FROM users_in_group WHERE username= "${username}" AND groupID = ${groupID};`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+
 app.post("/api/getPostLikes", (req, res) => {
   const { postID } = req.body;
   let connection = mysql.createConnection(config);
@@ -355,6 +387,40 @@ app.post("/api/deleteAllPostLikes", (req, res) => {
       return console.error(error.message);
     }
     res.send({ message: "success" });
+  });
+  connection.end();
+});
+
+app.post("/api/getJoinedGroups", (req, res) => {
+  const { username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT msci342_groups.groupID, group_name, description, categories, members
+  FROM users_in_group, msci342_groups
+  WHERE msci342_groups.groupID = users_in_group.groupID
+  AND users_in_group.username = "${username}"`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send(results);
+  });
+  connection.end();
+});
+app.post("/api/getNotJoinedGroups", (req, res) => {
+  const { username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT * FROM msci342_groups WHERE groupID NOT IN (select groupID from users_in_group WHERE username = "${username}");`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send(results);
   });
   connection.end();
 });

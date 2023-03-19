@@ -33,7 +33,7 @@ export default function MyGroupsCard(props) {
       <p className="mt-1">
         {props.members} members | {props.categories}
       </p>
-      <p className="mt-4">{props.description}</p>
+      <p className="mt-6">{props.description}</p>
     </div>
   );
 }
