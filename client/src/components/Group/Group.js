@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import history from "../Navigation/history";
 import GroupPost from "./GroupPost";
 import GroupEvent from "./GroupEvent";
+import CreatePost from "../../CreatePost/CreatePost";
 
 export default function Group(props) {
   useEffect(() => {
@@ -16,7 +17,7 @@ export default function Group(props) {
     }
     setGroup(groupContent);
     if (groupID === -1) {
-      history.push("/findgroups");
+      history.push("/mygroups");
     }
 
     //Get all of the posts using the groupContent.groupID
@@ -113,6 +114,7 @@ export default function Group(props) {
             })}
         </div>
       </div>
+      <CreatePost />
     </div>
   );
 }

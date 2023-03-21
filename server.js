@@ -13,6 +13,29 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
+app.post("/api/createPost", (req, res) => {
+  const { username, groupID, creation_date, title, description } = req.body;
+
+  if (!username || !groupID || !creation_date || !title || !description) {
+    res.status(400).send("something missing");
+  } else {
+    // TODO: Hash password
+    let sql = `INSERT INTO posts (username, groupID, creation_date, title, description) VALUES ("${username}", "${groupID}", "${creation_date}", "${title}", "${description}")`;
+
+    let connection = mysql.createConnection(config);
+
+    connection.query(sql, (error, results, fields) => {
+      if (error) {
+        res.status(500).send("Something went wrong");
+        return console.error(error.message);
+      } else {
+        res.send("success");
+      }
+    });
+    connection.end();
+  }
+});
+
 app.get("/api/getUsername", (req, res) => {
   const email = req.query.email;
 
