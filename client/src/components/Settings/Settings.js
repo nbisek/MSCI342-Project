@@ -14,6 +14,8 @@ import { useEffect } from "react";
 import Modal from "@material-ui/core/Modal";
 import Box from "@material-ui/core/Box";
 import HeaderDefault from "../Header/HeaderDefault";
+import { getAuth, updatePassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import axios from 'axios';
 
 const theme = createTheme({
   palette: {
@@ -138,8 +140,9 @@ const Settings = (props) => {
   const [name, setName] = React.useState("Nadia Bisek");
   const [newName, setNewName] = React.useState("");
   const [email, setEmail] = React.useState("nbisek@uwaterloo.ca");
-  const [password, setPassword] = React.useState("secret123");
+  const [password, setPassword] = React.useState("");
   const [newPassword, setNewPassword] = React.useState("");
+  const [curPassword, setCurPassword] = React.useState("");
   const [passwordMatch, setPasswordMatch] = React.useState(true);
 
   const [displayModal, setDisplayModal] = React.useState(false);
@@ -159,13 +162,51 @@ const Settings = (props) => {
 
   const savePassword = () => {
     if (password === newPassword) {
-      setPassword(newPassword);
-      setNewPassword("");
+      const username = sessionStorage.getItem("username");
+      axios
+        .get("/api/getEmail", { params: { username: username } })
+        .then((res) => {
+          const email = res.data;
+          const auth = getAuth();
+          signInWithEmailAndPassword(auth, email, curPassword).then((response) => {
+            onAuthStateChanged(auth, (user) => {
+              if (user) {
+                updatePassword(user, password).then(() => {
+                  setModalTitle("Saved Successfully");
+                  setModalBody("Your password was changed.");
+                  setDisplayModal(true);
+                  setTimeout(hideModal, 4000);
+                }).catch((error) => {
+                  console.log(error)
+                  setModalTitle("Error");
+                  setModalBody(
+                    "There was an error! Your password could not be updated."
+                  );
+                  setDisplayModal(true);
+                  setTimeout(hideModal, 4000);
+                });
+              } else {
+                setModalTitle("Error");
+                setModalBody(
+                  "There was an error! Your password could not be updated."
+                );
+                setDisplayModal(true);
+                setTimeout(hideModal, 4000);
+              }
+            });
+          }).catch((error) => {
+            setModalTitle("Error");
+            setModalBody(
+              "The current password you entered is not correct. Please try again."
+            );
+            setDisplayModal(true);
+            setTimeout(hideModal, 4000);
+          })
+        });
 
-      setModalTitle("Saved Successfully");
-      setModalBody("Your password was changed.");
-      setDisplayModal(true);
-      setTimeout(hideModal, 4000);
+      setPassword("");
+      setNewPassword("");
+      setCurPassword("");
     } else {
       setModalTitle("Error");
       setModalBody(
@@ -249,10 +290,21 @@ const Settings = (props) => {
           }}
         >
           <span style={{ marginRight: "20px" }}>
-            <label className="text-sm block mt-4 mb-1">Password</label>
+            <label className="text-sm block mt-4 mb-1">Current Password</label>
+            <input
+              id="curPassword"
+              label="Current Password"
+              style={styles.input}
+              type="password"
+              value={curPassword}
+              onChange={(e) => setCurPassword(e.target.value)}
+            />
+          </span>
+          <span style={{ marginRight: "20px" }}>
+            <label className="text-sm block mt-4 mb-1">New Password</label>
             <input
               id="password"
-              label="Password"
+              label="New Password"
               style={styles.input}
               type="password"
               value={password}
@@ -260,10 +312,10 @@ const Settings = (props) => {
             />
           </span>
           <span>
-            <label className="text-sm block mt-4 mb-1">Retype Password</label>
+            <label className="text-sm block mt-4 mb-1">Retype New Password</label>
             <input
               id="newPassword"
-              label="Retype Password"
+              label="Retype New Password"
               style={styles.input}
               type="password"
               value={newPassword}

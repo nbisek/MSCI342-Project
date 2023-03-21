@@ -529,5 +529,28 @@ app.get("/api/getMyGroups", (req, res) => {
   connection.end();
 });
 
+app.get("/api/getEmail", (req, res) => {
+  const username = req.query.username;
+
+  if (!username) {
+    res.status(400).send("username missing");
+  } else {
+    // TODO: Hash password
+    let sql = `SELECT email FROM msci342_users WHERE username='${username}'`;
+    let connection = mysql.createConnection(config);
+
+    connection.query(sql, (error, results, fields) => {
+      if (error) {
+        res.status(500).send("Something went wrong");
+        return console.error(error.message);
+      } else {
+        res.send(results[0].email);
+      }
+    });
+
+    connection.end();
+  }
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`)); //for the dev version
 //app.listen(port, '129.97.25.211'); //for the deployed version, specify the IP address of the server
