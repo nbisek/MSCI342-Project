@@ -17,13 +17,15 @@ function FindGroups() {
     //   const data = JSON.parse(res.data.data);
     //   setGroups(data);
     // });
-    axios.post("/api/getJoinedGroups", { username: "lola" }).then((res) => {
+    axios.post("/api/getJoinedGroups", { username: username }).then((res) => {
       setJoinedGroups(res.data);
     });
-    axios.post("/api/getNotJoinedGroups", { username: "lola" }).then((res) => {
-      setNotJoinedGroups(res.data);
-      // console.log(res.data);
-    });
+    axios
+      .post("/api/getNotJoinedGroups", { username: username })
+      .then((res) => {
+        setNotJoinedGroups(res.data);
+        // console.log(res.data);
+      });
   }, []);
 
   // const [groups, setGroups] = React.useState([]);
