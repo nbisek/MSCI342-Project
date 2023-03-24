@@ -9,6 +9,7 @@ import MyGroupsCard from "./MyGroupCard";
 
 const MyGroups = () => {
   const [groups, setGroups] = React.useState([]);
+  const username = sessionStorage.getItem("username");
 
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
@@ -17,7 +18,7 @@ const MyGroups = () => {
       history.push("/login");
     }
 
-    axios.get("/api/getMyGroups").then((res) => {
+    axios.post("/api/getMyGroups", { username: username }).then((res) => {
       console.log(res.data.data);
       const data = JSON.parse(res.data.data);
       console.log(data);
