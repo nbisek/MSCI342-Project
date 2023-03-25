@@ -25,6 +25,7 @@ function FindGroups() {
       const joinedGroups = await axios.post("/api/getJoinedGroups", { username: username });
       groups.push(...joinedGroups.data.map(group => ({...group, joined:true})));
       setGroups(groups);
+      console.log(groups);
     }
     fetchData();
   }, []);
@@ -103,6 +104,7 @@ function FindGroups() {
                 categories={group.categories}
                 groupID={group.groupID}
                 joined={group.joined}
+                members={group.members}
               ></FindGroupCard>
             ))
           }
