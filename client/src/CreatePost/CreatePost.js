@@ -1,10 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import history from "../components/Navigation/history";
 
-import Header4 from "../components/Header/header4";
 import { useState } from "react";
 import { groupID } from "../components/MyGroups/MyGroupCard";
-import dayjs from "dayjs";
 import axios from "axios";
 
 const CreatePost = () => {
