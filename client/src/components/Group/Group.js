@@ -56,7 +56,6 @@ export default function Group(props) {
     } else {
       postsCopy.sort((a,b) => (a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1));
     }
-    console.log(postsCopy);
     setPosts(postsCopy);
   }
 
