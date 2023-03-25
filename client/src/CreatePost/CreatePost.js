@@ -19,8 +19,6 @@ const CreatePost = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const now = dayjs();
-  const date = now.format("YYYY-MM-DD");
 
   const onClick = (e) => {
     e.preventDefault();
@@ -29,7 +27,7 @@ const CreatePost = () => {
       .post("/api/createPost", {
         username: username,
         groupID: groupID,
-        creation_date: date,
+        creation_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
         title: title,
         description: description,
       })

@@ -36,7 +36,7 @@ function FindGroups() {
   const sortGroups = (e) => {
     const groupsCopy = groups.slice();
     if (e.target.value === "Name") {
-      groupsCopy.sort((a,b) => (a.group_name < b.group_name ? -1 : 1));
+      groupsCopy.sort((a,b) => (a.group_name.toLowerCase() < b.group_name.toLowerCase() ? -1 : 1));
     } else if (e.target.value === "Members") {
       groupsCopy.sort((a,b) => (a.members - b.members));
     } else {
