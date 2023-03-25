@@ -37,6 +37,8 @@ function FindGroups() {
     const groupsCopy = groups.slice();
     if (e.target.value === "Name") {
       groupsCopy.sort((a,b) => (a.group_name < b.group_name ? -1 : 1));
+    } else if (e.target.value === "Members") {
+      groupsCopy.sort((a,b) => (a.members - b.members));
     } else {
       groupsCopy.sort((a,b) => (a.joined - b.joined));
     }
@@ -79,6 +81,7 @@ function FindGroups() {
                 Sort By
               </option>
               <option>Name</option>
+              <option>Members</option>
               <option>Joined</option>
             </select>
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
