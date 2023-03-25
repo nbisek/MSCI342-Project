@@ -18,10 +18,13 @@ const MyGroups = () => {
       history.push("/login");
     }
 
+    console.log("HELLO")
+
     axios.post("/api/getMyGroups", { username: username }).then((res) => {
       console.log(res.data.data);
       const data = JSON.parse(res.data.data);
       console.log(data);
+      console.log("WTF")
       setGroups(data);
     });
   }, []);

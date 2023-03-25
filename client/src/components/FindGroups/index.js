@@ -3,6 +3,7 @@ import axios from "axios";
 import HeaderDefault from "../Header/HeaderDefault";
 import FindGroupCard from "./FindGroupCard";
 import history from "../Navigation/history";
+import interests from "../../constants/interests";
 
 function FindGroups() {
   useEffect(() => {
@@ -24,16 +25,17 @@ function FindGroups() {
       .post("/api/getNotJoinedGroups", { username: username })
       .then((res) => {
         setNotJoinedGroups(res.data);
-        // console.log(res.data);
+        console.log("BITCH")
+        console.log(res.data);
       });
   }, []);
 
   // const [groups, setGroups] = React.useState([]);
   const [joinedGroups, setJoinedGroups] = React.useState([]);
   const [notJoinedGroups, setNotJoinedGroups] = React.useState([]);
+  const [interest, setInterest] = React.useState("All");
 
   const username = sessionStorage.getItem("username");
-  console.log(username);
   return (
     <div
       className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200 mb-10"
@@ -44,12 +46,14 @@ function FindGroups() {
         <h1 className="text-4xl font-semibold">Find Groups</h1>
         <div className="flex flex-row">
           <div class="m-5 mx-0 inline-block relative w-64">
-            <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+            <select onChange={(e)=>setInterest(e.target.value)} class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               <option selected disabled>
                 Filter by Interests
               </option>
-              <option>Option 1</option>
-              <option>Option 2</option>
+              {interests.map(interest => (
+                <option key={interest}>{interest}</option>
+                ))
+              }
             </select>
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg
@@ -81,17 +85,20 @@ function FindGroups() {
           </div>
         </div>
         <div className="flex flex-wrap mt-5 justify-start">
-          {notJoinedGroups.map((group, index) => {
-            return (
+          {(interest !== "All" ?
+            notJoinedGroups.filter(group => group.categories.toLowerCase().includes(interest.toLowerCase()))
+            :
+            notJoinedGroups).map((group) => (
               <FindGroupCard
+                key={group.groupID}
                 title={group.group_name}
                 description={group.description}
                 categories={group.categories}
                 groupID={group.groupID}
                 joined={false}
               ></FindGroupCard>
-            );
-          })}
+            ))
+        }
           {joinedGroups.map((group, index) => {
             return (
               <FindGroupCard
