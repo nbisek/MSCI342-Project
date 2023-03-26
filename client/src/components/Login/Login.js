@@ -54,12 +54,16 @@ const Login = () => {
     }
   };
 
+  const forgotPassword = (e) => {
+    history.push("/forgotpassword")
+  }
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
       <Header2 />
       <div className="flex flex-col items-center justify-center ml-4">
         <div class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl">
-          <p className="text-center text-2xl font-bold mb-12"> Welcome Back </p>
+          <p className="text-center text-2xl font-bold mb-8"> Welcome Back </p>
           <div class="flex flex-wrap -mx-3 mb-4">
             <label
               class="block uppercase tracking-wide  text-xs font-bold mb-2"
@@ -109,6 +113,14 @@ const Login = () => {
             id="submit-button"
           >
             Log In
+          </button>
+
+          <button
+            class="bg-blue-1000 text-white font-bold py-2 my-3 px-4 w-full rounded"
+            id="forgot-password-button"
+            onClick={forgotPassword}
+          >
+            Forgot your password?
           </button>
         </div>
       </div>

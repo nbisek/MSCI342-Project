@@ -9,6 +9,7 @@ import Settings from "../Settings/Settings";
 import FindGroups from "../FindGroups";
 import CreateGroup from "../CreateGroup/CreateGroup";
 import Group from "../Group/Group";
+import ForgotPassword from "../ForgotPassword";
 
 export default function PrivateRoute(
   {
@@ -27,6 +28,7 @@ export default function PrivateRoute(
         <Route path="/settings" exact component={Settings} />
         <Route path="/findgroups" component={FindGroups} />
         <Route path="/creategroup" component={CreateGroup} />
+        <Route path="/forgotpassword" component={ForgotPassword} />
       </Switch>
     </Router>
   );

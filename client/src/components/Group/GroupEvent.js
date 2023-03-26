@@ -2,6 +2,7 @@ import React from "react";
 import dayjs from "dayjs";
 import axios from "axios";
 import { useEffect } from "react";
+import history from "../Navigation/history";
 
 export default function GroupEvent(props) {
   const style = {
@@ -38,6 +39,10 @@ export default function GroupEvent(props) {
   const username = sessionStorage.getItem("username");
 
   useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+    if (!authToken) {
+      history.push("/login");
+    }
     //Call api to check if the user is attending or not
     //Call api to see if the user is the host of the event
     checkIfHost();

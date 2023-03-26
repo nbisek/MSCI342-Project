@@ -37,6 +37,11 @@ export default function GroupPost(props) {
   const username = sessionStorage.getItem("username");
 
   useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+    if (!authToken) {
+      history.push("/login");
+    }
+
     //Call api to get the number of likes on this post
     getPostLikes();
 
