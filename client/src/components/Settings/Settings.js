@@ -12,6 +12,7 @@ import {
   updatePassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  deleteUser,
 } from "firebase/auth";
 
 const theme = createTheme({
@@ -245,7 +246,7 @@ const Settings = (props) => {
   const processDeleteAccount = () => {
     if (email === deleteAccount) {
       //delete account here
-      const usernameToDelete = "testingdelete";
+      const usernameToDelete = sessionStorage.getItem("username");
       //Delete the user fom all groups, delete their likes, delete their posts, and then delete all groups they created
       // axios
       //   .post("/api/deleteUserFromGroups", { username: usernameToDelete })
@@ -278,8 +279,18 @@ const Settings = (props) => {
                           username: usernameToDelete,
                         })
                         .then(() => {
-                          console.log("success");
-                          //MAKE IT SO YOU CANT LOG IN USING FIREBASE ANYMORE
+                          axios
+                            .post("/api/deleteUserFromTable", {
+                              username: usernameToDelete,
+                            })
+                            .then(() => {
+                              const auth = getAuth();
+                              const user = auth.currentUser;
+                              deleteUser(user).then(() => {
+                                sessionStorage.clear();
+                                console.log("success")
+                              });
+                            });
                         });
                     });
                 });
