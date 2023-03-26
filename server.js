@@ -47,9 +47,8 @@ app.get("/api/getUsername", (req, res) => {
     let connection = mysql.createConnection(config);
 
     connection.query(sql, (error, results, fields) => {
-      if (error) {
+      if (error || results.length == 0) {
         res.status(500).send("Something went wrong");
-        return console.error(error.message);
       } else {
         res.send(results[0].username);
       }
@@ -611,6 +610,22 @@ app.post("/api/deleteGroupAdmin", (req, res) => {
   let connection = mysql.createConnection(config);
 
   let sql = `UPDATE msci342_groups SET creator_user = "deleted" WHERE creator_user = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+
+app.post("/api/deleteUserFromTable", (req, res) => {
+  const { username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE FROM msci342_users WHERE username = "${username}";`;
   console.log(sql);
 
   connection.query(sql, (error, results, fields) => {
