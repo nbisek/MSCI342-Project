@@ -1,9 +1,20 @@
-import { React, useState, useContext } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import history from "../Navigation/history";
 import axios from "axios";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
+
+
 const SignUp = ({ setAuth }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+
+    if (authToken) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -71,9 +82,10 @@ const SignUp = ({ setAuth }) => {
 
   return (
     <>
+     {isLoggedIn ?   <div class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl"> <p className="text-center text-3xl font-bold mb-8"> Welcome </p> </div> :
       <div class="w-full max-w-lg bg-gray-400 p-12 shadow-2xl">
         <p className="text-center text-3xl font-bold mb-8"> Ready to Collab?</p>
-
+       
         <div class="flex flex-wrap -mx-3 mb-4">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
@@ -172,6 +184,7 @@ const SignUp = ({ setAuth }) => {
           </button>
         </div>
       </div>
+ }
     </>
   );
 };
