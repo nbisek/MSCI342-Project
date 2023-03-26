@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import history from "../Navigation/history";
 import GroupPost from "./GroupPost";
 import GroupEvent from "./GroupEvent";
-import CreatePost from "../../CreatePost/CreatePost";
+import CreatePost from "../CreatePost/CreatePost";
+import CreateEvent from "../CreateEvent/CreateEvent";
 
 export default function Group(props) {
   useEffect(() => {
@@ -114,7 +115,14 @@ export default function Group(props) {
             })}
         </div>
       </div>
-      <CreatePost />
+      {viewPosts ? (
+        <CreatePost />
+      ) : (
+        <div>
+          {" "}
+          <CreateEvent />{" "}
+        </div>
+      )}
     </div>
   );
 }

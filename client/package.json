@@ -26,7 +26,9 @@
     "react-scripts": "^5.0.1",
     "react-with-firebase-auth": "^1.0.3",
     "recompose": "^0.30.0",
+    "tailwind-datepicker-react": "^1.2.3",
     "ts-jest": "^29.0.5",
+    "tw-elements": "^1.0.0-beta1",
     "typeface-roboto": "^0.0.54",
     "uuid": "^8.3.2"
   },
