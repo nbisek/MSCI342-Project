@@ -34,8 +34,14 @@ export default function GroupPost(props) {
   const [displayConfirmation, setDisplayConfirmation] = React.useState(false);
   const [deleted, setDeleted] = React.useState(false);
   const postID = props.postID;
+  const username = sessionStorage.getItem("username");
 
   useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+    if (!authToken) {
+      history.push("/login");
+    }
+
     //Call api to get the number of likes on this post
     getPostLikes();
 
@@ -53,12 +59,12 @@ export default function GroupPost(props) {
     if (likedPost) {
       setNumLikes(numLikes - 1);
       //Call api to delete the like from the database
-      axios.post("/api/deleteLike", { postID: postID, username: "lola" });
+      axios.post("/api/deleteLike", { postID: postID, username: username });
     } else {
       //liking a post
       setNumLikes(numLikes + 1);
       //Call api to add a like to the database
-      axios.post("/api/addLike", { postID: postID, username: "lola" });
+      axios.post("/api/addLike", { postID: postID, username: username });
     }
   };
 
@@ -67,7 +73,7 @@ export default function GroupPost(props) {
     //Api call to delete the post
     axios.post("/api/deleteAllPostLikes", { postID: postID }).then((res) => {
       axios
-        .post("/api/deletePost", { postID: postID, username: "lola" })
+        .post("/api/deletePost", { postID: postID, username: username })
         .then((res) => {
           //show success message
           setDeleted(true);
@@ -84,7 +90,7 @@ export default function GroupPost(props) {
 
   const checkIfLiked = () => {
     axios
-      .post("/api/checkIfLiked", { postID: postID, username: "lola" })
+      .post("/api/checkIfLiked", { postID: postID, username: username })
       .then((res) => {
         // console.log("if liked:", res.data[0]["COUNT(1)"]);
         const ifLiked = res.data[0]["COUNT(1)"];
@@ -99,7 +105,7 @@ export default function GroupPost(props) {
 
   const checkIfAuthor = () => {
     axios
-      .post("/api/checkIfAuthor", { postID: postID, username: "lola" })
+      .post("/api/checkIfAuthor", { postID: postID, username: username })
       .then((res) => {
         const ifAuthor = res.data[0]["COUNT(1)"];
         if (ifAuthor) {

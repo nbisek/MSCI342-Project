@@ -509,13 +509,14 @@ app.get("/api/getGroupInfo", (req, res) => {
   connection.end();
 });
 
-app.get("/api/getMyGroups", (req, res) => {
+app.post("/api/getMyGroups", (req, res) => {
+  const { username } = req.body;
   let connection = mysql.createConnection(config);
 
   let sql = `SELECT msci342_groups.groupID, group_name, description, categories, members
   FROM users_in_group, msci342_groups
   WHERE msci342_groups.groupID = users_in_group.groupID
-  AND users_in_group.username = "lola"`;
+  AND users_in_group.username = "${username}"`;
   console.log(sql);
 
   connection.query(sql, (error, results, fields) => {
@@ -525,6 +526,98 @@ app.get("/api/getMyGroups", (req, res) => {
     let string = JSON.stringify(results);
     //let obj = JSON.parse(string);
     res.send({ data: string });
+  });
+  connection.end();
+});
+app.post("/api/getUserInfo", (req, res) => {
+  const { username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `SELECT * FROM msci342_users WHERE username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send(results);
+  });
+  connection.end();
+});
+app.post("/api/deleteUserFromGroups", (req, res) => {
+  const { username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE FROM users_in_group WHERE username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+app.post("/api/deleteUserLikes", (req, res) => {
+  const { username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE FROM msci342_likes WHERE username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+app.post("/api/deleteUserFromRsvp", (req, res) => {
+  const { username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE FROM rsvp WHERE username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+
+app.post("/api/deleteUsersPosts", (req, res) => {
+  const { username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `DELETE FROM posts WHERE username = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
+  });
+  connection.end();
+});
+
+app.post("/api/deleteGroupAdmin", (req, res) => {
+  const { username } = req.body;
+  let connection = mysql.createConnection(config);
+
+  let sql = `UPDATE msci342_groups SET creator_user = "deleted" WHERE creator_user = "${username}";`;
+  console.log(sql);
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send({ message: "success" });
   });
   connection.end();
 });

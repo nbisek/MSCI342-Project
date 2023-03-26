@@ -1,18 +1,11 @@
 import React from "react";
+import axios from "axios";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { FormControl, TextField, Button, CardContent } from "@material-ui/core";
 import { ThemeProvider, styled } from "@material-ui/core/styles";
 import { useState } from "react";
 import history from "../Navigation/history";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
-import Card from "@material-ui/core/Card";
 import { useEffect } from "react";
-import Modal from "@material-ui/core/Modal";
-import Box from "@material-ui/core/Box";
 import HeaderDefault from "../Header/HeaderDefault";
 import { getAuth, updatePassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios';
@@ -137,8 +130,8 @@ const MainGridContainer = styled(Grid)(({ theme }) => ({
 }));
 
 const Settings = (props) => {
-  const [name, setName] = React.useState("Nadia Bisek");
-  const [newName, setNewName] = React.useState("");
+  const [username, setUsername] = React.useState("");
+  const [newUsername, setNewUsername] = React.useState("");
   const [email, setEmail] = React.useState("nbisek@uwaterloo.ca");
   const [password, setPassword] = React.useState("");
   const [newPassword, setNewPassword] = React.useState("");
@@ -151,11 +144,31 @@ const Settings = (props) => {
 
   const [deleteAccount, setDeleteAccount] = React.useState("");
 
+  //Get the user's information from the database
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+    if (!authToken) {
+      history.push("/login");
+    }
+    const username = sessionStorage.getItem("username");
+
+    axios.post("/api/getUserInfo", { username: username }).then((res) => {
+      const userInfo = res.data[0];
+      console.log(userInfo);
+      setUsername(userInfo.username);
+      setNewUsername(userInfo.username);
+      setEmail(userInfo.email);
+    });
+  }, []);
+
   //Relpace this with code that saves the new username in the database
   const saveName = () => {
-    setName(newName);
+    setUsername(newUsername);
+
+    //CHANGE THE USERNAME IN THE DATABASE
+
     setModalTitle("Saved Successfully");
-    setModalBody("Your name was changed to " + name + ".");
+    setModalBody("Your name was changed to " + newUsername + ".");
     setDisplayModal(true);
     setTimeout(hideModal, 4000);
   };
@@ -224,6 +237,47 @@ const Settings = (props) => {
   const processDeleteAccount = () => {
     if (email === deleteAccount) {
       //delete account here
+      const usernameToDelete = "testingdelete";
+      //Delete the user fom all groups, delete their likes, delete their posts, and then delete all groups they created
+      // axios
+      //   .post("/api/deleteUserFromGroups", { username: usernameToDelete })
+      //   .post("/api/deleteUserLikes", { username: usernameToDelete })
+      //   .post("/api/deleteUserFromRsvp", { username: usernameToDelete })
+      //   .post("/api/deleteUsersPosts", { username: usernameToDelete })
+      //   .then((res) => {
+      //     if (res.data.message === "success") {
+      //       axios.post();
+      //     }
+      //   });
+      //Delete all instances of username in msci342_groups -> delete group or make a new user the admin? -> ask if delete groups or choose user from list to be new admin
+
+      axios
+        .post("/api/deleteUserFromGroups", { username: usernameToDelete })
+        .then(() => {
+          axios
+            .post("/api/deleteUserLikes", { username: usernameToDelete })
+            .then(() => {
+              axios
+                .post("/api/deleteUserFromRsvp", { username: usernameToDelete })
+                .then(() => {
+                  axios
+                    .post("/api/deleteUsersPosts", {
+                      username: usernameToDelete,
+                    })
+                    .then(() => {
+                      axios
+                        .post("/api/deleteGroupAdmin", {
+                          username: usernameToDelete,
+                        })
+                        .then(() => {
+                          console.log("success");
+                          //MAKE IT SO YOU CANT LOG IN USING FIREBASE ANYMORE
+                        });
+                    });
+                });
+            });
+        });
+
       history.push("/login");
     } else {
       setModalTitle("Error");
@@ -232,10 +286,6 @@ const Settings = (props) => {
       setTimeout(hideModal, 5000);
     }
   };
-
-  useEffect(() => {
-    setNewName(name);
-  }, []);
 
   const signOut = (e) => {
     sessionStorage.clear();
@@ -252,19 +302,23 @@ const Settings = (props) => {
         <h1 className="text-4xl font-semibold">Settings</h1>
         <h2 className="text-xl font-semibold mt-6">Personal Information</h2>
         <div style={styles.inputSection}>
-          <label className="text-sm block mt-4 mb-1">Name</label>
+          <label className="text-sm block mt-4 mb-1">Username</label>
           <input
             id="name"
             label="Name"
             style={styles.input}
             type="email"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
+            value={newUsername}
+            onChange={(e) => setNewUsername(e.target.value)}
+            disabled
           />
           <br />
-          <a style={theme.typography.a} onClick={() => saveName()}>
-            Save name
-          </a>
+          {/* <a style={theme.typography.a} onClick={() => saveName()}>
+            Save username
+          </a> */}
+          <label style={theme.typography.label}>
+            You cannot edit your username
+          </label>
         </div>
 
         <div style={styles.inputSection}>
@@ -301,6 +355,7 @@ const Settings = (props) => {
             />
           </span>
           <span style={{ marginRight: "20px" }}>
+
             <label className="text-sm block mt-4 mb-1">New Password</label>
             <input
               id="password"
