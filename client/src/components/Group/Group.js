@@ -109,6 +109,7 @@ export default function Group(props) {
                   location={event.location}
                   eventDate={event.event_date}
                   eventTime={event.event_time}
+                  eventID={event.eventID}
                 ></GroupEvent>
               );
             })}

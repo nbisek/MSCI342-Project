@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 export let groupID = -1;
 export let groupContent = {};
+const username = sessionStorage.getItem("username");
 
 function FindGroupCard(props) {
   const [inGroup, setInGroup] = React.useState(false);
@@ -15,7 +16,7 @@ function FindGroupCard(props) {
 
   const joinGroup = () => {
     axios
-      .post("/api/joinGroup", { username: "lola", groupID: props.groupID })
+      .post("/api/joinGroup", { username: username, groupID: props.groupID })
       .then((res) => {
         if (res.data.message === "success") {
           setInGroup(true);
@@ -25,7 +26,7 @@ function FindGroupCard(props) {
 
   const leaveGroup = () => {
     axios
-      .post("/api/leaveGroup", { username: "lola", groupID: props.groupID })
+      .post("/api/leaveGroup", { username: username, groupID: props.groupID })
       .then((res) => {
         if (res.data.message === "success") {
           setInGroup(false);

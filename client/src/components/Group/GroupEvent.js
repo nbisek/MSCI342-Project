@@ -26,7 +26,7 @@ export default function GroupEvent(props) {
   };
 
   const d = dayjs(props.eventDate).format("MMMM D, YYYY");
-  const time = props.eventTime.slice(0, -3)
+  const time = props.eventTime.slice(0, -3);
   const [attending, setAttending] = React.useState([]);
   const [isHost, setIsHost] = React.useState(false);
   const [displayModal, setDisplayModal] = React.useState(false);
@@ -35,6 +35,7 @@ export default function GroupEvent(props) {
   const eventID = props.eventID;
   const [isAttending, setIsAttending] = React.useState(false);
   const [numAttending, setNumAttending] = React.useState(0);
+  const username = sessionStorage.getItem("username");
 
   useEffect(() => {
     //Call api to check if the user is attending or not
@@ -50,7 +51,7 @@ export default function GroupEvent(props) {
     //Api call to delete the post
     axios.post("/api/deleteAllRsvp", { eventID: eventID }).then((res) => {
       axios
-        .post("/api/deleteEvent", { eventID: eventID, username: "lola" })
+        .post("/api/deleteEvent", { eventID: eventID, username: username })
         .then(() => {
           //show as deleted
           setDeleted(true);
@@ -70,7 +71,7 @@ export default function GroupEvent(props) {
   const checkIfHost = () => {
     console.log("ran 2");
     axios
-      .post("/api/checkIfHost", { eventID: eventID, username: "lola" })
+      .post("/api/checkIfHost", { eventID: eventID, username: username })
       .then((res) => {
         const ifHost = res.data[0]["COUNT(1)"];
         if (ifHost) {
@@ -84,7 +85,10 @@ export default function GroupEvent(props) {
 
   const checkIfHostAttending = () => {
     axios
-      .post("/api/checkIfHostAttending", { eventID: eventID, username: "lola" })
+      .post("/api/checkIfHostAttending", {
+        eventID: eventID,
+        username: username,
+      })
       .then((res) => {
         const ifHost = res.data[0]["COUNT(1)"];
         if (ifHost) {
@@ -104,14 +108,14 @@ export default function GroupEvent(props) {
       //Add rsvp to database
       axios.post("/api/addRsvp", {
         eventID: eventID,
-        username: "lola",
+        username: username,
       });
     } else {
       //You are not attending
       setNumAttending(numAttending - 1);
       axios.post("/api/deleteRsvp", {
         eventID: eventID,
-        username: "lola",
+        username: username,
       });
     }
   };
