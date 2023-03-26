@@ -27,7 +27,7 @@ export default function GroupEvent(props) {
   };
 
   const d = dayjs(props.eventDate).format("MMMM D, YYYY");
-  const time = dayjs(props.eventDate).format("h:mm A");
+  const time = props.eventTime.slice(0, -3);
   const [attending, setAttending] = React.useState([]);
   const [isHost, setIsHost] = React.useState(false);
   const [displayModal, setDisplayModal] = React.useState(false);
