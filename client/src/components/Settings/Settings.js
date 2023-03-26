@@ -7,8 +7,12 @@ import { useState } from "react";
 import history from "../Navigation/history";
 import { useEffect } from "react";
 import HeaderDefault from "../Header/HeaderDefault";
-import { getAuth, updatePassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import axios from 'axios';
+import {
+  getAuth,
+  updatePassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const theme = createTheme({
   palette: {
@@ -181,40 +185,44 @@ const Settings = (props) => {
         .then((res) => {
           const email = res.data;
           const auth = getAuth();
-          signInWithEmailAndPassword(auth, email, curPassword).then((response) => {
-            onAuthStateChanged(auth, (user) => {
-              if (user) {
-                updatePassword(user, password).then(() => {
-                  setModalTitle("Saved Successfully");
-                  setModalBody("Your password was changed.");
-                  setDisplayModal(true);
-                  setTimeout(hideModal, 4000);
-                }).catch((error) => {
-                  console.log(error)
+          signInWithEmailAndPassword(auth, email, curPassword)
+            .then((response) => {
+              onAuthStateChanged(auth, (user) => {
+                if (user) {
+                  updatePassword(user, password)
+                    .then(() => {
+                      setModalTitle("Saved Successfully");
+                      setModalBody("Your password was changed.");
+                      setDisplayModal(true);
+                      setTimeout(hideModal, 4000);
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                      setModalTitle("Error");
+                      setModalBody(
+                        "There was an error! Your password could not be updated."
+                      );
+                      setDisplayModal(true);
+                      setTimeout(hideModal, 4000);
+                    });
+                } else {
                   setModalTitle("Error");
                   setModalBody(
                     "There was an error! Your password could not be updated."
                   );
                   setDisplayModal(true);
                   setTimeout(hideModal, 4000);
-                });
-              } else {
-                setModalTitle("Error");
-                setModalBody(
-                  "There was an error! Your password could not be updated."
-                );
-                setDisplayModal(true);
-                setTimeout(hideModal, 4000);
-              }
+                }
+              });
+            })
+            .catch((error) => {
+              setModalTitle("Error");
+              setModalBody(
+                "The current password you entered is not correct. Please try again."
+              );
+              setDisplayModal(true);
+              setTimeout(hideModal, 4000);
             });
-          }).catch((error) => {
-            setModalTitle("Error");
-            setModalBody(
-              "The current password you entered is not correct. Please try again."
-            );
-            setDisplayModal(true);
-            setTimeout(hideModal, 4000);
-          })
         });
 
       setPassword("");
@@ -355,7 +363,6 @@ const Settings = (props) => {
             />
           </span>
           <span style={{ marginRight: "20px" }}>
-
             <label className="text-sm block mt-4 mb-1">New Password</label>
             <input
               id="password"
@@ -367,7 +374,9 @@ const Settings = (props) => {
             />
           </span>
           <span>
-            <label className="text-sm block mt-4 mb-1">Retype New Password</label>
+            <label className="text-sm block mt-4 mb-1">
+              Retype New Password
+            </label>
             <input
               id="newPassword"
               label="Retype New Password"
