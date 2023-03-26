@@ -4,6 +4,7 @@ import history from "../Navigation/history";
 import Header4 from "../Header/header4";
 import FindGroupCard from "../FindGroups/FindGroupCard";
 import { useState } from "react";
+import interests from "../../constants/interests";
 
 import axios from "axios";
 
@@ -19,14 +20,15 @@ const CreateGroup = () => {
 
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("EngSoc");
+  const [categories, setCategories] = useState({});
 
   const onClick = (e) => {
     e.preventDefault();
+    console.log(Object.keys(categories).join(", "))
     axios
       .post("/api/createGroup", {
         group_name: groupName,
-        categories: category,
+        categories: Object.keys(categories).join(", "),
         creator_user: username,
         description: description,
       })
@@ -34,6 +36,17 @@ const CreateGroup = () => {
         console.log(res);
       });
   };
+
+  const toggleCategory = (category) => {
+    const newCategories = ({}, categories)
+    if (newCategories[category]) {
+      delete newCategories[category];
+    } else {
+      newCategories[category] = 1;
+    }
+
+    setCategories(newCategories);
+  }
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
@@ -78,18 +91,15 @@ const CreateGroup = () => {
                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 for="grid-state"
               >
-                Category
+                Categories
               </label>
-              <div class="relative">
-                <select
-                  class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-state"
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option>EngSoc</option>
-                  <option>MathSoc</option>
-                  <option>UW Blueprint</option>
-                </select>
+              <div class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" style={{maxHeight:"250px", overflowY:"scroll"}}>
+                {interests.filter(interest => (interest !== "All")).map((interest, idx) => (
+                    <div key={interest}>
+                      <input type="checkbox" name={`check-${idx}`} value={interest} id={`check-${idx}`} onClick={(e)=>toggleCategory(e.target.value)}/>
+                      <label for={`check-${idx}`}>{" "}{interest}</label>
+                    </div>
+                ))}
               </div>
             </div>
           </div>
