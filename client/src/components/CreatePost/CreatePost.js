@@ -1,8 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import history from "../components/Navigation/history";
+import history from "../Navigation/history";
 
+import Header4 from "../Header/header4";
 import { useState } from "react";
-import { groupID } from "../components/MyGroups/MyGroupCard";
+import { groupID } from "../MyGroups/MyGroupCard";
+import dayjs from "dayjs";
 import axios from "axios";
 
 const CreatePost = () => {
@@ -17,6 +19,8 @@ const CreatePost = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const now = dayjs();
+  const date = now.format("YYYY-MM-DD");
 
   const onClick = (e) => {
     e.preventDefault();
@@ -25,7 +29,7 @@ const CreatePost = () => {
       .post("/api/createPost", {
         username: username,
         groupID: groupID,
-        creation_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        creation_date: date,
         title: title,
         description: description,
       })

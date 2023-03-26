@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import history from "../Navigation/history";
 import GroupPost from "./GroupPost";
 import GroupEvent from "./GroupEvent";
-import CreatePost from "../../CreatePost/CreatePost";
+import CreatePost from "../CreatePost/CreatePost";
+import CreateEvent from "../CreateEvent/CreateEvent";
 
 export default function Group(props) {
   useEffect(() => {
@@ -138,17 +139,24 @@ export default function Group(props) {
                 <GroupEvent
                   title={event.title}
                   username={event.username}
-                  eventID={event.eventID}
                   description={event.description}
-                  creationDate={event.creation_date}
                   location={event.location}
                   eventDate={event.event_date}
+                  eventTime={event.event_time}
+                  eventID={event.eventID}
                 ></GroupEvent>
               );
             })}
         </div>
       </div>
-      <CreatePost />
+      {viewPosts ? (
+        <CreatePost />
+      ) : (
+        <div>
+          {" "}
+          <CreateEvent />{" "}
+        </div>
+      )}
     </div>
   );
 }

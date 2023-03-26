@@ -36,6 +36,46 @@ app.post("/api/createPost", (req, res) => {
   }
 });
 
+app.post("/api/createEvent", (req, res) => {
+  console.log("hi");
+  const {
+    username,
+    groupID,
+    title,
+    description,
+    location,
+    event_date,
+    event_time,
+  } = req.body;
+
+  if (
+    !username ||
+    !groupID ||
+    !title ||
+    !description ||
+    !location ||
+    !event_date ||
+    !event_time
+  ) {
+    res.status(400).send("something missing");
+  } else {
+    // TODO: Hash password
+    let sql = `INSERT INTO events (username, groupID, title, description, location, event_date, event_time) VALUES ("${username}", "${groupID}", "${title}", "${description}", "${location}", "${event_date}", "${event_time}")`;
+
+    let connection = mysql.createConnection(config);
+
+    connection.query(sql, (error, results, fields) => {
+      if (error) {
+        res.status(500).send("Something went wrong");
+        return console.error(error.message);
+      } else {
+        res.send("success");
+      }
+    });
+    connection.end();
+  }
+});
+
 app.get("/api/getUsername", (req, res) => {
   const email = req.query.email;
 
