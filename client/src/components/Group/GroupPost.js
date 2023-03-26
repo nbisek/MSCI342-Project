@@ -127,6 +127,7 @@ export default function GroupPost(props) {
           <span className="font-semibold text-base">{d}</span>
         </p>
         <p className="mt-5">{props.description}</p>
+        {props.imageUrl != "" ? <img src={props.imageUrl} className="mt-4" /> : <></>}
         <div className=" flex flex-wrap justify-between mt-5 align-bottom">
           <div>
             {!likedPost ? (

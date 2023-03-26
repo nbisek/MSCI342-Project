@@ -130,6 +130,7 @@ export default function Group(props) {
                   postID={post.postID}
                   description={post.description}
                   creationDate={post.creation_date}
+                  imageUrl={post.imageUrl}
                 ></GroupPost>
               );
             })}

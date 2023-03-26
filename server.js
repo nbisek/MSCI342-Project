@@ -5,6 +5,14 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 
+const multer = require("multer");
+const {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} = require("firebase/storage");
+const storage = require("./firebase");
+
 const { response } = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -13,14 +21,29 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
+// multer
+const memoStorage = multer.memoryStorage();
+const upload = multer({ memoStorage });
+
+app.post("/api/uploadPic", upload.single("pic"), async (req, res) => {
+  const file = req.file;
+  const imageRef = ref(storage, file.originalname);
+  const metatype = { contentType: file.mimetype, name: file.originalname };
+  await uploadBytes(imageRef, file.buffer, metatype)
+    .then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((imageUrl) => {
+        res.send(imageUrl)
+      })
+    })
+})
+
 app.post("/api/createPost", (req, res) => {
-  const { username, groupID, creation_date, title, description } = req.body;
+  const { username, groupID, creation_date, title, description, imageUrl } = req.body;
 
   if (!username || !groupID || !creation_date || !title || !description) {
     res.status(400).send("something missing");
   } else {
-    // TODO: Hash password
-    let sql = `INSERT INTO posts (username, groupID, creation_date, title, description) VALUES ("${username}", "${groupID}", "${creation_date}", "${title}", "${description}")`;
+    let sql = `INSERT INTO posts (username, groupID, creation_date, title, description, imageUrl) VALUES ("${username}", "${groupID}", "${creation_date}", "${title}", "${description}", "${imageUrl}")`;
 
     let connection = mysql.createConnection(config);
 
