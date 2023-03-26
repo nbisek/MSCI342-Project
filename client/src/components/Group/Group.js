@@ -105,11 +105,10 @@ export default function Group(props) {
                 <GroupEvent
                   title={event.title}
                   username={event.username}
-                  eventID={event.eventID}
                   description={event.description}
-                  creationDate={event.creation_date}
                   location={event.location}
                   eventDate={event.event_date}
+                  eventTime={event.event_time}
                 ></GroupEvent>
               );
             })}

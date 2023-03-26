@@ -18,6 +18,7 @@
     "postcss": "^8.4.21",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-datetime-picker": "^4.2.0",
     "react-dom": "^16.8.6",
     "react-gsap": "^1.2.0",
     "react-hot-loader": "^4.12.19",
