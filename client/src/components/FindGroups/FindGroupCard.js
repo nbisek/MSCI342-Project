@@ -66,7 +66,7 @@ function FindGroupCard(props) {
       <div className="p-8 pb-6">
         <h2 className="text-xl font-semibold">{props.title}</h2>
         <p className="mt-1">
-          {props.members} members | {props.categories}
+          {`${props.members || 0} members`} | {props.categories}
         </p>
       </div>
       <div className="p-8 pt-0 h-full flex flex-col space-between">
