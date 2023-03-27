@@ -6,11 +6,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 const multer = require("multer");
-const {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} = require("firebase/storage");
+const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
 const storage = require("./firebase");
 
 const { response } = require("express");
@@ -29,16 +25,16 @@ app.post("/api/uploadPic", upload.single("pic"), async (req, res) => {
   const file = req.file;
   const imageRef = ref(storage, file.originalname);
   const metatype = { contentType: file.mimetype, name: file.originalname };
-  await uploadBytes(imageRef, file.buffer, metatype)
-    .then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((imageUrl) => {
-        res.send(imageUrl)
-      })
-    })
-})
+  await uploadBytes(imageRef, file.buffer, metatype).then((snapshot) => {
+    getDownloadURL(snapshot.ref).then((imageUrl) => {
+      res.send(imageUrl);
+    });
+  });
+});
 
 app.post("/api/createPost", (req, res) => {
-  const { username, groupID, creation_date, title, description, imageUrl } = req.body;
+  const { username, groupID, creation_date, title, description, imageUrl } =
+    req.body;
 
   if (!username || !groupID || !creation_date || !title || !description) {
     res.status(400).send("something missing");
@@ -61,14 +57,8 @@ app.post("/api/createPost", (req, res) => {
 
 app.post("/api/createEvent", (req, res) => {
   console.log("hi");
-  const {
-    username,
-    groupID,
-    title,
-    description,
-    location,
-    event_date,
-  } = req.body;
+  const { username, groupID, title, description, location, event_date } =
+    req.body;
 
   if (
     !username ||
@@ -480,7 +470,7 @@ app.post("/api/getJoinedGroups", (req, res) => {
   const { username } = req.body;
   let connection = mysql.createConnection(config);
 
-  let sql = `SELECT msci342_groups.groupID, group_name, description, categories, members
+  let sql = `SELECT *
   FROM users_in_group, msci342_groups
   WHERE msci342_groups.groupID = users_in_group.groupID
   AND users_in_group.username = "${username}"`;
@@ -575,7 +565,7 @@ app.post("/api/getMyGroups", (req, res) => {
   const { username } = req.body;
   let connection = mysql.createConnection(config);
 
-  let sql = `SELECT msci342_groups.groupID, group_name, description, categories, members
+  let sql = `SELECT *
   FROM users_in_group, msci342_groups
   WHERE msci342_groups.groupID = users_in_group.groupID
   AND users_in_group.username = "${username}"`;
