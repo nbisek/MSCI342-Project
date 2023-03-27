@@ -1,10 +1,17 @@
-import { React, useState, useContext } from "react";
+import { React, useState, useEffect } from "react";
 import history from "../Navigation/history";
 import Header2 from "../Header/header2";
 import axios from "axios";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+    if (authToken) {
+      history.push("/mygroups");
+    }
+  }, []);
+
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -50,7 +57,9 @@ const Login = () => {
               history.push("/findgroups");
             });
         }
-      );
+      ).catch((e) => {
+        setIncorrectPassword(true);
+      });
     }
   };
 
@@ -84,6 +93,9 @@ const Login = () => {
               value={email}
               onChange={(e) => onChange(e)}
             />
+            {
+              incorrectEmail ? <p class="text-red-700 text-s italic">Invalid email!</p> : <></>
+            }
           </div>
           <div class="flex flex-wrap -mx-3 mb-4">
             <label
@@ -105,6 +117,9 @@ const Login = () => {
               value={password}
               onChange={(e) => onChange(e)}
             />
+            {
+              incorrectPassword ? <p class="text-red-700 text-s italic">Password incorrect!</p> : <></>
+            }
           </div>
 
           <button
