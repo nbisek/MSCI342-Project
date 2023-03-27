@@ -418,7 +418,7 @@ app.post("/api/getJoinedGroups", (req, res) => {
   const { username } = req.body;
   let connection = mysql.createConnection(config);
 
-  let sql = `SELECT msci342_groups.groupID, group_name, description, categories, members
+  let sql = `SELECT *
   FROM users_in_group, msci342_groups
   WHERE msci342_groups.groupID = users_in_group.groupID
   AND users_in_group.username = "${username}"`;
@@ -513,7 +513,7 @@ app.post("/api/getMyGroups", (req, res) => {
   const { username } = req.body;
   let connection = mysql.createConnection(config);
 
-  let sql = `SELECT msci342_groups.groupID, group_name, description, categories, members
+  let sql = `SELECT *
   FROM users_in_group, msci342_groups
   WHERE msci342_groups.groupID = users_in_group.groupID
   AND users_in_group.username = "${username}"`;

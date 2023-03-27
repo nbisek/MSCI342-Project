@@ -9,9 +9,9 @@ export default function GroupPost(props) {
     width: "45%",
     minHeight: "200px",
     minWidth: "300px",
-    boxShadow: "rgba(236, 236, 236, 0.44) 0px 0px 15px",
-    border: "1px solid #f8f4ef",
-    background: "#fff",
+    // boxShadow: "rgb(235, 235, 235) 0px 0px 10px",
+    // border: `3px solid ${props.colour}`,
+    background: `${props.colour}25`,
   };
 
   const modalStyle = {

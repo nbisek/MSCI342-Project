@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import history from "../Navigation/history";
+import { paletteList } from "../../color-palette";
 
 export let groupID = -1;
 export let groupContent = {};
@@ -12,6 +13,9 @@ function FindGroupCard(props) {
   const username = sessionStorage.getItem("username");
   const [displayConfirmation, setDisplayConfirmation] = React.useState(false);
   const [areYouSure, setAreYouSUre] = React.useState(false);
+  const randomColor =
+    paletteList[Math.floor(Math.random() * paletteList.length - 1)];
+
   const modalStyle = {
     position: "absolute",
     top: "50%",
@@ -55,34 +59,32 @@ function FindGroupCard(props) {
   };
 
   return (
-    <div
-      className="flex flex-col w-1/4 mr-10 my-4 cursor-pointer"
-      style={{
-        boxShadow: "rgba(236, 236, 236, 0.44) 0px 0px 15px",
-        border: "1px solid #f8f4ef",
-        background: "#fff",
-      }}
-    >
-      <div className="p-8 pb-6">
+    <div className="flex flex-col w-1/4 mr-10 my-4 rounded-md overflow-hidden">
+      <div className="p-5" style={{ background: props.colour }}>
         <h2 className="text-xl font-semibold">{props.title}</h2>
         <p className="mt-1">
           {`${props.members || 0} members`} | {props.categories}
         </p>
       </div>
-      <div className="p-8 pt-0 h-full flex flex-col space-between">
+      <div
+        className="p-5 h-full flex flex-col space-between"
+        style={{ background: `${props.colour}30` }}
+      >
         <p className="mt-0 mb-6">{props.description}</p>
 
         {!inGroup && (
           <button
-            className="px-4 py-2 bg-amber-300 mt-auto w-40 rounded"
+            className="px-4 py-2 text-black bg-amber-200 mt-auto w-40 rounded"
             onClick={() => joinGroup()}
+            // style={{ background: `${randomColor}80` }}
           >
             Join group
           </button>
         )}
         {inGroup && (
           <button
-            className="px-4 py-2 bg-slate-200 mt-auto w-40 rounded"
+            // className="underline mt-auto font-semibold text-left"
+            className="px-4 py-2 bg-slate-300 mt-auto w-40 rounded"
             onClick={() => setAreYouSUre(true)}
           >
             Leave group

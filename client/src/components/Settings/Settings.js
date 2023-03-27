@@ -303,7 +303,7 @@ const Settings = (props) => {
   return (
     <div
       className="flex flex-col min-h-screen overflow-hidden"
-      style={{ background: "#fbfbfa" }}
+      style={{ background: "#ffffff" }}
     >
       <HeaderDefault thisPage="settings" />
       <div className="mr-20 ml-20 flex flex-col">
