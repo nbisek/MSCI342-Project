@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../Header/header";
 import SignUp from "../SignUp";
+import history from "../Navigation/history";
 
 function Home() {
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+    if (authToken) {
+      history.push("/mygroups");
+    }
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
       <Header />
