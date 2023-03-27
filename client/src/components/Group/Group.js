@@ -163,6 +163,7 @@ export default function Group(props) {
               <button
                 className="py-2 px-4 bg-amber-300 rounded"
                 onClick={() => setOpenPostModal(true)}
+                id="create-post"
               >
                 Create Post
               </button>
@@ -209,15 +210,6 @@ export default function Group(props) {
             })}
         </div>
       </div>
-      {/* {viewPosts ? (
-        <CreatePost getPosts={getPosts} />
-      ) : (
-        <div>
-          {openModal && (
-            <CreateEvent getEvents={getEvents} setOpenModal={setOpenModal} />
-          )}
-        </div>
-      )} */}
       {openPostModal && (
         <CreatePost getPosts={getPosts} setOpenModal={setOpenPostModal} />
       )}

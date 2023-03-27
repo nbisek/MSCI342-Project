@@ -28,6 +28,7 @@ export default function MyGroupsCard(props) {
         background: "#fff",
       }}
       onClick={() => openGroupPage()}
+      id={props.id}
     >
       <h2 className="text-xl font-medium">{props.title}</h2>
       <p className="mt-1">

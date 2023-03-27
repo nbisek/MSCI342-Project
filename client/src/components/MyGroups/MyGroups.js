@@ -112,6 +112,7 @@ const MyGroups = () => {
               categories={group.categories}
               description={group.description}
               groupID={group.groupID}
+              id={`group${group.groupID}`}
             ></MyGroupsCard>
           ))}
         </div>

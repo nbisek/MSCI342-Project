@@ -417,6 +417,7 @@ const Settings = (props) => {
             style={styles.signOut}
             onClick={() => signOut()}
             className="mt-4 block"
+            id="sign-out"
           >
             Sign Out
           </button>
