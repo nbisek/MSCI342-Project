@@ -185,7 +185,8 @@ app.post("/api/joinGroup", (req, res) => {
   const { groupID, username } = req.body;
   let connection = mysql.createConnection(config);
 
-  let sql = `INSERT INTO users_in_group (username, groupID) VALUES ("${username}", ${groupID});`;
+  let sql = `INSERT INTO users_in_group (username, groupID) VALUES ("${username}", ${groupID});
+  UPDATE msci342_groups SET members = members + 1 WHERE groupID = ${groupID};`;
   console.log(sql);
 
   connection.query(sql, (error, results, fields) => {
@@ -200,7 +201,8 @@ app.post("/api/leaveGroup", (req, res) => {
   const { groupID, username } = req.body;
   let connection = mysql.createConnection(config);
 
-  let sql = `DELETE FROM users_in_group WHERE username= "${username}" AND groupID = ${groupID};`;
+  let sql = `DELETE FROM users_in_group WHERE username= "${username}" AND groupID = ${groupID};
+  UPDATE msci342_groups SET members = members - 1 WHERE groupID = ${groupID};`;
   console.log(sql);
 
   connection.query(sql, (error, results, fields) => {

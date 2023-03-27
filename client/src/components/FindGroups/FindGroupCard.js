@@ -40,6 +40,18 @@ function FindGroupCard(props) {
         if (res.data.message === "success") {
           setInGroup(true);
           setDisplayConfirmation(true);
+          const {groups, group, setGroups} = props;
+          const groupsCopy = [];
+          group.members = group.members + 1;
+          for (let i = 0; i < groups.length; ++i) {
+            if (groups[i].groupID != group.groupID) {
+              groupsCopy.push(groups[i]);
+            } else {
+              groupsCopy.push(group)
+            }
+          }
+
+          setGroups(groupsCopy);
         }
       });
   };
@@ -50,6 +62,18 @@ function FindGroupCard(props) {
       .then((res) => {
         if (res.data.message === "success") {
           setInGroup(false);
+          const {groups, group, setGroups} = props;
+          const groupsCopy = [];
+          group.members = group.members - 1;
+          for (let i = 0; i < groups.length; ++i) {
+            if (groups[i].groupID != group.groupID) {
+              groupsCopy.push(groups[i]);
+            } else {
+              groupsCopy.push(group)
+            }
+          }
+
+          setGroups(groupsCopy);
         }
       });
   };
