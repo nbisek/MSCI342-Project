@@ -19,21 +19,21 @@ const CreatePost = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
-  const now = dayjs();
-  const date = now.format("YYYY-MM-DD");
+  const now = new Date();
+  const date = Math.floor(now.getTime() / 1000);
 
   const handleFileChange = (event) => {
     setImage(event.target.files[0]);
-  }
+  };
 
   const onClick = (e) => {
     e.preventDefault();
     if (image != null) {
       const data = new FormData();
-      data.append('pic', image);
-      axios.post("/api/uploadPic", data)
-        .then(function (res) {
-          axios.post("/api/createPost", {
+      data.append("pic", image);
+      axios.post("/api/uploadPic", data).then(function (res) {
+        axios
+          .post("/api/createPost", {
             username: username,
             groupID: groupID,
             creation_date: date,
@@ -44,21 +44,22 @@ const CreatePost = (props) => {
           .then((res) => {
             console.log(res);
           });
-        })
-    } else {
-      axios.post("/api/createPost", {
-        username: username,
-        groupID: groupID,
-        creation_date: Math.floor(new Date().getTime() / 1000),
-        title: title,
-        description: description,
-        imageUrl: "",
-      })
-      .then((res) => {
-        props.getPosts();
-        setDescription("");
-        setTitle("");
       });
+    } else {
+      axios
+        .post("/api/createPost", {
+          username: username,
+          groupID: groupID,
+          creation_date: Math.floor(new Date().getTime() / 1000),
+          title: title,
+          description: description,
+          imageUrl: "",
+        })
+        .then((res) => {
+          props.getPosts();
+          setDescription("");
+          setTitle("");
+        });
     }
   };
 
@@ -103,8 +104,16 @@ const CreatePost = (props) => {
             </div>
           </div>
           <div class="flex w-1/4 flex-wrap mt-8 mb-8">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Choose an image</label>
-            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-1" id="file_input" type="file" accept=".jpg" onChange={handleFileChange}></input>
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Choose an image
+            </label>
+            <input
+              class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-1"
+              id="file_input"
+              type="file"
+              accept=".jpg"
+              onChange={handleFileChange}
+            ></input>
           </div>
           <button
             class="shadow bg-gray-700 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
