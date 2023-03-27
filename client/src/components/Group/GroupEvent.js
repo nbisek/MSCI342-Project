@@ -27,7 +27,7 @@ export default function GroupEvent(props) {
   };
 
   const date_time = new Date(props.eventDate * 1000);
-  const d = date_time.toLocaleDateString()
+  const d = date_time.toLocaleDateString();
   const time = date_time.toLocaleTimeString();
   const [attending, setAttending] = React.useState([]);
   const [isHost, setIsHost] = React.useState(false);
@@ -129,15 +129,17 @@ export default function GroupEvent(props) {
   return (
     <div style={style} className="mr-5 mb-5 p-5">
       <div>
-        <h1 className="text-2xl font-semibold">{props.title}</h1>
+        <h1 className="text-2xl font-medium">{props.title}</h1>
         <p className="text-sm mt-1">
           hosted by{" "}
-          <span className="font-semibold text-base">{props.username}</span>
+          <span className="font-medium text-base">{props.username}</span>
         </p>
         <p>
           {d} @ {time}
         </p>
-        <p>{numAttending} {numAttending === 1 ? "is going" : "are going"}</p>
+        <p>
+          {numAttending} {numAttending === 1 ? "is going" : "are going"}
+        </p>
         <p className="mt-5">{props.description}</p>
         <div className="flex flex-wrap justify-between mt-5 align-bottom">
           <div>
@@ -175,12 +177,10 @@ export default function GroupEvent(props) {
           style={{ backgroundColor: "rgb(66, 66, 66, 0.4)" }}
         >
           <div id="modal" style={modalStyle}>
-            <h2 className="text-2xl font-semibold mb-5">Are you sure?</h2>
+            <h2 className="text-2xl font-medium mb-5">Are you sure?</h2>
             <p className="mb-10">
               Are you sure you want to delete this event?{" "}
-              <span className="font-semibold">
-                This action cannot be undone.
-              </span>
+              <span className="font-medium">This action cannot be undone.</span>
             </p>
             <div className="flex flex-wrap justify-between">
               <button
@@ -207,7 +207,7 @@ export default function GroupEvent(props) {
           style={{ backgroundColor: "rgb(66, 66, 66, 0.4)" }}
         >
           <div id="modal" style={modalStyle}>
-            <h2 className="text-2xl font-semibold mb-5">Success</h2>
+            <h2 className="text-2xl font-medium mb-5">Success</h2>
             <p className="mb-10">
               The event was successfully deleted. The changes will be shown when
               the page is refreshed.

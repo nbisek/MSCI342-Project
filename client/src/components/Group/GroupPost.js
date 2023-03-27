@@ -120,21 +120,24 @@ export default function GroupPost(props) {
   };
 
   return (
-    <div className="w-96 mt-4">
-      <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
-        {props.imageUrl != "" ? (
-          <img src={props.imageUrl} className="rounded-t-lg p-8 " />
+    <div className="mt-4 mr-5">
+      <div
+        class="w-full bg-white border border-gray-200 rounded-lg shadow"
+        style={{ width: "40vw" }}
+      >
+        {props.imageUrl ? (
+          <img src={props.imageUrl} className="rounded-t-lg p-8" />
         ) : (
-          <div></div>
+          <div className="pt-8"></div>
         )}
         <div class="px-5 pb-5">
-          <h5 class="text-xl font-semibold tracking-tight text-gray-900">
+          <h5 class="text-2xl font-medium tracking-tight text-gray-900">
             {props.title}
           </h5>
           <p className="text-sm mt-1">
             posted by{" "}
-            <span className="font-semibold text-base">{props.username}</span> on{" "}
-            <span className="font-semibold text-base">{d}</span>
+            <span className="font-medium text-base">{props.username}</span> on{" "}
+            <span className="font-medium text-base">{d}</span>
           </p>
           <p className="mt-5">{props.description}</p>
 
@@ -174,12 +177,10 @@ export default function GroupPost(props) {
           style={{ backgroundColor: "rgb(66, 66, 66, 0.4)" }}
         >
           <div id="modal" style={modalStyle}>
-            <h2 className="text-2xl font-semibold mb-5">Are you sure?</h2>
+            <h2 className="text-2xl font-medium mb-5">Are you sure?</h2>
             <p className="mb-10">
               Are you sure you want to delete this post?{" "}
-              <span className="font-semibold">
-                This action cannot be undone.
-              </span>
+              <span className="font-medium">This action cannot be undone.</span>
             </p>
             <div className="flex flex-wrap justify-between">
               <button
@@ -207,7 +208,7 @@ export default function GroupPost(props) {
           style={{ backgroundColor: "rgb(66, 66, 66, 0.4)" }}
         >
           <div id="modal" style={modalStyle}>
-            <h2 className="text-2xl font-semibold mb-5">Success</h2>
+            <h2 className="text-2xl font-medium mb-5">Success</h2>
             <p className="mb-10">The post was successfully deleted.</p>
 
             <button

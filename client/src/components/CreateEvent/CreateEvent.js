@@ -6,10 +6,10 @@ import { useState } from "react";
 import { groupID } from "../MyGroups/MyGroupCard";
 import dayjs from "dayjs";
 import axios from "axios";
-import DateTimePicker from 'react-datetime-picker'
-import 'react-datetime-picker/dist/DateTimePicker.css';
-import 'react-calendar/dist/Calendar.css';
-import 'react-clock/dist/Clock.css';
+import DateTimePicker from "react-datetime-picker";
+import "react-datetime-picker/dist/DateTimePicker.css";
+import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
 
 const CreateEvent = (props) => {
   useEffect(() => {
@@ -25,6 +25,17 @@ const CreateEvent = (props) => {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [dateValue, setDateValue] = useState(new Date());
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "45%",
+    background: "#ffffff",
+    padding: "30px",
+    borderRadius: "5px",
+  };
 
   //   const date = now.format("YYYY-MM-DD");
 
@@ -48,14 +59,19 @@ const CreateEvent = (props) => {
         setTitle("");
         setDescription("");
       });
+    props.setOpenModal(false);
   };
 
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
-      <div className="mr-20 ml-20 flex flex-col">
+    <div
+      className="h-screen w-screen fixed top-0 left-0 overflow-hidden"
+      style={{ backgroundColor: "rgb(66, 66, 66, 0.4)" }}
+    >
+      <div style={modalStyle}>
+        <h1 className="text-2xl font-medium mb-5">Create an Event</h1>
         <form>
-          <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <div class="flex flex-wrap -mx-3 mb-5">
+            <div class="w-full md:w-3/4 px-3 mb-6 md:mb-0">
               <label
                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 for="grid-first-name"
@@ -63,17 +79,17 @@ const CreateEvent = (props) => {
                 Title
               </label>
               <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-first-name"
                 type="text"
-                placeholder="Title"
+                // placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
           </div>
-          <div class="flex flex-wrap -mx-3 mb-8">
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <div class="flex flex-wrap -mx-3 mb-5">
+            <div class="w-full px-3 mb-6 md:mb-0">
               <label
                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 for="grid-city"
@@ -81,17 +97,17 @@ const CreateEvent = (props) => {
                 Description
               </label>
               <textarea
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id=""
                 type="text"
-                placeholder="Description"
+                // placeholder="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
           </div>
           <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-3/4 px-3 mb-6 md:mb-0">
               <label
                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 for="grid-first-name"
@@ -99,10 +115,10 @@ const CreateEvent = (props) => {
                 Location
               </label>
               <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-first-name"
                 type="text"
-                placeholder="Location"
+                // placeholder="Location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
@@ -116,16 +132,31 @@ const CreateEvent = (props) => {
               >
                 Date and Time
               </label>
-              <DateTimePicker onChange={setDateValue} value={dateValue} maxDetail="minute" format="dd-MM-y h:mm a" disableClock disableCalendar />
+              <DateTimePicker
+                onChange={setDateValue}
+                value={dateValue}
+                maxDetail="minute"
+                format="dd-MM-y h:mm a"
+                disableClock
+                disableCalendar
+              />
             </div>
           </div>
-          <button
-            class="shadow bg-gray-700 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-            type="button"
-            onClick={onClick}
-          >
-            Create Event
-          </button>
+          <div className="flex flex-wrap justify-between">
+            <button
+              class="shadow bg-gray-700 hover:bg-gray-600 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded"
+              type="button"
+              onClick={onClick}
+            >
+              Create Event
+            </button>
+            <button
+              className="bg-gray-200 hover:bg-gray-100 focus:shadow-outline focus:outline-none text-black py-2 px-4 rounded"
+              onClick={() => props.setOpenModal(false)}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>
