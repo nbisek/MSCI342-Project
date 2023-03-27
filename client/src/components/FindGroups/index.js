@@ -42,7 +42,7 @@ function FindGroups() {
     } else if (e.target.value === "Most Members") {
       groupsCopy.sort((a,b) => (b.members - a.members));
     } else {
-      groupsCopy.sort((a,b) => (a.joined - b.joined));
+      groupsCopy.sort((a,b) => (b.joined - a.joined));
     }
     setGroups(groupsCopy);
   }

@@ -173,7 +173,7 @@ export default function Group(props) {
         </div>
       </div>
       {viewPosts ? (
-        <CreatePost />
+        <CreatePost getPosts={getPosts} />
       ) : (
         <div>
           {" "}
