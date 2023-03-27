@@ -42,7 +42,6 @@ export default function Group(props) {
 
   const getEvents = () => {
     axios.post("/api/getGroupEvents", { groupID: groupID }).then((res) => {
-      console.log("EVENTS", res.data)
       setEvents(res.data);
     });
   };
