@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import history from "../Navigation/history";
 
-import Header4 from "../Header/header4";
+import HeaderDefault from "../Header/HeaderDefault";
 import FindGroupCard from "../FindGroups/FindGroupCard";
 import { useState } from "react";
 import interests from "../../constants/interests";
@@ -50,7 +50,7 @@ const CreateGroup = () => {
 
   return (
     <>
-      <Header4 />
+     <HeaderDefault thisPage="creategroup" />
       <div class="max-w-screen-md shadow bg-slate-300 p-8 m-auto mt-8">
         <div class="text-center mb-8">
           <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900">
