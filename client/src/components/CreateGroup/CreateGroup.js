@@ -24,7 +24,7 @@ const CreateGroup = () => {
 
   const onClick = (e) => {
     e.preventDefault();
-    console.log(Object.keys(categories).join(", "))
+    console.log(Object.keys(categories).join(", "));
     axios
       .post("/api/createGroup", {
         group_name: groupName,
@@ -38,7 +38,7 @@ const CreateGroup = () => {
   };
 
   const toggleCategory = (category) => {
-    const newCategories = ({}, categories)
+    const newCategories = ({}, categories);
     if (newCategories[category]) {
       delete newCategories[category];
     } else {
@@ -46,73 +46,90 @@ const CreateGroup = () => {
     }
 
     setCategories(newCategories);
-  }
+  };
 
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200">
+    <>
       <Header4 />
-      <div className="mr-20 ml-20 flex flex-col">
-        <form>
+      <div class="max-w-screen-md shadow bg-slate-300 p-8 m-auto mt-8">
+        <div class="text-center mb-8">
+          <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900">
+            Create a <span class="">Group</span>
+          </h3>
+        </div>
+
+        <form class="w-full">
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-first-name"
-              >
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Group Name
               </label>
               <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-black rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
-                placeholder="Jane"
+                placeholder=""
                 onChange={(e) => setGroupName(e.target.value)}
               />
             </div>
-          </div>
-          <div class="flex flex-wrap -mx-3 mb-2">
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-city"
-              >
-                Description
-              </label>
-              <textarea
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id=""
-                type="text"
-                placeholder=""
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+
+            <div class="w-full md:w-1/2 px-3">
               <label
                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 for="grid-state"
               >
                 Categories
               </label>
-              <div class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" style={{maxHeight:"250px", overflowY:"scroll"}}>
-                {interests.filter(interest => (interest !== "All")).map((interest, idx) => (
+              <div
+                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                style={{ maxHeight: "80px", overflowY: "scroll" }}
+              >
+                {interests
+                  .filter((interest) => interest !== "All")
+                  .map((interest, idx) => (
                     <div key={interest}>
-                      <input type="checkbox" name={`check-${idx}`} value={interest} id={`check-${idx}`} onClick={(e)=>toggleCategory(e.target.value)}/>
-                      <label for={`check-${idx}`}>{" "}{interest}</label>
+                      <input
+                        type="checkbox"
+                        name={`check-${idx}`}
+                        value={interest}
+                        id={`check-${idx}`}
+                        onClick={(e) => toggleCategory(e.target.value)}
+                      />
+                      <label for={`check-${idx}`}> {interest}</label>
                     </div>
-                ))}
+                  ))}
               </div>
             </div>
           </div>
-          <button
-            class="shadow bg-gray-700 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-            type="button"
-            onClick={onClick}
-          >
-            Create Group
-          </button>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+              <label
+                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                for="grid-password"
+              >
+                Description
+              </label>
+              <textarea
+                rows="4"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                type="text"
+                placeholder=""
+                onChange={(e) => setDescription(e.target.value)}
+              ></textarea>
+            </div>
+            <div class="flex justify-between w-full px-3">
+              <button
+                class="shadow bg-gray-700 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick={onClick}
+              >
+                Create Group
+              </button>
+            </div>
+          </div>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
