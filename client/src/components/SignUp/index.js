@@ -12,8 +12,9 @@ const SignUp = ({ setAuth }) => {
   });
 
   const [incorrectName, setIncorrectName] = useState(false);
-  const [incorrectPassword, setIncorrectPassword] = useState(false);
   const [incorrectEmail, setIncorrectEmail] = useState(false);
+  const [passwordWrongLen, setPasswordWrongLen] = useState(false);
+  const [nonMatchingPasswords, setNonMatchingPasswords] = useState(false);
 
   const { email, password, verifyPassword, name } = inputs;
 
@@ -22,17 +23,13 @@ const SignUp = ({ setAuth }) => {
     setIncorrectEmail(
       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email)
     );
-    setIncorrectPassword(
-      inputs.password == "" ||
-        inputs.password != inputs.verifyPassword ||
-        inputs.password.length < 6
-    );
+    setPasswordWrongLen(inputs.password.length < 6)
+    setNonMatchingPasswords(inputs.password != inputs.verifyPassword)
     return (
       inputs.name == "" ||
       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs.email) ||
-      inputs.password == "" ||
-      inputs.password != inputs.verifyPassword ||
-      inputs.password.length < 6
+      inputs.password.length < 6 ||
+      inputs.password != inputs.verifyPassword
     );
   };
 
@@ -95,6 +92,9 @@ const SignUp = ({ setAuth }) => {
               value={name}
               onChange={(e) => onChange(e)}
             />
+            {
+              incorrectName ? <p class="text-red-700 text-s italic">Name missing!</p> : <></>
+            }
           </div>
           <div class="w-full md:w-1/2 px-3">
             <label
@@ -116,6 +116,9 @@ const SignUp = ({ setAuth }) => {
               value={email}
               onChange={(e) => onChange(e)}
             />
+            {
+              incorrectEmail ? <p class="text-red-700 text-s italic">Email format is incorrect!</p> : <></>
+            }
           </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-4">
@@ -132,13 +135,16 @@ const SignUp = ({ setAuth }) => {
               id="password"
               placeholder="password"
               class={
-                incorrectPassword
+                passwordWrongLen || nonMatchingPasswords
                   ? "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white border-red-500"
                   : "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               }
               value={password}
               onChange={(e) => onChange(e)}
             />
+            {
+              passwordWrongLen ? <p class="text-red-700 text-s italic">Password length must be at least 6 characters!</p> : <></>
+            }
           </div>
           <div class="w-full px-3 mt-5">
             <label
@@ -153,13 +159,16 @@ const SignUp = ({ setAuth }) => {
               id="verifyPassword"
               placeholder="password"
               class={
-                incorrectPassword
+                passwordWrongLen || nonMatchingPasswords
                   ? "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white border-red-500"
                   : "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               }
               value={verifyPassword}
               onChange={(e) => onChange(e)}
             />
+            {
+              nonMatchingPasswords ? <p class="text-red-700 text-s italic">Passwords don't match!</p> : <></>
+            }
           </div>
         </div>
         <div class="flex items-center justify-center">
