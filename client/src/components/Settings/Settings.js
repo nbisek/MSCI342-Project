@@ -288,7 +288,7 @@ const Settings = (props) => {
                               const user = auth.currentUser;
                               deleteUser(user).then(() => {
                                 sessionStorage.clear();
-                                console.log("success")
+                                console.log("success");
                               });
                             });
                         });
@@ -318,8 +318,8 @@ const Settings = (props) => {
     >
       <HeaderDefault thisPage="settings" />
       <div className="mr-20 ml-20 flex flex-col">
-        <h1 className="text-4xl font-semibold">Settings</h1>
-        <h2 className="text-xl font-semibold mt-6">Personal Information</h2>
+        <h1 className="text-4xl font-medium">Settings</h1>
+        <h2 className="text-xl font-medium mt-6">Personal Information</h2>
         <div style={styles.inputSection}>
           <label className="text-sm block mt-4 mb-1">Username</label>
           <input
@@ -408,7 +408,7 @@ const Settings = (props) => {
           </a>
         </div>
         <div>
-          <h2 className="text-xl font-semibold mt-6">Sign Out</h2>
+          <h2 className="text-xl font-medium mt-6">Sign Out</h2>
           <p className="mt-4">
             By clicking the button below, you will be signed out of your
             account.
@@ -422,7 +422,7 @@ const Settings = (props) => {
           </button>
         </div>
 
-        <h2 className="text-xl font-semibold mt-6">Delete Account</h2>
+        <h2 className="text-xl font-medium mt-6">Delete Account</h2>
         <p className="mt-4">
           Deleting you account cannot be undone. To delete your account, type in
           your email.

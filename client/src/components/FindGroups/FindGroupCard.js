@@ -40,14 +40,14 @@ function FindGroupCard(props) {
         if (res.data.message === "success") {
           setInGroup(true);
           setDisplayConfirmation(true);
-          const {groups, group, setGroups} = props;
+          const { groups, group, setGroups } = props;
           const groupsCopy = [];
           group.members = group.members + 1;
           for (let i = 0; i < groups.length; ++i) {
             if (groups[i].groupID != group.groupID) {
               groupsCopy.push(groups[i]);
             } else {
-              groupsCopy.push(group)
+              groupsCopy.push(group);
             }
           }
 
@@ -62,14 +62,14 @@ function FindGroupCard(props) {
       .then((res) => {
         if (res.data.message === "success") {
           setInGroup(false);
-          const {groups, group, setGroups} = props;
+          const { groups, group, setGroups } = props;
           const groupsCopy = [];
           group.members = group.members - 1;
           for (let i = 0; i < groups.length; ++i) {
             if (groups[i].groupID != group.groupID) {
               groupsCopy.push(groups[i]);
             } else {
-              groupsCopy.push(group)
+              groupsCopy.push(group);
             }
           }
 
@@ -88,7 +88,7 @@ function FindGroupCard(props) {
       }}
     >
       <div className="p-8 pb-6">
-        <h2 className="text-xl font-semibold">{props.title}</h2>
+        <h2 className="text-xl font-medium">{props.title}</h2>
         <p className="mt-1">
           {`${props.members || 0} members`} | {props.categories}
         </p>
@@ -119,7 +119,7 @@ function FindGroupCard(props) {
           style={{ backgroundColor: "rgb(66, 66, 66, 0.4)" }}
         >
           <div id="modal" style={modalStyle}>
-            <h2 className="text-2xl font-semibold mb-5">Success</h2>
+            <h2 className="text-2xl font-medium mb-5">Success</h2>
             <p className="mb-10">You are now a member of {props.title}!</p>
 
             <button
@@ -137,7 +137,7 @@ function FindGroupCard(props) {
           style={{ backgroundColor: "rgb(66, 66, 66, 0.4)" }}
         >
           <div id="modal" style={modalStyle}>
-            <h2 className="text-2xl font-semibold mb-5">Are you sure?</h2>
+            <h2 className="text-2xl font-medium mb-5">Are you sure?</h2>
             <p className="mb-10">
               Are you sure you want to leave {props.title}? Your posts and
               comments will <span className="font-bold">not</span> be deleted,

@@ -30,6 +30,8 @@ export default function Group(props) {
   const [posts, setPosts] = React.useState([]);
   const [events, setEvents] = React.useState([]);
   const [viewPosts, setViewPosts] = React.useState(true);
+  const [openPostModal, setOpenPostModal] = React.useState(false);
+  const [openEventModal, setOpenEventModal] = React.useState(false);
 
   const getPosts = () => {
     axios.post("/api/getGroupPosts", { groupID: groupID }).then((res) => {
@@ -86,15 +88,15 @@ export default function Group(props) {
       <HeaderDefault thisPage="group" />
       <div className="mr-20 ml-20 flex flex-col">
         <div>
-          <h1 className="text-4xl font-semibold">{group.title}</h1>
-          <p className="font-semibold mt-3 mb-1">
+          <h1 className="text-4xl font-medium">{group.title}</h1>
+          <p className="font-medium mt-3 mb-1">
             {group.members} members | {group.categories}
           </p>
           <p className="">{group.description}</p>
         </div>
         <div className="flex flex-wrap mt-5">
           {viewPosts ? (
-            <button className="bg-amber-300 px-4 py-2 font-semibold">
+            <button className="bg-amber-300 px-4 py-2 font-medium">
               Posts
             </button>
           ) : (
@@ -113,49 +115,71 @@ export default function Group(props) {
               Events
             </button>
           ) : (
-            <button className="bg-amber-300 px-4 py-2 font-semibold">
+            <button className="bg-amber-300 px-4 py-2 font-medium">
               Events
             </button>
           )}
         </div>
-        <div class="mt-5 inline-block relative w-64 mx-5">
-          {viewPosts ? (
-            <select
-              onChange={(e) => sortPosts(e)}
-              class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-            >
-              <option selected disabled>
-                Sort By
-              </option>
-              <option>Newest</option>
-              <option>Oldest</option>
-              <option>Title</option>
-              <option>Username</option>
-            </select>
-          ) : (
-            <select
-              onChange={(e) => sortEvents(e)}
-              class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-            >
-              <option selected disabled>
-                Sort By
-              </option>
-              <option>Earliest</option>
-              <option>Latest</option>
-              <option>Creator</option>
-            </select>
-          )}
-          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-            <svg
-              class="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-            </svg>
+        <div className="flex flex-row">
+          <div class="mt-5 inline-block relative w-64">
+            {viewPosts ? (
+              <select
+                onChange={(e) => sortPosts(e)}
+                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option selected disabled>
+                  Sort By
+                </option>
+                <option>Newest</option>
+                <option>Oldest</option>
+                <option>Title</option>
+                <option>Username</option>
+              </select>
+            ) : (
+              <select
+                onChange={(e) => sortEvents(e)}
+                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option selected disabled>
+                  Sort By
+                </option>
+                <option>Earliest</option>
+                <option>Latest</option>
+                <option>Creator</option>
+              </select>
+            )}
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg
+                class="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </div>
           </div>
+          {viewPosts ? (
+            <div className="mt-auto ml-5">
+              <button
+                className="py-2 px-4 bg-amber-300 rounded"
+                onClick={() => setOpenPostModal(true)}
+              >
+                Create Post
+              </button>
+            </div>
+          ) : (
+            <div className="mt-auto ml-5">
+              <button
+                className="py-2 px-4 bg-amber-300 rounded"
+                onClick={() => setOpenEventModal(true)}
+              >
+                Create Event
+              </button>
+            </div>
+          )}
         </div>
-        <div className="grid grid-cols-4 gap-4 ">
+
+        <div className="mt-5 flex flex-start items-start flex-wrap">
           {viewPosts &&
             posts.map((post) => {
               return (
@@ -185,13 +209,20 @@ export default function Group(props) {
             })}
         </div>
       </div>
-      {viewPosts ? (
+      {/* {viewPosts ? (
         <CreatePost getPosts={getPosts} />
       ) : (
         <div>
-          {" "}
-          <CreateEvent getEvents={getEvents} />{" "}
+          {openModal && (
+            <CreateEvent getEvents={getEvents} setOpenModal={setOpenModal} />
+          )}
         </div>
+      )} */}
+      {openPostModal && (
+        <CreatePost getPosts={getPosts} setOpenModal={setOpenPostModal} />
+      )}
+      {openEventModal && (
+        <CreateEvent getEvents={getEvents} setOpenModal={setOpenEventModal} />
       )}
     </div>
   );

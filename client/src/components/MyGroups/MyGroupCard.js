@@ -29,7 +29,7 @@ export default function MyGroupsCard(props) {
       }}
       onClick={() => openGroupPage()}
     >
-      <h2 className="text-xl font-semibold">{props.title}</h2>
+      <h2 className="text-xl font-medium">{props.title}</h2>
       <p className="mt-1">
         {props.members} members | {props.categories}
       </p>
