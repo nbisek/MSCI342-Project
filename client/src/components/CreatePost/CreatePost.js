@@ -31,9 +31,9 @@ const CreatePost = (props) => {
         description: description,
       })
       .then((res) => {
+        props.getPosts();
         setDescription("");
         setTitle("");
-        props.getPosts();
       });
   };
 

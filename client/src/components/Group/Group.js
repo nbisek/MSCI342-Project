@@ -177,7 +177,7 @@ export default function Group(props) {
       ) : (
         <div>
           {" "}
-          <CreateEvent />{" "}
+          <CreateEvent getEvents={getEvents}/>{" "}
         </div>
       )}
     </div>

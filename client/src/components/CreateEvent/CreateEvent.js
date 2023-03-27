@@ -11,7 +11,7 @@ import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 
-const CreateEvent = () => {
+const CreateEvent = (props) => {
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
     if (!authToken) {
@@ -42,6 +42,11 @@ const CreateEvent = () => {
       })
       .then((res) => {
         console.log(res);
+        props.getEvents();
+        setDateValue(new Date());
+        setLocation("");
+        setTitle("");
+        setDescription("");
       });
   };
 
@@ -61,6 +66,8 @@ const CreateEvent = () => {
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
+                placeholder="Title"
+                value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
@@ -77,7 +84,8 @@ const CreateEvent = () => {
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                 id=""
                 type="text"
-                placeholder=""
+                placeholder="Description"
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
@@ -94,6 +102,8 @@ const CreateEvent = () => {
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
+                placeholder="Location"
+                value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
             </div>
