@@ -37,10 +37,12 @@ function FindGroups() {
     const groupsCopy = groups.slice();
     if (e.target.value === "Name") {
       groupsCopy.sort((a,b) => (a.group_name.toLowerCase() < b.group_name.toLowerCase() ? -1 : 1));
-    } else if (e.target.value === "Members") {
+    } else if (e.target.value === "Least Members") {
       groupsCopy.sort((a,b) => (a.members - b.members));
+    } else if (e.target.value === "Most Members") {
+      groupsCopy.sort((a,b) => (b.members - a.members));
     } else {
-      groupsCopy.sort((a,b) => (a.joined - b.joined));
+      groupsCopy.sort((a,b) => (b.joined - a.joined));
     }
     setGroups(groupsCopy);
   }
@@ -81,7 +83,8 @@ function FindGroups() {
                 Sort By
               </option>
               <option>Name</option>
-              <option>Members</option>
+              <option>Least Members</option>
+              <option>Most Members</option>
               <option>Joined</option>
             </select>
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -108,6 +111,9 @@ function FindGroups() {
                 groupID={group.groupID}
                 joined={group.joined}
                 members={group.members}
+                group={group}
+                groups={groups}
+                setGroups={setGroups}
               ></FindGroupCard>
             ))
           }

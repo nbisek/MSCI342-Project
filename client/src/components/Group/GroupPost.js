@@ -26,7 +26,8 @@ export default function GroupPost(props) {
     // boxShadow: "0px 0px 15px #787878",
   };
 
-  const d = dayjs(props.creationDate).format("MMMM D, YYYY");
+  const date_time = new Date(props.creationDate * 1000);
+  const d = date_time.toLocaleDateString();
   const [likedPost, setLikedPost] = React.useState(false);
   const [numLikes, setNumLikes] = React.useState(0);
   const [isAuthor, setIsAuthor] = React.useState(false);

@@ -68,7 +68,6 @@ app.post("/api/createEvent", (req, res) => {
     description,
     location,
     event_date,
-    event_time,
   } = req.body;
 
   if (
@@ -77,13 +76,12 @@ app.post("/api/createEvent", (req, res) => {
     !title ||
     !description ||
     !location ||
-    !event_date ||
-    !event_time
+    !event_date
   ) {
     res.status(400).send("something missing");
   } else {
     // TODO: Hash password
-    let sql = `INSERT INTO events (username, groupID, title, description, location, event_date, event_time) VALUES ("${username}", "${groupID}", "${title}", "${description}", "${location}", "${event_date}", "${event_time}")`;
+    let sql = `INSERT INTO events (username, groupID, title, description, location, event_date) VALUES ("${username}", "${groupID}", "${title}", "${description}", "${location}", "${event_date}")`;
 
     let connection = mysql.createConnection(config);
 
@@ -210,7 +208,8 @@ app.post("/api/joinGroup", (req, res) => {
   const { groupID, username } = req.body;
   let connection = mysql.createConnection(config);
 
-  let sql = `INSERT INTO users_in_group (username, groupID) VALUES ("${username}", ${groupID});`;
+  let sql = `INSERT INTO users_in_group (username, groupID) VALUES ("${username}", ${groupID});
+  UPDATE msci342_groups SET members = members + 1 WHERE groupID = ${groupID};`;
   console.log(sql);
 
   connection.query(sql, (error, results, fields) => {
@@ -225,7 +224,8 @@ app.post("/api/leaveGroup", (req, res) => {
   const { groupID, username } = req.body;
   let connection = mysql.createConnection(config);
 
-  let sql = `DELETE FROM users_in_group WHERE username= "${username}" AND groupID = ${groupID};`;
+  let sql = `DELETE FROM users_in_group WHERE username= "${username}" AND groupID = ${groupID};
+  UPDATE msci342_groups SET members = members - 1 WHERE groupID = ${groupID};`;
   console.log(sql);
 
   connection.query(sql, (error, results, fields) => {
