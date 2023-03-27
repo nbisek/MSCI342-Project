@@ -29,6 +29,7 @@ export default function Group(props) {
   const [posts, setPosts] = React.useState([]);
   const [events, setEvents] = React.useState([]);
   const [viewPosts, setViewPosts] = React.useState(true);
+  const [openModal, setOpenModal] = React.useState(false);
 
   const getPosts = () => {
     axios.post("/api/getGroupPosts", { groupID: groupID }).then((res) => {
@@ -135,7 +136,28 @@ export default function Group(props) {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-start items-start flex-wrap">
+        <div>
+          {viewPosts && (
+            <button
+              className="px-5 py-2 rounded mt-5"
+              style={{ background: `${groupContent.colour}` }}
+              onClick={() => setOpenModal(true)}
+            >
+              Create Post
+            </button>
+          )}
+          {!viewPosts && (
+            <button
+              className="px-5 py-2 rounded mt-5"
+              style={{ background: `${groupContent.colour}` }}
+              onClick={() => setOpenModal(true)}
+            >
+              Create Event
+            </button>
+          )}
+        </div>
+
+        <div className="mt-5 flex flex-start items-start flex-wrap">
           {viewPosts &&
             posts.map((post) => {
               return (
@@ -166,7 +188,7 @@ export default function Group(props) {
             })}
         </div>
       </div>
-      <CreatePost />
+      {openModal && <CreatePost setOpenModal={setOpenModal} />}
     </div>
   );
 }
