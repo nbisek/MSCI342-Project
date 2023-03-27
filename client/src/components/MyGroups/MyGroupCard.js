@@ -16,24 +16,38 @@ export default function MyGroupsCard(props) {
       categories: props.categories,
       description: props.description,
       groupID: props.groupID,
+      color: props.color,
     };
     history.push("/group");
   };
   return (
     <div
-      className="flex flex-col w-1/4 mr-10 my-4 p-8 cursor-pointer"
+      className="flex flex-col w-1/4 mr-10 my-4 cursor-pointer rounded-lg overflow-hidden"
       style={{
-        boxShadow: "rgba(236, 236, 236, 0.44) 0px 0px 15px",
+        // boxShadow: "rgba(236, 236, 236, 0.44) 0px 0px 15px",
         border: "1px solid #f8f4ef",
-        background: "#fff",
       }}
       onClick={() => openGroupPage()}
     >
-      <h2 className="text-xl font-medium">{props.title}</h2>
-      <p className="mt-1">
-        {props.members} members | {props.categories}
-      </p>
-      <p className="mt-6">{props.description}</p>
+      <div
+        style={{ background: `${props.color}90` }}
+        className="px-5 pt-5 pb-5"
+      >
+        <h2 className="text-xl font-medium">{props.title}</h2>
+        <p className="mt-1">
+          {props.members} members | {props.categories}
+        </p>
+      </div>
+      <div
+        className="p-5 rounded-b-lg"
+        style={{
+          border: `3px solid ${props.color}90`,
+          borderTop: "none",
+          height: "100%",
+        }}
+      >
+        <p className="">{props.description}</p>
+      </div>
     </div>
   );
 }

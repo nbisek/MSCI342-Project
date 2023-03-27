@@ -80,20 +80,25 @@ function FindGroupCard(props) {
 
   return (
     <div
-      className="flex flex-col w-1/4 mr-10 my-4 cursor-pointer"
-      style={{
-        boxShadow: "rgba(236, 236, 236, 0.44) 0px 0px 15px",
-        border: "1px solid #f8f4ef",
-        background: "#fff",
-      }}
+      className="flex flex-col w-1/4 mr-10 my-4 cursor-pointer rounded-lg overflow-hidden"
+      style={
+        {
+          // boxShadow: "rgba(236, 236, 236, 0.44) 0px 0px 15px",
+          // border: "1px solid ${}",
+          // background: "#fff",
+        }
+      }
     >
-      <div className="p-8 pb-6">
+      <div className="p-5 pb-6" style={{ background: `${props.color}90` }}>
         <h2 className="text-xl font-medium">{props.title}</h2>
         <p className="mt-1">
           {`${props.members || 0} members`} | {props.categories}
         </p>
       </div>
-      <div className="p-8 pt-0 h-full flex flex-col space-between">
+      <div
+        className="p-5 pt-5 h-full flex flex-col space-between rounded-b-lg"
+        style={{ border: `3px solid ${props.color}90`, borderTop: "none" }}
+      >
         <p className="mt-0 mb-6">{props.description}</p>
 
         {!inGroup && (
