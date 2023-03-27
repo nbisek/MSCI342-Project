@@ -30,10 +30,7 @@ const CreateEvent = () => {
 
   const onClick = (e) => {
     e.preventDefault();
-    console.log("bruh", groupID);
-    const pad = (num) => String(num).padStart(2, '0')
-    const event_date = `${dateValue.getFullYear()}-${pad(dateValue.getMonth())}-${pad(dateValue.getDate())}`
-    const event_time = `${pad(dateValue.getHours())}:${pad(dateValue.getMinutes())}`
+    console.log("bruh event", groupID);
     axios
       .post("/api/createEvent", {
         username: username,
@@ -41,8 +38,7 @@ const CreateEvent = () => {
         title: title,
         description: description,
         location: location,
-        event_date: event_date,
-        event_time: event_time,
+        event_date: Math.floor(dateValue.getTime() / 1000),
       })
       .then((res) => {
         console.log(res);

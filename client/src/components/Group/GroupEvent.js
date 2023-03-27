@@ -26,8 +26,10 @@ export default function GroupEvent(props) {
     // boxShadow: "0px 0px 15px #787878",
   };
 
-  const d = dayjs(props.eventDate).format("MMMM D, YYYY");
-  const time = props.eventTime.slice(0, -3);
+  const date_time = new Date(props.eventDate * 1000);
+  const d = date_time.toLocaleDateString()
+  const time = date_time.toLocaleTimeString();
+  console.log(props.eventDate, date_time, d, time)
   const [attending, setAttending] = React.useState([]);
   const [isHost, setIsHost] = React.useState(false);
   const [displayModal, setDisplayModal] = React.useState(false);
@@ -136,7 +138,7 @@ export default function GroupEvent(props) {
         <p>
           {d} @ {time}
         </p>
-        <p>{numAttending} are going</p>
+        <p>{numAttending} {numAttending === 1 ? "is going" : "are going"}</p>
         <p className="mt-5">{props.description}</p>
         <div className="flex flex-wrap justify-between mt-5 align-bottom">
           <div>

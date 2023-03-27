@@ -4,7 +4,6 @@ import history from "../Navigation/history";
 import Header4 from "../Header/header4";
 import { useState } from "react";
 import { groupID } from "../MyGroups/MyGroupCard";
-import dayjs from "dayjs";
 import axios from "axios";
 
 const CreatePost = () => {
@@ -19,8 +18,6 @@ const CreatePost = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const now = dayjs();
-  const date = now.format("YYYY-MM-DD");
 
   const onClick = (e) => {
     e.preventDefault();
@@ -29,7 +26,7 @@ const CreatePost = () => {
       .post("/api/createPost", {
         username: username,
         groupID: groupID,
-        creation_date: date,
+        creation_date: Math.floor(new Date().getTime() / 1000),
         title: title,
         description: description,
       })

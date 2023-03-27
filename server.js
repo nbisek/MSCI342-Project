@@ -45,7 +45,6 @@ app.post("/api/createEvent", (req, res) => {
     description,
     location,
     event_date,
-    event_time,
   } = req.body;
 
   if (
@@ -54,13 +53,12 @@ app.post("/api/createEvent", (req, res) => {
     !title ||
     !description ||
     !location ||
-    !event_date ||
-    !event_time
+    !event_date
   ) {
     res.status(400).send("something missing");
   } else {
     // TODO: Hash password
-    let sql = `INSERT INTO events (username, groupID, title, description, location, event_date, event_time) VALUES ("${username}", "${groupID}", "${title}", "${description}", "${location}", "${event_date}", "${event_time}")`;
+    let sql = `INSERT INTO events (username, groupID, title, description, location, event_date) VALUES ("${username}", "${groupID}", "${title}", "${description}", "${location}", "${event_date}")`;
 
     let connection = mysql.createConnection(config);
 
