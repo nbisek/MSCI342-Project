@@ -4,10 +4,9 @@ import history from "../Navigation/history";
 import Header4 from "../Header/header4";
 import { useState } from "react";
 import { groupID } from "../MyGroups/MyGroupCard";
-import dayjs from "dayjs";
 import axios from "axios";
 
-const CreatePost = () => {
+const CreatePost = (props) => {
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
     if (!authToken) {
@@ -19,8 +18,6 @@ const CreatePost = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const now = dayjs();
-  const date = now.format("YYYY-MM-DD");
 
   const onClick = (e) => {
     e.preventDefault();
@@ -29,12 +26,14 @@ const CreatePost = () => {
       .post("/api/createPost", {
         username: username,
         groupID: groupID,
-        creation_date: date,
+        creation_date: Math.floor(new Date().getTime() / 1000),
         title: title,
         description: description,
       })
       .then((res) => {
-        console.log(res);
+        props.getPosts();
+        setDescription("");
+        setTitle("");
       });
   };
 
@@ -54,7 +53,8 @@ const CreatePost = () => {
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-black rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
-                placeholder="Jane"
+                placeholder="Title"
+                value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
@@ -71,7 +71,8 @@ const CreatePost = () => {
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id=""
                 type="text"
-                placeholder=""
+                placeholder="Description"
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>

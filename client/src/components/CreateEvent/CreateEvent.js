@@ -11,7 +11,7 @@ import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 
-const CreateEvent = () => {
+const CreateEvent = (props) => {
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
     if (!authToken) {
@@ -30,10 +30,7 @@ const CreateEvent = () => {
 
   const onClick = (e) => {
     e.preventDefault();
-    console.log("bruh", groupID);
-    const pad = (num) => String(num).padStart(2, '0')
-    const event_date = `${dateValue.getFullYear()}-${pad(dateValue.getMonth())}-${pad(dateValue.getDate())}`
-    const event_time = `${pad(dateValue.getHours())}:${pad(dateValue.getMinutes())}`
+    console.log("bruh event", groupID);
     axios
       .post("/api/createEvent", {
         username: username,
@@ -41,11 +38,15 @@ const CreateEvent = () => {
         title: title,
         description: description,
         location: location,
-        event_date: event_date,
-        event_time: event_time,
+        event_date: Math.floor(dateValue.getTime() / 1000),
       })
       .then((res) => {
         console.log(res);
+        props.getEvents();
+        setDateValue(new Date());
+        setLocation("");
+        setTitle("");
+        setDescription("");
       });
   };
 
@@ -65,6 +66,8 @@ const CreateEvent = () => {
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
+                placeholder="Title"
+                value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
@@ -81,7 +84,8 @@ const CreateEvent = () => {
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                 id=""
                 type="text"
-                placeholder=""
+                placeholder="Description"
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
@@ -98,6 +102,8 @@ const CreateEvent = () => {
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
+                placeholder="Location"
+                value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
             </div>
