@@ -49,28 +49,34 @@ export default function Group(props) {
   const sortPosts = (e) => {
     const postsCopy = posts.slice();
     if (e.target.value === "Newest") {
-      postsCopy.sort((a,b) => (a.creation_date > b.creation_date ? -1 : 1));
+      postsCopy.sort((a, b) => (a.creation_date > b.creation_date ? -1 : 1));
     } else if (e.target.value === "Oldest") {
-      postsCopy.sort((a,b) => (a.creation_date < b.creation_date ? -1 : 1));
+      postsCopy.sort((a, b) => (a.creation_date < b.creation_date ? -1 : 1));
     } else if (e.target.value === "Title") {
-      postsCopy.sort((a,b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1))
+      postsCopy.sort((a, b) =>
+        a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1
+      );
     } else {
-      postsCopy.sort((a,b) => (a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1));
+      postsCopy.sort((a, b) =>
+        a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
+      );
     }
     setPosts(postsCopy);
-  }
+  };
 
   const sortEvents = (e) => {
     const eventsCopy = events.slice();
     if (e.target.value === "Earliest") {
-      eventsCopy.sort((a,b) => (a.event_date - b.event_date));
+      eventsCopy.sort((a, b) => a.event_date - b.event_date);
     } else if (e.target.value === "Latest") {
-      eventsCopy.sort((a,b) => (b.event_date - a.event_date));
+      eventsCopy.sort((a, b) => b.event_date - a.event_date);
     } else if (e.target.value === "Creator") {
-      eventsCopy.sort((a,b) => (a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1))
+      eventsCopy.sort((a, b) =>
+        a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
+      );
     }
     setEvents(eventsCopy);
-  }
+  };
 
   return (
     <div
@@ -113,8 +119,11 @@ export default function Group(props) {
           )}
         </div>
         <div class="mt-5 inline-block relative w-64 mx-5">
-          {viewPosts ?
-            <select onChange={(e)=>sortPosts(e)} class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+          {viewPosts ? (
+            <select
+              onChange={(e) => sortPosts(e)}
+              class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+            >
               <option selected disabled>
                 Sort By
               </option>
@@ -123,8 +132,11 @@ export default function Group(props) {
               <option>Title</option>
               <option>Username</option>
             </select>
-            :
-            <select onChange={(e)=>sortEvents(e)} class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+          ) : (
+            <select
+              onChange={(e) => sortEvents(e)}
+              class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+            >
               <option selected disabled>
                 Sort By
               </option>
@@ -132,7 +144,7 @@ export default function Group(props) {
               <option>Latest</option>
               <option>Creator</option>
             </select>
-        }
+          )}
           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
             <svg
               class="fill-current h-4 w-4"
@@ -143,7 +155,7 @@ export default function Group(props) {
             </svg>
           </div>
         </div>
-        <div className="mt-10 flex flex-start items-start flex-wrap">
+        <div className="grid grid-cols-4 gap-4 ">
           {viewPosts &&
             posts.map((post) => {
               return (
@@ -154,6 +166,7 @@ export default function Group(props) {
                   description={post.description}
                   creationDate={post.creation_date}
                   imageUrl={post.imageUrl}
+                  getPosts={getPosts}
                 ></GroupPost>
               );
             })}
@@ -177,7 +190,7 @@ export default function Group(props) {
       ) : (
         <div>
           {" "}
-          <CreateEvent getEvents={getEvents}/>{" "}
+          <CreateEvent getEvents={getEvents} />{" "}
         </div>
       )}
     </div>

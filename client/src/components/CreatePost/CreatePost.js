@@ -42,7 +42,10 @@ const CreatePost = (props) => {
             imageUrl: res.data,
           })
           .then((res) => {
-            console.log(res);
+            props.getPosts();
+            setDescription("");
+            setTitle("");
+            setImage(null);
           });
       });
     } else {

@@ -78,6 +78,7 @@ export default function GroupPost(props) {
         .then((res) => {
           //show success message
           setDeleted(true);
+          props.getPosts();
         });
     });
   };
@@ -119,46 +120,52 @@ export default function GroupPost(props) {
   };
 
   return (
-    <div style={style} className="mr-5 mb-5 p-5">
-      <div>
-        <h1 className="text-2xl font-semibold">{props.title}</h1>
-        <p className="text-sm mt-1">
-          posted by{" "}
-          <span className="font-semibold text-base">{props.username}</span> on{" "}
-          <span className="font-semibold text-base">{d}</span>
-        </p>
-        <p className="mt-5">{props.description}</p>
-        {props.imageUrl != "" ? <img src={props.imageUrl} className="mt-4" /> : <></>}
-        <div className=" flex flex-wrap justify-between mt-5 align-bottom">
-          <div>
-            {!likedPost ? (
-              <img
-                src="./heart-empty(1).svg"
-                alt="like buton"
-                onClick={() => handleLike()}
-                className="cursor-pointer inline"
-              />
-            ) : (
-              <img
-                src="./heart-full.svg"
-                alt="like buton"
-                onClick={() => handleLike()}
-                className="cursor-pointer inline"
-              />
+    <div className="w-96 mt-4">
+      <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+        {props.imageUrl != "" ? (
+          <img src={props.imageUrl} className="rounded-t-lg p-8 " />
+        ) : (
+          <div></div>
+        )}
+        <div class="px-5 pb-5">
+          <h5 class="text-xl font-semibold tracking-tight text-gray-900">
+            {props.title}
+          </h5>
+          <p className="text-sm mt-1">
+            posted by{" "}
+            <span className="font-semibold text-base">{props.username}</span> on{" "}
+            <span className="font-semibold text-base">{d}</span>
+          </p>
+          <p className="mt-5">{props.description}</p>
+
+          <div className=" flex flex-wrap justify-between mt-5 align-bottom">
+            <div>
+              {!likedPost ? (
+                <img
+                  src="./heart-empty(1).svg"
+                  alt="like buton"
+                  onClick={() => handleLike()}
+                  className="cursor-pointer inline"
+                />
+              ) : (
+                <img
+                  src="./heart-full.svg"
+                  alt="like buton"
+                  onClick={() => handleLike()}
+                  className="cursor-pointer inline"
+                />
+              )}
+              <span className="ml-1 pt-1 align-middle ">{numLikes}</span>
+            </div>
+            {isAuthor && !deleted && (
+              <button
+                className="underline text-sm mt-auto"
+                onClick={() => setDisplayModal(true)}
+              >
+                delete
+              </button>
             )}
-            <span className="ml-1 pt-1 align-middle ">{numLikes}</span>
           </div>
-          {isAuthor && !deleted && (
-            <button
-              className="underline text-sm mt-auto"
-              onClick={() => setDisplayModal(true)}
-            >
-              delete
-            </button>
-          )}
-          {isAuthor && deleted && (
-            <p className="text-sm mt-auto text-red-600">deleted</p>
-          )}
         </div>
       </div>
       {displayModal && (
@@ -201,10 +208,7 @@ export default function GroupPost(props) {
         >
           <div id="modal" style={modalStyle}>
             <h2 className="text-2xl font-semibold mb-5">Success</h2>
-            <p className="mb-10">
-              The post was successfully deleted. The changes will be shown when
-              the page is refreshed.
-            </p>
+            <p className="mb-10">The post was successfully deleted.</p>
 
             <button
               onClick={() => setDisplayConfirmation(false)}
