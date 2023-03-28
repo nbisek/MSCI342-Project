@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import history from "../Navigation/history";
 
 export let groupID = -1;
@@ -20,6 +19,7 @@ export default function MyGroupsCard(props) {
     };
     history.push("/group");
   };
+
   return (
     <div
       className="flex flex-col w-1/4 mr-10 my-4 cursor-pointer rounded-lg overflow-hidden"

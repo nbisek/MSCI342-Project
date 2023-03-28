@@ -11,7 +11,7 @@ function FindGroupCard(props) {
   const [inGroup, setInGroup] = React.useState(false);
   const username = sessionStorage.getItem("username");
   const [displayConfirmation, setDisplayConfirmation] = React.useState(false);
-  const [areYouSure, setAreYouSUre] = React.useState(false);
+  const [areYouSure, setAreYouSure] = React.useState(false);
   const modalStyle = {
     position: "absolute",
     top: "50%",
@@ -112,7 +112,7 @@ function FindGroupCard(props) {
         {inGroup && (
           <button
             className="px-4 py-2 bg-slate-200 mt-auto w-40 rounded"
-            onClick={() => setAreYouSUre(true)}
+            onClick={() => setAreYouSure(true)}
           >
             Leave group
           </button>
@@ -151,7 +151,7 @@ function FindGroupCard(props) {
             <div className="flex flex-wrap justify-between">
               <button
                 onClick={() => {
-                  setAreYouSUre(false);
+                  setAreYouSure(false);
                   leaveGroup();
                 }}
                 className="text-white px-4 py-1 bg-red-700 rounded"
@@ -159,7 +159,7 @@ function FindGroupCard(props) {
                 Leave Group
               </button>
               <button
-                onClick={() => setAreYouSUre(false)}
+                onClick={() => setAreYouSure(false)}
                 className="underline"
               >
                 Cancel
