@@ -149,6 +149,7 @@ export default function GroupPost(props) {
                   alt="like buton"
                   onClick={() => handleLike()}
                   className="cursor-pointer inline"
+                  id={`likePost${postID}`}
                 />
               ) : (
                 <img
@@ -156,6 +157,7 @@ export default function GroupPost(props) {
                   alt="like buton"
                   onClick={() => handleLike()}
                   className="cursor-pointer inline"
+                  id={`unlikePost${postID}`}
                 />
               )}
               <span className="ml-1 pt-1 align-middle ">{numLikes}</span>

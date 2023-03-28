@@ -37,8 +37,9 @@ export default function Header() {
             </a>
           </div>
           <div
-            class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 text-black p-4 lg:p-0 z-20 justify-end"
+            class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 text-black p-4 lg:p-0 z-20 justify-end flex"
             id="nav-content"
+            style={{ display: "flex" }}
           >
             {isLoggedIn ? (
               <button class="mr-3" onClick={onClick}>
@@ -51,7 +52,10 @@ export default function Header() {
             ) : (
               <button class="mr-3" onClick={onClick2}>
                 <a class="inline-block py-2 px-4">
-                  <p className="text-lg text-blue-1000 border border-solid border-blue-1000 rounded-md px-4 py-2 font-bold">
+                  <p
+                    className="text-lg text-blue-1000 border border-solid border-blue-1000 rounded-md px-4 py-2 font-bold"
+                    id="loginButton"
+                  >
                     Log In
                   </p>
                 </a>

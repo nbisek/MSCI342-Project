@@ -28,6 +28,7 @@ export default function MyGroupsCard(props) {
         border: "1px solid #f8f4ef",
       }}
       onClick={() => openGroupPage()}
+      id={props.id}
     >
       <div
         style={{ background: `${props.color}90` }}

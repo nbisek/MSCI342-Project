@@ -105,6 +105,7 @@ function FindGroupCard(props) {
           <button
             className="px-4 py-2 bg-amber-300 mt-auto w-40 rounded"
             onClick={() => joinGroup()}
+            id={`joinGroup${props.groupID}`}
           >
             Join group
           </button>
@@ -113,6 +114,7 @@ function FindGroupCard(props) {
           <button
             className="px-4 py-2 bg-slate-200 mt-auto w-40 rounded"
             onClick={() => setAreYouSure(true)}
+            id={`leaveGroup${props.groupID}`}
           >
             Leave group
           </button>
@@ -130,6 +132,7 @@ function FindGroupCard(props) {
             <button
               onClick={() => setDisplayConfirmation(false)}
               className="underline"
+              id="close"
             >
               Close
             </button>
@@ -155,6 +158,7 @@ function FindGroupCard(props) {
                   leaveGroup();
                 }}
                 className="text-white px-4 py-1 bg-red-700 rounded"
+                id="leave-group"
               >
                 Leave Group
               </button>
