@@ -25,6 +25,9 @@ const CreateEvent = (props) => {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [dateValue, setDateValue] = useState(new Date());
+  const [invalidTitle, setInvalidTitle] = useState(false);
+  const [invalidDescription, setinvalidDescription] = useState(false);
+  const [invalidLocation, setInvalidLocation] = useState(false);
 
   const modalStyle = {
     position: "absolute",
@@ -39,27 +42,38 @@ const CreateEvent = (props) => {
 
   //   const date = now.format("YYYY-MM-DD");
 
+  const invalidate = () => {
+    const blankTitle = title == "";
+    const noDescription = description == "";
+    const noLocation = location == "";
+    setInvalidTitle(blankTitle);
+    setinvalidDescription(noDescription);
+    setInvalidLocation(noLocation);
+    return blankTitle || noDescription || noLocation;
+  }
+
   const onClick = (e) => {
     e.preventDefault();
-    console.log("bruh event", groupID);
-    axios
-      .post("/api/createEvent", {
-        username: username,
-        groupID: groupID,
-        title: title,
-        description: description,
-        location: location,
-        event_date: Math.floor(dateValue.getTime() / 1000),
-      })
-      .then((res) => {
-        console.log(res);
-        props.getEvents();
-        setDateValue(new Date());
-        setLocation("");
-        setTitle("");
-        setDescription("");
-      });
-    props.setOpenModal(false);
+    if (!invalidate()) {
+      axios
+        .post("/api/createEvent", {
+          username: username,
+          groupID: groupID,
+          title: title,
+          description: description,
+          location: location,
+          event_date: Math.floor(dateValue.getTime() / 1000),
+        })
+        .then((res) => {
+          console.log(res);
+          props.getEvents();
+          setDateValue(new Date());
+          setLocation("");
+          setTitle("");
+          setDescription("");
+        });
+      props.setOpenModal(false);
+    }
   };
 
   return (
@@ -79,13 +93,20 @@ const CreateEvent = (props) => {
                 Title
               </label>
               <input
-                class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class={
+                  invalidTitle
+                  ? "appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 border-red-500"
+                  : "appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                }
                 id="grid-first-name"
                 type="text"
                 // placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
+              {
+                invalidTitle ? <p class="text-red-700 text-xs italic pt-2">Title cannot be empty!</p> : <></>
+              }
             </div>
           </div>
           <div class="flex flex-wrap -mx-3 mb-5">
@@ -97,13 +118,20 @@ const CreateEvent = (props) => {
                 Description
               </label>
               <textarea
-                class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class={
+                  invalidDescription
+                  ? "appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 border-red-500"
+                  : "appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                }
                 id=""
                 type="text"
                 // placeholder="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
+              {
+                invalidDescription ? <p class="text-red-700 text-xs italic pt-2">Description cannot be empty!</p> : <></>
+              }
             </div>
           </div>
           <div class="flex flex-wrap -mx-3 mb-6">
@@ -115,13 +143,20 @@ const CreateEvent = (props) => {
                 Location
               </label>
               <input
-                class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class={
+                  invalidLocation
+                  ? "appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 border-red-500"
+                  : "appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                }
                 id="grid-first-name"
                 type="text"
                 // placeholder="Location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
+              {
+                invalidLocation ? <p class="text-red-700 text-xs italic pt-2">Location cannot be empty!</p> : <></>
+              }
             </div>
           </div>
           <div class="flex flex-wrap -mx-3 mb-8">
