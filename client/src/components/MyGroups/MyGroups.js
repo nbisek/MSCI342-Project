@@ -7,11 +7,13 @@ import GroupCard from "../FindGroups/FindGroupCard";
 import HeaderDefault from "../Header/HeaderDefault";
 import MyGroupsCard from "./MyGroupCard";
 import interests from "../../constants/interests";
+import CreateGroup from "../CreateGroup/CreateGroup";
 
 const MyGroups = () => {
   const [groups, setGroups] = React.useState([]);
   const [interest, setInterest] = React.useState("All");
   const username = sessionStorage.getItem("username");
+  const [showCreate, setShowCreate] = React.useState(false);
 
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
@@ -20,13 +22,8 @@ const MyGroups = () => {
       history.push("/login");
     }
 
-    console.log("HELLO");
-
     axios.post("/api/getMyGroups", { username: username }).then((res) => {
-      console.log(res.data.data);
       const data = JSON.parse(res.data.data);
-      console.log(data);
-      console.log("WTF");
       setGroups(data);
     });
   }, []);
@@ -97,6 +94,14 @@ const MyGroups = () => {
               </svg>
             </div>
           </div>
+          <div className="mt-auto mb-auto">
+            <button
+              className="py-2 px-5 bg-amber-300 rounded"
+              onClick={() => setShowCreate(true)}
+            >
+              Create Group
+            </button>
+          </div>
         </div>
         <div className="flex flex-wrap mt-5 justify-start">
           {(interest !== "All"
@@ -113,10 +118,12 @@ const MyGroups = () => {
               description={group.description}
               groupID={group.groupID}
               id={`group${group.groupID}`}
+              color={group.colour}
             ></MyGroupsCard>
           ))}
         </div>
       </div>
+      {showCreate && <CreateGroup setShowCreate={setShowCreate} />}
     </div>
   );
 };

@@ -135,7 +135,7 @@ export default function GroupEvent(props) {
           <span className="font-medium text-base">{props.username}</span>
         </p>
         <p>
-          {d} @ {time}
+          {d} @ {time} at {props.location}
         </p>
         <p>
           {numAttending} {numAttending === 1 ? "is going" : "are going"}

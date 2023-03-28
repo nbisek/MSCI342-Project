@@ -32,6 +32,19 @@ export default function Group(props) {
   const [viewPosts, setViewPosts] = React.useState(true);
   const [openPostModal, setOpenPostModal] = React.useState(false);
   const [openEventModal, setOpenEventModal] = React.useState(false);
+  const [areYouSure, setAreYouSure] = React.useState(false);
+  const username = sessionStorage.getItem("username");
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "30%",
+    background: "#f4f4f4",
+    padding: "30px",
+    borderRadius: "5px",
+    // boxShadow: "0px 0px 15px #787878",
+  };
 
   const getPosts = () => {
     axios.post("/api/getGroupPosts", { groupID: groupID }).then((res) => {
@@ -80,6 +93,16 @@ export default function Group(props) {
     setEvents(eventsCopy);
   };
 
+  const leaveGroup = () => {
+    axios
+      .post("/api/leaveGroup", { username: username, groupID: groupID })
+      .then((res) => {
+        if (res.data.message === "success") {
+          history.push("/mygroups");
+        }
+      });
+  };
+
   return (
     <div
       className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200 mb-10"
@@ -89,6 +112,12 @@ export default function Group(props) {
       <div className="mr-20 ml-20 flex flex-col">
         <div>
           <h1 className="text-4xl font-medium">{group.title}</h1>
+          <button
+            className="px-4 py-2 bg-red-600 mt-3 w-30 h-10 rounded text-white"
+            onClick={() => setAreYouSure(true)}
+          >
+            Leave group
+          </button>
           <p className="font-medium mt-3 mb-1">
             {group.members} members | {group.categories}
           </p>
@@ -192,6 +221,7 @@ export default function Group(props) {
                   creationDate={post.creation_date}
                   imageUrl={post.imageUrl}
                   getPosts={getPosts}
+                  posts={posts}
                 ></GroupPost>
               );
             })}
@@ -215,6 +245,38 @@ export default function Group(props) {
       )}
       {openEventModal && (
         <CreateEvent getEvents={getEvents} setOpenModal={setOpenEventModal} />
+      )}
+      {areYouSure && (
+        <div
+          className="h-screen w-screen fixed top-0 left-0 overflow-hidden"
+          style={{ backgroundColor: "rgb(66, 66, 66, 0.4)" }}
+        >
+          <div id="modal" style={modalStyle}>
+            <h2 className="text-2xl font-medium mb-5">Are you sure?</h2>
+            <p className="mb-10">
+              Are you sure you want to leave {props.title}? Your posts and
+              comments will <span className="font-bold">not</span> be deleted,
+              and you can always rejoin later.
+            </p>
+            <div className="flex flex-wrap justify-between">
+              <button
+                onClick={() => {
+                  setAreYouSure(false);
+                  leaveGroup();
+                }}
+                className="text-white px-4 py-1 bg-red-700 rounded"
+              >
+                Leave Group
+              </button>
+              <button
+                onClick={() => setAreYouSure(false)}
+                className="underline"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

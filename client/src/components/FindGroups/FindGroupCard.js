@@ -11,7 +11,7 @@ function FindGroupCard(props) {
   const [inGroup, setInGroup] = React.useState(false);
   const username = sessionStorage.getItem("username");
   const [displayConfirmation, setDisplayConfirmation] = React.useState(false);
-  const [areYouSure, setAreYouSUre] = React.useState(false);
+  const [areYouSure, setAreYouSure] = React.useState(false);
   const modalStyle = {
     position: "absolute",
     top: "50%",
@@ -80,20 +80,25 @@ function FindGroupCard(props) {
 
   return (
     <div
-      className="flex flex-col w-1/4 mr-10 my-4 cursor-pointer"
-      style={{
-        boxShadow: "rgba(236, 236, 236, 0.44) 0px 0px 15px",
-        border: "1px solid #f8f4ef",
-        background: "#fff",
-      }}
+      className="flex flex-col w-1/4 mr-10 my-4 cursor-pointer rounded-lg overflow-hidden"
+      style={
+        {
+          // boxShadow: "rgba(236, 236, 236, 0.44) 0px 0px 15px",
+          // border: "1px solid ${}",
+          // background: "#fff",
+        }
+      }
     >
-      <div className="p-8 pb-6">
+      <div className="p-5 pb-6" style={{ background: `${props.color}90` }}>
         <h2 className="text-xl font-medium">{props.title}</h2>
         <p className="mt-1">
           {`${props.members || 0} members`} | {props.categories}
         </p>
       </div>
-      <div className="p-8 pt-0 h-full flex flex-col space-between">
+      <div
+        className="p-5 pt-5 h-full flex flex-col space-between rounded-b-lg"
+        style={{ border: `3px solid ${props.color}90`, borderTop: "none" }}
+      >
         <p className="mt-0 mb-6">{props.description}</p>
 
         {!inGroup && (
@@ -108,7 +113,7 @@ function FindGroupCard(props) {
         {inGroup && (
           <button
             className="px-4 py-2 bg-slate-200 mt-auto w-40 rounded"
-            onClick={() => setAreYouSUre(true)}
+            onClick={() => setAreYouSure(true)}
             id={`leaveGroup${props.groupID}`}
           >
             Leave group
@@ -149,7 +154,7 @@ function FindGroupCard(props) {
             <div className="flex flex-wrap justify-between">
               <button
                 onClick={() => {
-                  setAreYouSUre(false);
+                  setAreYouSure(false);
                   leaveGroup();
                 }}
                 className="text-white px-4 py-1 bg-red-700 rounded"
@@ -158,7 +163,7 @@ function FindGroupCard(props) {
                 Leave Group
               </button>
               <button
-                onClick={() => setAreYouSUre(false)}
+                onClick={() => setAreYouSure(false)}
                 className="underline"
               >
                 Cancel

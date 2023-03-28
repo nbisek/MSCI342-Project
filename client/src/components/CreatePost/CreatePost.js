@@ -19,6 +19,8 @@ const CreatePost = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
+  const [invalidTitle, setInvalidTitle] = useState(false);
+  const [invalidDescription, setinvalidDescription] = useState(false);
   const now = new Date();
   const date = Math.floor(now.getTime() / 1000);
 
@@ -37,45 +39,55 @@ const CreatePost = (props) => {
     borderRadius: "5px",
   };
 
+  const invalidate = () => {
+    const blankTitle = title == "";
+    const noDescription = description == "";
+    setInvalidTitle(blankTitle);
+    setinvalidDescription(noDescription);
+    return blankTitle || noDescription;
+  }
+
   const onClick = (e) => {
     e.preventDefault();
-    if (image != null) {
-      const data = new FormData();
-      data.append("pic", image);
-      axios.post("/api/uploadPic", data).then(function (res) {
+    if (!invalidate()) {
+      if (image != null) {
+        const data = new FormData();
+        data.append("pic", image);
+        axios.post("/api/uploadPic", data).then(function (res) {
+          axios
+            .post("/api/createPost", {
+              username: username,
+              groupID: groupID,
+              creation_date: date,
+              title: title,
+              description: description,
+              imageUrl: res.data,
+            })
+            .then((res) => {
+              props.getPosts();
+              setDescription("");
+              setTitle("");
+              setImage(null);
+            });
+        });
+      } else {
         axios
           .post("/api/createPost", {
             username: username,
             groupID: groupID,
-            creation_date: date,
+            creation_date: Math.floor(new Date().getTime() / 1000),
             title: title,
             description: description,
-            imageUrl: res.data,
+            imageUrl: "",
           })
           .then((res) => {
             props.getPosts();
             setDescription("");
             setTitle("");
-            setImage(null);
           });
-      });
-    } else {
-      axios
-        .post("/api/createPost", {
-          username: username,
-          groupID: groupID,
-          creation_date: Math.floor(new Date().getTime() / 1000),
-          title: title,
-          description: description,
-          imageUrl: "",
-        })
-        .then((res) => {
-          props.getPosts();
-          setDescription("");
-          setTitle("");
-        });
+      }
+      props.setOpenModal(false);
     }
-    props.setOpenModal(false);
   };
 
   return (
@@ -95,12 +107,19 @@ const CreatePost = (props) => {
                 Title
               </label>
               <input
-                class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                class= {
+                  invalidTitle
+                  ? "appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 border-red-500"
+                  : "appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                }
                 id="grid-first-name"
                 type="text"
                 // placeholder="A Sample Post Name"
                 onChange={(e) => setTitle(e.target.value)}
               />
+              {
+                invalidTitle ? <p class="text-red-700 text-xs italic">Title cannot be empty!</p> : <></>
+              }
             </div>
           </div>
           <div class="flex flex-wrap -mx-3 mb-10">
@@ -112,12 +131,19 @@ const CreatePost = (props) => {
                 Description
               </label>
               <textarea
-                class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class={
+                  invalidDescription
+                  ? "appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 border-red-500"
+                  : "appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                }
                 id=""
                 type="text"
                 // placeholder="This is a post description."
                 onChange={(e) => setDescription(e.target.value)}
               />
+              {
+                invalidDescription ? <p class="text-red-700 text-xs italic pt-1">Description cannot be empty!</p> : <></>
+              }
             </div>
           </div>
           <div class="flex w-1/2 flex-wrap mt-8 mb-8">

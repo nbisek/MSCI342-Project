@@ -26,7 +26,7 @@ export default function HeaderDefault(props) {
               </a>
             </span>
           </span>
-          <span className="mr-20 text-center my-auto">
+          <span className="mr-20 text-center my-auto flex flex-row items-center mt-4">
             {props.thisPage === "mygroups" ? (
               <p class="inline-block py-2 px-4 underline decoration-2">
                 <p className="text-lg font-medium">My Groups</p>
@@ -45,15 +45,13 @@ export default function HeaderDefault(props) {
                 <p className="text-lg font-medium">Find Groups</p>
               </a>
             )}
-            {props.thisPage === "settings" ? (
-              <p class="inline-block py-2 px-4 underline decoration-2">
-                <p className="text-lg font-medium">Settings</p>
-              </p>
-            ) : (
-              <a class="inline-block py-2 px-4" href={"/settings"}>
-                <p className="text-lg font-medium">Settings</p>
-              </a>
-            )}
+            <a
+              class="inline-block py-2 px-4"
+              href={"/settings"}
+              style={{ width: "55px" }}
+            >
+              <img src="./img_120429.png" className="w-8" />
+            </a>
           </span>
         </div>
 

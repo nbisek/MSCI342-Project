@@ -1,0 +1,441 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders the correct component 1`] = `
+<div
+  className="h-screen w-screen fixed top-0 left-0 overflow-hidden"
+  style={
+    {
+      "backgroundColor": "rgb(66, 66, 66, 0.4)",
+    }
+  }
+>
+  <div
+    style={
+      {
+        "background": "#ffffff",
+        "borderRadius": "5px",
+        "left": "50%",
+        "padding": "30px",
+        "position": "absolute",
+        "top": "50%",
+        "transform": "translate(-50%, -50%)",
+        "width": "45%",
+      }
+    }
+  >
+    <form>
+      <h1
+        className="text-2xl font-medium mb-5"
+      >
+        Create a Group
+      </h1>
+      <div
+        class="flex flex-wrap -mx-3 mb-6"
+      >
+        <div
+          class="w-full md:w-1/2 px-3 mb-6 md:mb-0"
+        >
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="grid-first-name"
+          >
+            Group Name
+          </label>
+          <input
+            class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            id="grid-first-name"
+            onChange={[Function]}
+            type="text"
+          />
+        </div>
+      </div>
+      <div
+        class="flex flex-wrap -mx-3 mb-2"
+      >
+        <div
+          class="w-full md:w-1/2 px-3 mb-6 md:mb-0"
+        >
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="grid-city"
+          >
+            Description
+          </label>
+          <textarea
+            class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            id=""
+            onChange={[Function]}
+            placeholder=""
+            style={
+              {
+                "height": "150px",
+              }
+            }
+            type="text"
+          />
+        </div>
+        <div
+          class="w-full md:w-1/3 px-3 mb-6 md:mb-0"
+        >
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="grid-state"
+          >
+            Categories
+          </label>
+          <div
+            class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            style={
+              {
+                "maxHeight": "150px",
+                "overflowY": "scroll",
+              }
+            }
+          >
+            <div>
+              <input
+                id="check-0"
+                name="check-0"
+                onClick={[Function]}
+                type="checkbox"
+                value="Engineering"
+              />
+              <label
+                for="check-0"
+              >
+                 
+                Engineering
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-1"
+                name="check-1"
+                onClick={[Function]}
+                type="checkbox"
+                value="Math"
+              />
+              <label
+                for="check-1"
+              >
+                 
+                Math
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-2"
+                name="check-2"
+                onClick={[Function]}
+                type="checkbox"
+                value="Science"
+              />
+              <label
+                for="check-2"
+              >
+                 
+                Science
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-3"
+                name="check-3"
+                onClick={[Function]}
+                type="checkbox"
+                value="Arts"
+              />
+              <label
+                for="check-3"
+              >
+                 
+                Arts
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-4"
+                name="check-4"
+                onClick={[Function]}
+                type="checkbox"
+                value="Tech"
+              />
+              <label
+                for="check-4"
+              >
+                 
+                Tech
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-5"
+                name="check-5"
+                onClick={[Function]}
+                type="checkbox"
+                value="Food"
+              />
+              <label
+                for="check-5"
+              >
+                 
+                Food
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-6"
+                name="check-6"
+                onClick={[Function]}
+                type="checkbox"
+                value="Gaming"
+              />
+              <label
+                for="check-6"
+              >
+                 
+                Gaming
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-7"
+                name="check-7"
+                onClick={[Function]}
+                type="checkbox"
+                value="Clothes"
+              />
+              <label
+                for="check-7"
+              >
+                 
+                Clothes
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-8"
+                name="check-8"
+                onClick={[Function]}
+                type="checkbox"
+                value="Fashion"
+              />
+              <label
+                for="check-8"
+              >
+                 
+                Fashion
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-9"
+                name="check-9"
+                onClick={[Function]}
+                type="checkbox"
+                value="Music"
+              />
+              <label
+                for="check-9"
+              >
+                 
+                Music
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-10"
+                name="check-10"
+                onClick={[Function]}
+                type="checkbox"
+                value="Movies"
+              />
+              <label
+                for="check-10"
+              >
+                 
+                Movies
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-11"
+                name="check-11"
+                onClick={[Function]}
+                type="checkbox"
+                value="Makeup"
+              />
+              <label
+                for="check-11"
+              >
+                 
+                Makeup
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-12"
+                name="check-12"
+                onClick={[Function]}
+                type="checkbox"
+                value="Social"
+              />
+              <label
+                for="check-12"
+              >
+                 
+                Social
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-13"
+                name="check-13"
+                onClick={[Function]}
+                type="checkbox"
+                value="Accounting"
+              />
+              <label
+                for="check-13"
+              >
+                 
+                Accounting
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-14"
+                name="check-14"
+                onClick={[Function]}
+                type="checkbox"
+                value="Languages"
+              />
+              <label
+                for="check-14"
+              >
+                 
+                Languages
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-15"
+                name="check-15"
+                onClick={[Function]}
+                type="checkbox"
+                value="Dancing"
+              />
+              <label
+                for="check-15"
+              >
+                 
+                Dancing
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-16"
+                name="check-16"
+                onClick={[Function]}
+                type="checkbox"
+                value="Singing"
+              />
+              <label
+                for="check-16"
+              >
+                 
+                Singing
+              </label>
+            </div>
+            <div>
+              <input
+                id="check-17"
+                name="check-17"
+                onClick={[Function]}
+                type="checkbox"
+                value="Athletics"
+              />
+              <label
+                for="check-17"
+              >
+                 
+                Athletics
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="mb-8"
+      >
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-4"
+          for="color"
+        >
+          Group Color
+        </label>
+        <select
+          className="py-2 px-5 bg-white border cursor-pointer"
+          id="color"
+          name="color"
+          onChange={[Function]}
+          value="#DBC5EF"
+        >
+          <option
+            value="#DBC5EF"
+          >
+            Lavender
+          </option>
+          <option
+            value="#93B0D7"
+          >
+            Light Blue
+          </option>
+          <option
+            value="#a8d9d2"
+          >
+            Mint
+          </option>
+          <option
+            value="#D0EEBD"
+          >
+            Light Green
+          </option>
+          <option
+            value="#FFE3C5"
+          >
+            Peach
+          </option>
+          <option
+            value="#FFCA8D"
+          >
+            Orange
+          </option>
+          <option
+            value="#E78E8E"
+          >
+            Red
+          </option>
+        </select>
+      </div>
+      <div
+        className="flex flex-wrap justify-between"
+      >
+        <button
+          class="shadow bg-gray-700 hover:bg-gray-600 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded"
+          onClick={[Function]}
+          type="button"
+        >
+          Create Group
+        </button>
+        <button
+          className="bg-gray-200 hover:bg-gray-100 focus:shadow-outline focus:outline-none text-black py-2 px-4 rounded"
+          onClick={[Function]}
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

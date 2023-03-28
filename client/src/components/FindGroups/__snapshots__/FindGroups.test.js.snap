@@ -1,0 +1,223 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders the correct component 1`] = `
+<div
+  className="flex flex-col min-h-screen overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200 mb-10"
+  style={
+    {
+      "background": "#fbfbfa",
+    }
+  }
+>
+  <div>
+    <nav
+      class="w-full z-30 top-0 text-blue-1000 py-1 lg:py-6"
+    >
+      <div
+        class="w-full flex flex-wrap justify-between"
+      >
+        <span>
+          <span
+            class="hover:no-underline font-medium text-2xl lg:text-4xl flex flex-row items-center"
+          >
+            <a
+              class="hover:no-underline font-medium text-2xl lg:text-4xl flex flex-row items-center"
+              href="/"
+            >
+              <img
+                className="w-20 ml-20 mr-5"
+                src="./logo.png"
+              />
+              <p
+                className="text-4xl text-blue-1000 font-medium"
+              >
+                 
+                WarriorsTogether
+                 
+              </p>
+            </a>
+          </span>
+        </span>
+        <span
+          className="mr-20 text-center my-auto flex flex-row items-center mt-4"
+        >
+          <a
+            class="inline-block py-2 px-4"
+            href="/mygroups"
+          >
+            <p
+              className="text-lg font-medium"
+            >
+              My Groups
+            </p>
+          </a>
+          <p
+            class="inline-block py-2 px-4 underline decoration-2"
+          >
+            <p
+              className="text-lg font-medium"
+            >
+              Find Groups
+            </p>
+          </p>
+          <a
+            class="inline-block py-2 px-4"
+            href="/settings"
+            style={
+              {
+                "width": "55px",
+              }
+            }
+          >
+            <img
+              className="w-8"
+              src="./img_120429.png"
+            />
+          </a>
+        </span>
+      </div>
+    </nav>
+  </div>
+  <div
+    className="mr-20 ml-20 flex flex-col"
+  >
+    <h1
+      className="text-4xl font-medium"
+    >
+      Find Groups
+    </h1>
+    <div
+      className="flex flex-row"
+    >
+      <div
+        class="m-5 mx-0 inline-block relative w-64"
+      >
+        <select
+          class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+          onChange={[Function]}
+        >
+          <option
+            disabled={true}
+            selected={true}
+          >
+            Filter by Interests
+          </option>
+          <option>
+            All
+          </option>
+          <option>
+            Engineering
+          </option>
+          <option>
+            Math
+          </option>
+          <option>
+            Science
+          </option>
+          <option>
+            Arts
+          </option>
+          <option>
+            Tech
+          </option>
+          <option>
+            Food
+          </option>
+          <option>
+            Gaming
+          </option>
+          <option>
+            Clothes
+          </option>
+          <option>
+            Fashion
+          </option>
+          <option>
+            Music
+          </option>
+          <option>
+            Movies
+          </option>
+          <option>
+            Makeup
+          </option>
+          <option>
+            Social
+          </option>
+          <option>
+            Accounting
+          </option>
+          <option>
+            Languages
+          </option>
+          <option>
+            Dancing
+          </option>
+          <option>
+            Singing
+          </option>
+          <option>
+            Athletics
+          </option>
+        </select>
+        <div
+          class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+        >
+          <svg
+            class="fill-current h-4 w-4"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="mt-5 inline-block relative w-64 mx-5"
+      >
+        <select
+          class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+          onChange={[Function]}
+        >
+          <option
+            disabled={true}
+            selected={true}
+          >
+            Sort By
+          </option>
+          <option>
+            Name
+          </option>
+          <option>
+            Least Members
+          </option>
+          <option>
+            Most Members
+          </option>
+          <option>
+            Joined
+          </option>
+        </select>
+        <div
+          class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+        >
+          <svg
+            class="fill-current h-4 w-4"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex flex-wrap mt-5 justify-start"
+    />
+  </div>
+</div>
+`;

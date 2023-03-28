@@ -131,6 +131,7 @@ function FindGroups() {
               group={group}
               groups={groups}
               setGroups={setGroups}
+              color={group.colour}
             ></FindGroupCard>
           ))}
         </div>
