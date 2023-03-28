@@ -112,16 +112,18 @@ export default function Group(props) {
       <div className="mr-20 ml-20 flex flex-col">
         <div>
           <h1 className="text-4xl font-medium">{group.title}</h1>
-          <button
-            className="px-4 py-2 bg-red-600 mt-3 w-30 h-10 rounded text-white"
-            onClick={() => setAreYouSure(true)}
-          >
-            Leave group
-          </button>
+
           <p className="font-medium mt-3 mb-1">
             {group.members} members | {group.categories}
           </p>
           <p className="">{group.description}</p>
+          <button
+            className="pt-1 w-30 h-10 rounded text-black underline text-red-700 hover:text-red-500"
+            onClick={() => setAreYouSure(true)}
+            style={{ fontSize: "14px" }}
+          >
+            Leave group
+          </button>
         </div>
         <div className="flex flex-wrap mt-5">
           {viewPosts ? (
@@ -148,9 +150,30 @@ export default function Group(props) {
               Events
             </button>
           )}
+          {viewPosts ? (
+            <div className="mt-auto ml-5">
+              <button
+                className="py-2 px-4 bg-amber-300 rounded"
+                onClick={() => setOpenPostModal(true)}
+                id="create-post"
+              >
+                Create Post
+              </button>
+            </div>
+          ) : (
+            <div className="mt-auto ml-5">
+              <button
+                className="py-2 px-4 bg-amber-300 rounded"
+                onClick={() => setOpenEventModal(true)}
+              >
+                Create Event
+              </button>
+            </div>
+          )}
         </div>
+
         <div className="flex flex-row">
-          <div class="mt-5 inline-block relative w-64">
+          <div class="mt-5 inline-block relative" style={{ width: "288px" }}>
             {viewPosts ? (
               <select
                 onChange={(e) => sortPosts(e)}
@@ -187,7 +210,7 @@ export default function Group(props) {
               </svg>
             </div>
           </div>
-          {viewPosts ? (
+          {/* {viewPosts ? (
             <div className="mt-auto ml-5">
               <button
                 className="py-2 px-4 bg-amber-300 rounded"
@@ -206,7 +229,7 @@ export default function Group(props) {
                 Create Event
               </button>
             </div>
-          )}
+          )} */}
         </div>
 
         <div className="mt-5 flex flex-start items-start flex-wrap">
