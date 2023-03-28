@@ -51,7 +51,7 @@ export default function GroupPost(props) {
 
     //Call api to see if the user is the author os the post
     checkIfAuthor();
-  }, []);
+  }, [props.posts]);
 
   const handleLike = () => {
     setLikedPost(!likedPost);
@@ -77,8 +77,8 @@ export default function GroupPost(props) {
         .post("/api/deletePost", { postID: postID, username: username })
         .then((res) => {
           //show success message
-          setDeleted(true);
           props.getPosts();
+          setDeleted(true);
         });
     });
   };
@@ -122,11 +122,11 @@ export default function GroupPost(props) {
   return (
     <div className="mt-4 mr-5">
       <div
-        class="w-full bg-white border border-gray-200 rounded-lg shadow"
+        class="w-full bg-white border border-gray-200 rounded-lg shadow flex flex-col"
         style={{ width: "40vw" }}
       >
         {props.imageUrl ? (
-          <img src={props.imageUrl} className="rounded-t-lg p-8" />
+          <img src={props.imageUrl} className="rounded-t-lg p-8 w-fit h-96 self-center justify-self-center" />
         ) : (
           <div className="pt-8"></div>
         )}
