@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import history from "../Navigation/history";
 
-import HeaderDefault from "../Header/HeaderDefault";
+import Header4 from "../Header/header4";
 import FindGroupCard from "../FindGroups/FindGroupCard";
 import { useState } from "react";
 import interests from "../../constants/interests";
 
 import axios from "axios";
 
-const CreateGroup = () => {
+const CreateGroup = (props) => {
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
     if (!authToken) {
@@ -21,9 +21,22 @@ const CreateGroup = () => {
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
   const [categories, setCategories] = useState({});
+  const [color, setColor] = useState("#DBC5EF");
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "45%",
+    background: "#ffffff",
+    padding: "30px",
+    borderRadius: "5px",
+  };
 
   const onClick = (e) => {
     e.preventDefault();
+    console.log(color);
     console.log(Object.keys(categories).join(", "));
     axios
       .post("/api/createGroup", {
@@ -31,10 +44,12 @@ const CreateGroup = () => {
         categories: Object.keys(categories).join(", "),
         creator_user: username,
         description: description,
+        color: color,
       })
       .then((res) => {
         console.log(res);
       });
+    props.setShowCreate(false);
   };
 
   const toggleCategory = (category) => {
@@ -49,31 +64,47 @@ const CreateGroup = () => {
   };
 
   return (
-    <>
-     <HeaderDefault thisPage="creategroup" />
-      <div class="max-w-screen-md shadow bg-slate-300 p-8 m-auto mt-8">
-        <div class="text-center mb-8">
-          <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900">
-            Create a <span class="">Group</span>
-          </h3>
-        </div>
-
-        <form class="w-full">
+    <div
+      className="h-screen w-screen fixed top-0 left-0 overflow-hidden"
+      style={{ backgroundColor: "rgb(66, 66, 66, 0.4)" }}
+    >
+      <div style={modalStyle}>
+        <form>
+          <h1 className="text-2xl font-medium mb-5">Create a Group</h1>
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              <label
+                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                for="grid-first-name"
+              >
                 Group Name
               </label>
               <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-first-name"
                 type="text"
-                placeholder=""
                 onChange={(e) => setGroupName(e.target.value)}
               />
             </div>
-
-            <div class="w-full md:w-1/2 px-3">
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-2">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label
+                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                for="grid-city"
+              >
+                Description
+              </label>
+              <textarea
+                class="appearance-noneblock w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id=""
+                type="text"
+                placeholder=""
+                onChange={(e) => setDescription(e.target.value)}
+                style={{ height: "150px" }}
+              />
+            </div>
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
               <label
                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 for="grid-state"
@@ -82,7 +113,7 @@ const CreateGroup = () => {
               </label>
               <div
                 class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                style={{ maxHeight: "80px", overflowY: "scroll" }}
+                style={{ maxHeight: "150px", overflowY: "scroll" }}
               >
                 {interests
                   .filter((interest) => interest !== "All")
@@ -101,35 +132,47 @@ const CreateGroup = () => {
               </div>
             </div>
           </div>
-          <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-password"
-              >
-                Description
-              </label>
-              <textarea
-                rows="4"
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="text"
-                placeholder=""
-                onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
-            </div>
-            <div class="flex justify-between w-full px-3">
-              <button
-                class="shadow bg-gray-700 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                type="submit"
-                onClick={onClick}
-              >
-                Create Group
-              </button>
-            </div>
+          <div className="mb-8">
+            <label
+              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-4"
+              for="color"
+            >
+              Group Color
+            </label>
+            <select
+              name="color"
+              id="color"
+              className="py-2 px-5 bg-white border cursor-pointer"
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+            >
+              <option value="#DBC5EF">Lavender</option>
+              <option value="#93B0D7">Light Blue</option>
+              <option value="#a8d9d2">Mint</option>
+              <option value="#D0EEBD">Light Green</option>
+              <option value="#FFE3C5">Peach</option>
+              <option value="#FFCA8D">Orange</option>
+              <option value="#E78E8E">Red</option>
+            </select>
+          </div>
+          <div className="flex flex-wrap justify-between">
+            <button
+              class="shadow bg-gray-700 hover:bg-gray-600 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded"
+              type="button"
+              onClick={onClick}
+            >
+              Create Group
+            </button>
+            <button
+              className="bg-gray-200 hover:bg-gray-100 focus:shadow-outline focus:outline-none text-black py-2 px-4 rounded"
+              onClick={() => props.setShowCreate(false)}
+            >
+              Cancel
+            </button>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

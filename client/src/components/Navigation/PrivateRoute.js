@@ -27,7 +27,6 @@ export default function PrivateRoute(
         <Route path="/group" exact component={Group} />
         <Route path="/settings" exact component={Settings} />
         <Route path="/findgroups" component={FindGroups} />
-        <Route path="/creategroup" component={CreateGroup} />
         <Route path="/forgotpassword" component={ForgotPassword} />
       </Switch>
     </Router>

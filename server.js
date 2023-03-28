@@ -109,14 +109,14 @@ app.get("/api/getUsername", (req, res) => {
   }
 });
 
-app.post("/api/creategroup", (req, res) => {
-  const { creator_user, group_name, description, categories } = req.body;
+app.post("/api/createGroup", (req, res) => {
+  const { creator_user, group_name, description, categories, color } = req.body;
 
-  if (!creator_user || !group_name || !description || !categories) {
+  if (!creator_user || !group_name || !description || !categories || !color) {
     res.status(400).send("something missing");
   } else {
     // TODO: Hash password
-    let sql = `INSERT INTO msci342_groups (group_name, description, categories, creator_user, members) VALUES ("${group_name}","${description}", "${categories}", "${creator_user}", 1)`;
+    let sql = `INSERT INTO msci342_groups (group_name, description, categories, creator_user, members, colour) VALUES ("${group_name}","${description}", "${categories}", "${creator_user}", 0, "${color}")`;
     let connection = mysql.createConnection(config);
 
     connection.query(sql, (error, results, fields) => {
