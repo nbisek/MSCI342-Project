@@ -45,25 +45,13 @@ export default function HeaderDefault(props) {
                 <p className="text-lg font-medium">Find Groups</p>
               </a>
             )}
-            {props.thisPage === "creategroup" ? (
-              <p class="inline-block py-2 px-4 underline decoration-2">
-                <p className="text-lg font-medium">Create Group</p>
-              </p>
-            ) : (
-              <a class="inline-block py-2 px-4" href={"/creategroup"}>
-                <p className="text-lg font-medium">Create Group</p>
-              </a>
-            )}
-            <button  onClick={onClick}> 
-             <a class="inline-block py-2 px-4">
-             <p className="text-lg font-medium">
-                  Log Out
-              </p>
-              </a>
-              </button>
-             <a class="inline-block py-2 px-4" href={"/settings"}>
-               <img src="./img_120429.png" className="w-8" />
-              </a>
+            <a
+              class="inline-block py-2 px-4"
+              href={"/settings"}
+              style={{ width: "55px" }}
+            >
+              <img src="./img_120429.png" className="w-8" />
+            </a>
           </span>
         </div>
 
