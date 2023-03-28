@@ -399,10 +399,7 @@ const Settings = (props) => {
           </span>
         </div>
         <div>
-          <label style={theme.typography.label}>
-            Retype your new password to change it.
-          </label>
-          <br />
+          
           <a style={theme.typography.a} onClick={() => savePassword()}>
             Save password
           </a>
@@ -437,8 +434,8 @@ const Settings = (props) => {
           onChange={(e) => setDeleteAccount(e.target.value)}
           placeholder={email}
         />
-        <br />
-        <br />
+
+       
         <button
           style={styles.button}
           onClick={() => processDeleteAccount()}
@@ -458,7 +455,7 @@ const Settings = (props) => {
           </div>
         )}
       </div>
-      <div className="mt-8 mb-8 ml-20 text-left">
+      <div className="mt-12 mb-8 ml-20 text-left">
         <p className="text-xs">
           made with <span className="text-sm">♡</span> in Waterloo
         </p>

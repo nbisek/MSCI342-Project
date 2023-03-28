@@ -51,7 +51,7 @@ const CreateGroup = () => {
   return (
     <>
      <HeaderDefault thisPage="creategroup" />
-      <div class="max-w-screen-md shadow bg-slate-300 p-8 m-auto mt-8">
+      <div class="max-w-screen-md shadow-2xl bg-slate-300 p-8 m-auto mt-8">
         <div class="text-center mb-8">
           <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900">
             Create a <span class="">Group</span>
@@ -94,6 +94,7 @@ const CreateGroup = () => {
                         value={interest}
                         id={`check-${idx}`}
                         onClick={(e) => toggleCategory(e.target.value)}
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                       />
                       <label for={`check-${idx}`}> {interest}</label>
                     </div>
