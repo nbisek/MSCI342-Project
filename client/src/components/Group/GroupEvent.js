@@ -28,7 +28,7 @@ export default function GroupEvent(props) {
 
   const date_time = new Date(props.eventDate * 1000);
   const d = date_time.toLocaleDateString();
-  const time = date_time.toLocaleTimeString();
+  const time = date_time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
   const [attending, setAttending] = React.useState([]);
   const [isHost, setIsHost] = React.useState(false);
   const [displayModal, setDisplayModal] = React.useState(false);

@@ -425,7 +425,7 @@ const Settings = (props) => {
 
         <h2 className="text-xl font-medium mt-6">Delete Account</h2>
         <p className="mt-4">
-          Deleting you account cannot be undone. To delete your account, type in
+          Deleting your account cannot be undone. To delete your account, type in
           your email.
         </p>
         <label className="text-sm block mt-4 mb-1">Email</label>
