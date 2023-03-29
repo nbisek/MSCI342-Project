@@ -38,7 +38,7 @@ WarriorsTogether is a web app focused on promoting positive social interaction a
 
 **Settings page:** users can view and edit their app settings, including notifications and email preferences. 
 
-**Account deletion:** users can delete their account and all associated data from the app.
+**Account deletion:** users can delete their account
 
 ## Available Scripts
 
