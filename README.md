@@ -40,8 +40,6 @@ WarriorsTogether is a web app focused on promoting positive social interaction a
 
 **Account deletion:** users can delete their account and all associated data from the app.
 
-(Disclaimer: All of us did the Jest unit tests on Yaathavi's laptop)
-
 ## Available Scripts
 
 In the project directory, you can run:
